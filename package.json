@@ -1,0 +1,8 @@
+{
+  "name": "dirigent-monorepo",
+  "version": "0.0.1",
+  "packageManager": "pnpm@7.12.0",
+  "description": "",
+  "author": "Luca Fanselau <https://github.com/lucafanselau>",
+  "license": "MIT"
+}
