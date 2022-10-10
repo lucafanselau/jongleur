@@ -1,12 +1,13 @@
-import { useKeyframes } from "dirigent";
+import Scene from "./scene";
+import { Canvas } from "@react-three/fiber";
 
 function App() {
   return (
-    <div>
-      <p className="text-3xl font-bold underline">Hello, world!</p>
-      <p className="text-grey-700">Value of a is: {typeof useKeyframes}</p>
+    <div className="bg-gray-200 h-[100vh]">
+      <Canvas>
+        <Scene />
+      </Canvas>
     </div>
   );
 }
-
 export default App;

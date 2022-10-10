@@ -4,5 +4,8 @@
   "packageManager": "pnpm@7.12.0",
   "description": "",
   "author": "Luca Fanselau <https://github.com/lucafanselau>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "pnpm run --filter demo... --parallel dev"
+  }
 }

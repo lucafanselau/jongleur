@@ -9,9 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^9.34.3",
+    "@react-three/fiber": "^8.8.9",
+    "@splinetool/loader": "^0.9.117",
+    "@splinetool/r3f-spline": "^1.0.2",
+    "@types/three": "^0.144.0",
     "dirigent": "workspace:*",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "three": "^0.145.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
