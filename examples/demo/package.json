@@ -14,7 +14,7 @@
     "@splinetool/loader": "^0.9.117",
     "@splinetool/r3f-spline": "^1.0.2",
     "@types/three": "^0.144.0",
-    "dirigent": "workspace:*",
+    "jongleur": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "three": "^0.145.0"

@@ -3,54 +3,13 @@ lockfileVersion: 5.4
 importers:
 
   .:
-    specifiers: {}
-
-  examples/demo:
-    specifiers:
-      '@react-three/drei': ^9.34.3
-      '@react-three/fiber': ^8.8.9
-      '@splinetool/loader': ^0.9.117
-      '@splinetool/r3f-spline': ^1.0.2
-      '@types/react': ^18.0.17
-      '@types/react-dom': ^18.0.6
-      '@types/three': ^0.144.0
-      '@vitejs/plugin-react': ^2.1.0
-      autoprefixer: ^10.4.12
-      dirigent: workspace:*
-      postcss: ^8.4.17
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      tailwindcss: ^3.1.8
-      three: ^0.145.0
-      typescript: ^4.6.4
-      vite: ^3.1.0
-    dependencies:
-      '@react-three/drei': 9.34.3_zoourtuqs6jpz5hshrv5fac7t4
-      '@react-three/fiber': 8.8.9_ee34sidbpuk5ebd4phepfgxxdi
-      '@splinetool/loader': 0.9.117_three@0.145.0
-      '@splinetool/r3f-spline': 1.0.2_4ppvw2t2t5pmkqanczrwarvwla
-      '@types/three': 0.144.0
-      dirigent: link:../../packages/library
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      three: 0.145.0
-    devDependencies:
-      '@types/react': 18.0.21
-      '@types/react-dom': 18.0.6
-      '@vitejs/plugin-react': 2.1.0_vite@3.1.4
-      autoprefixer: 10.4.12_postcss@8.4.17
-      postcss: 8.4.17
-      tailwindcss: 3.1.8_postcss@8.4.17
-      typescript: 4.8.4
-      vite: 3.1.4
-
-  packages/library:
     specifiers:
       '@antfu/eslint-config': ^0.27.0
       '@antfu/ni': ^0.18.2
       '@react-three/fiber': ^8.8.9
       '@types/react': ^18.0.17
       '@types/react-dom': ^18.0.6
+      '@types/three': ^0.144.0
       '@vitejs/plugin-react': ^2.1.0
       bumpp: ^8.2.1
       eslint: ^8.23.1
@@ -71,6 +30,7 @@ importers:
       '@react-three/fiber': 8.8.9_ee34sidbpuk5ebd4phepfgxxdi
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
+      '@types/three': 0.144.0
       '@vitejs/plugin-react': 2.1.0_vite@3.1.4
       bumpp: 8.2.1
       eslint: 8.24.0
@@ -80,6 +40,45 @@ importers:
       typescript: 4.8.4
       vite: 3.1.4
       vite-plugin-dts: 1.6.4_vite@3.1.4
+
+  examples/demo:
+    specifiers:
+      '@react-three/drei': ^9.34.3
+      '@react-three/fiber': ^8.8.9
+      '@splinetool/loader': ^0.9.117
+      '@splinetool/r3f-spline': ^1.0.2
+      '@types/react': ^18.0.17
+      '@types/react-dom': ^18.0.6
+      '@types/three': ^0.144.0
+      '@vitejs/plugin-react': ^2.1.0
+      autoprefixer: ^10.4.12
+      jongleur: workspace:*
+      postcss: ^8.4.17
+      react: ^18.2.0
+      react-dom: ^18.2.0
+      tailwindcss: ^3.1.8
+      three: ^0.145.0
+      typescript: ^4.6.4
+      vite: ^3.1.0
+    dependencies:
+      '@react-three/drei': 9.34.3_zoourtuqs6jpz5hshrv5fac7t4
+      '@react-three/fiber': 8.8.9_ee34sidbpuk5ebd4phepfgxxdi
+      '@splinetool/loader': 0.9.117_three@0.145.0
+      '@splinetool/r3f-spline': 1.0.2_4ppvw2t2t5pmkqanczrwarvwla
+      '@types/three': 0.144.0
+      jongleur: link:../..
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      three: 0.145.0
+    devDependencies:
+      '@types/react': 18.0.21
+      '@types/react-dom': 18.0.6
+      '@vitejs/plugin-react': 2.1.0_vite@3.1.4
+      autoprefixer: 10.4.12_postcss@8.4.17
+      postcss: 8.4.17
+      tailwindcss: 3.1.8_postcss@8.4.17
+      typescript: 4.8.4
+      vite: 3.1.4
 
 packages:
 
@@ -884,7 +883,6 @@ packages:
     resolution: {integrity: sha512-psvEs6q5rLN50jUYZ3D4pZMfxTbdt3A243blt0my7/NcL6chaCZpHe2csbCtx0SOD9fI/XnF3wnVUAYZGqCSYg==}
     dependencies:
       '@types/webxr': 0.5.0
-    dev: false
 
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
@@ -892,7 +890,6 @@ packages:
 
   /@types/webxr/0.5.0:
     resolution: {integrity: sha512-IUMDPSXnYIbEO2IereEFcgcqfDREOgmbGqtrMpVPpACTU6pltYLwHgVkrnYv0XhWEcjio9sYEfIEzgn3c7nDqA==}
-    dev: false
 
   /@typescript-eslint/eslint-plugin/5.39.0_xyciw6oqjoiiono4dhv3uhn5my:
     resolution: {integrity: sha512-xVfKOkBm5iWMNGKQ2fwX5GVgBuHmZBO1tCRwXmY5oAIsPscfwm2UADDuNB8ZVYCtpQvJK4xpjrK7jEhcJ0zY9A==}
