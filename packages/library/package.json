@@ -1,25 +1,25 @@
 {
-  "name": "dirigent",
+  "name": "jongleur",
   "type": "module",
   "version": "0.0.1",
   "private": false,
   "exports": {
     ".": {
-      "types": "./dist/dirigent.es.d.ts",
-      "require": "./dist/dirigent.umd.js",
-      "import": "./dist/dirigent.es.js"
+      "types": "./dist/jongleur.es.d.ts",
+      "require": "./dist/jongleur.umd.js",
+      "import": "./dist/jongleur.es.js"
     }
   },
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "nr build",
+    "release": "bumpp && npm publish"
   },
   "peerDependencies": {
     "@react-three/fiber": "^8.8.9",
@@ -29,10 +29,12 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.27.0",
+    "@antfu/ni": "^0.18.2",
     "@react-three/fiber": "^8.8.9",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.1.0",
+    "bumpp": "^8.2.1",
     "eslint": "^8.23.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
