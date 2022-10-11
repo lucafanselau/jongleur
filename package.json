@@ -1,5 +1,6 @@
 {
   "name": "jongleur",
+  "description": "An react-three-fiber orchestration library",
   "type": "module",
   "version": "0.0.2",
   "packageManager": "pnpm@7.12.0",
@@ -14,9 +15,7 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build",
