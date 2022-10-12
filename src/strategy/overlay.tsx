@@ -1,5 +1,6 @@
 import { useThree } from "@react-three/fiber";
-import { FC, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
+import { Fragment } from "react";
 
 /**
  * The ScrollOverlay is a
@@ -11,4 +12,6 @@ export const ScrollOverlay: FC<{ children: ReactNode; pages: number }> = ({
   const {
     gl: { domElement },
   } = useThree();
+
+  return <Fragment></Fragment>;
 };
