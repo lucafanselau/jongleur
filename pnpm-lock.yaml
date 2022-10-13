@@ -62,7 +62,7 @@ importers:
       react-dom: ^18.2.0
       tailwindcss: ^3.1.8
       three: ^0.145.0
-      typescript: ^4.6.4
+      typescript: 4.9.1-beta
       vite: ^3.1.0
     dependencies:
       '@react-three/drei': 9.34.3_zoourtuqs6jpz5hshrv5fac7t4
@@ -81,7 +81,7 @@ importers:
       autoprefixer: 10.4.12_postcss@8.4.17
       postcss: 8.4.17
       tailwindcss: 3.1.8_postcss@8.4.17
-      typescript: 4.8.4
+      typescript: 4.9.1-beta
       vite: 3.1.4
 
 packages:
@@ -3796,6 +3796,12 @@ packages:
 
   /typescript/4.8.4:
     resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
+  /typescript/4.9.1-beta:
+    resolution: {integrity: sha512-D4c0t1+sMOS5Hy8DQsGFfEYUuKzolXhf+7e/N0Td5etBPflEYzVwWLBrbVgHpLpLC53OJQCtxk31+NWO2SBPaA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true

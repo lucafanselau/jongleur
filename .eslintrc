@@ -7,6 +7,8 @@
     "@typescript-eslint/member-delimiter-style": [ "error", {} ],
     "@typescript-eslint/consistent-type-definitions": ["warn", "type"],
     "@typescript-eslint/indent": "off",
-    "operator-linebreak": "off"
+    "operator-linebreak": "off",
+    "@typescript-eslint/comma-dangle": "off",
+    "@typescript-eslint/brace-style": "off"
   }
 }
