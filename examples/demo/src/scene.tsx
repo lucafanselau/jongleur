@@ -4,11 +4,10 @@
 
 import useSpline from "@splinetool/r3f-spline";
 import { OrthographicCamera } from "@react-three/drei";
+import { register } from "./keyframes";
 
 export default function Scene({ ...props }) {
-  const { nodes, materials } = useSpline(
-    "https://prod.spline.design/eMD2ksI4dFfhwo7y/scene.splinecode"
-  );
+  const { nodes, materials } = useSpline("https://prod.spline.design/eMD2ksI4dFfhwo7y/scene.splinecode");
   return (
     <>
       <color attach="background" args={["#fee6f0"]} />
@@ -28,6 +27,7 @@ export default function Scene({ ...props }) {
           position={[-723.38, 1320.76, 435.43]}
         />
         <mesh
+          ref={register("camera")}
           name="Walls"
           geometry={nodes.Walls.geometry}
           material={materials["Walls Material"]}
@@ -113,12 +113,7 @@ export default function Scene({ ...props }) {
               position={[8.89, -14.38, 22.3]}
               rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
             />
-            <group
-              name="book-5"
-              position={[41.7, 0, -27.45]}
-              rotation={[-0.01, -0.18, -1.57]}
-              scale={[0.74, 1.35, 1.23]}
-            >
+            <group name="book-5" position={[41.7, 0, -27.45]} rotation={[-0.01, -0.18, -1.57]} scale={[0.74, 1.35, 1.23]}>
               <mesh
                 name="Rectangle"
                 geometry={nodes.Rectangle.geometry}
@@ -148,77 +143,16 @@ export default function Scene({ ...props }) {
               />
             </group>
           </group>
-          <group
-            name="computer"
-            position={[514.19, -201.85, -504.86]}
-            rotation={[0, -0.67, 0]}
-          >
-            <group
-              name="Group"
-              position={[-1.33, 89.68, -11.15]}
-              rotation={[0, 0.67, 0]}
-            >
-              <group
-                name="Text 2"
-                position={[50.03, 48.28, -53.05]}
-                rotation={[-0.23, -0.66, -0.14]}
-              >
-                <mesh
-                  name="S"
-                  geometry={nodes.S.geometry}
-                  material={materials["main1-1"]}
-                  castShadow
-                  receiveShadow
-                  position={[-87.5, -16, 0]}
-                />
-                <mesh
-                  name="p"
-                  geometry={nodes.p.geometry}
-                  material={materials["main1-1"]}
-                  castShadow
-                  receiveShadow
-                  position={[-49.4, -16, 0]}
-                />
-                <mesh
-                  name="l"
-                  geometry={nodes.l.geometry}
-                  material={materials["main1-1"]}
-                  castShadow
-                  receiveShadow
-                  position={[-14.68, -16, 0]}
-                />
-                <mesh
-                  name="i"
-                  geometry={nodes.i.geometry}
-                  material={materials["main1-1"]}
-                  castShadow
-                  receiveShadow
-                  position={[0.72, -16, 0]}
-                />
-                <mesh
-                  name="i1"
-                  geometry={nodes.i1.geometry}
-                  material={materials["main1-1"]}
-                  castShadow
-                  receiveShadow
-                  position={[0.72, -16, 0]}
-                />
-                <mesh
-                  name="n"
-                  geometry={nodes.n.geometry}
-                  material={materials["main1-1"]}
-                  castShadow
-                  receiveShadow
-                  position={[16.12, -16, 0]}
-                />
-                <mesh
-                  name="e"
-                  geometry={nodes.e.geometry}
-                  material={materials["main1-1"]}
-                  castShadow
-                  receiveShadow
-                  position={[50.84, -16, 0]}
-                />
+          <group name="computer" position={[514.19, -201.85, -504.86]} rotation={[0, -0.67, 0]}>
+            <group name="Group" position={[-1.33, 89.68, -11.15]} rotation={[0, 0.67, 0]}>
+              <group name="Text 2" position={[50.03, 48.28, -53.05]} rotation={[-0.23, -0.66, -0.14]}>
+                <mesh name="S" geometry={nodes.S.geometry} material={materials["main1-1"]} castShadow receiveShadow position={[-87.5, -16, 0]} />
+                <mesh name="p" geometry={nodes.p.geometry} material={materials["main1-1"]} castShadow receiveShadow position={[-49.4, -16, 0]} />
+                <mesh name="l" geometry={nodes.l.geometry} material={materials["main1-1"]} castShadow receiveShadow position={[-14.68, -16, 0]} />
+                <mesh name="i" geometry={nodes.i.geometry} material={materials["main1-1"]} castShadow receiveShadow position={[0.72, -16, 0]} />
+                <mesh name="i1" geometry={nodes.i1.geometry} material={materials["main1-1"]} castShadow receiveShadow position={[0.72, -16, 0]} />
+                <mesh name="n" geometry={nodes.n.geometry} material={materials["main1-1"]} castShadow receiveShadow position={[16.12, -16, 0]} />
+                <mesh name="e" geometry={nodes.e.geometry} material={materials["main1-1"]} castShadow receiveShadow position={[50.84, -16, 0]} />
               </group>
               <mesh
                 name="Rectangle 6"
@@ -316,12 +250,7 @@ export default function Scene({ ...props }) {
               rotation={[-1.13, 0, -Math.PI / 2]}
             />
           </group>
-          <group
-            name="radio"
-            position={[740.41, -210.11, -370.65]}
-            rotation={[0, -1.04, 0]}
-            scale={1.04}
-          >
+          <group name="radio" position={[740.41, -210.11, -370.65]} rotation={[0, -1.04, 0]} scale={1.04}>
             <mesh
               name="Rectangle 7"
               geometry={nodes["Rectangle 7"].geometry}
@@ -411,21 +340,9 @@ export default function Scene({ ...props }) {
               position={[27.39, 6.26, 30.13]}
               rotation={[Math.PI / 2, 0, 0]}
             />
-            <mesh
-              name="Cube 2"
-              geometry={nodes["Cube 2"].geometry}
-              material={materials.purple}
-              castShadow
-              receiveShadow
-              position={[0, -4.01, -4.08]}
-            />
+            <mesh name="Cube 2" geometry={nodes["Cube 2"].geometry} material={materials.purple} castShadow receiveShadow position={[0, -4.01, -4.08]} />
           </group>
-          <group
-            name="plant 2"
-            position={[639.71, -96.34, 448.95]}
-            rotation={[0, -Math.PI / 3, 0]}
-            scale={1.52}
-          >
+          <group name="plant 2" position={[639.71, -96.34, 448.95]} rotation={[0, -Math.PI / 3, 0]} scale={1.52}>
             <mesh
               name="Cube 51"
               geometry={nodes["Cube 51"].geometry}
@@ -463,12 +380,7 @@ export default function Scene({ ...props }) {
               rotation={[-Math.PI / 2, 0, 0]}
             />
           </group>
-          <group
-            name="cd-4"
-            position={[607.17, -347.28, 688.92]}
-            rotation={[-Math.PI / 2, 0, 0]}
-            scale={0.78}
-          >
+          <group name="cd-4" position={[607.17, -347.28, 688.92]} rotation={[-Math.PI / 2, 0, 0]} scale={0.78}>
             <mesh
               name="Cube"
               geometry={nodes.Cube.geometry}
@@ -637,11 +549,7 @@ export default function Scene({ ...props }) {
             />
           </group>
           <group name="cd-3" position={[551.89, -241.79, 262.58]}>
-            <group
-              name="Group 16"
-              position={[-24.94, 0, 29.89]}
-              rotation={[0.01, 0.26, 0.2]}
-            >
+            <group name="Group 16" position={[-24.94, 0, 29.89]} rotation={[0.01, 0.26, 0.2]}>
               <mesh
                 name="Ellipse 3"
                 geometry={nodes["Ellipse 3"].geometry}
@@ -690,11 +598,7 @@ export default function Scene({ ...props }) {
                 scale={[0.94, 1, 1]}
               />
             </group>
-            <group
-              name="Group 13"
-              position={[32.49, -9.1, -33.06]}
-              rotation={[0, -0.17, 0]}
-            >
+            <group name="Group 13" position={[32.49, -9.1, -33.06]} rotation={[0, -0.17, 0]}>
               <mesh
                 name="Ellipse 31"
                 geometry={nodes["Ellipse 31"].geometry}
@@ -744,11 +648,7 @@ export default function Scene({ ...props }) {
               />
             </group>
           </group>
-          <group
-            name="earphone"
-            position={[481.82, -234.98, 13.8]}
-            rotation={[0.04, 0, -0.12]}
-          >
+          <group name="earphone" position={[481.82, -234.98, 13.8]} rotation={[0.04, 0, -0.12]}>
             <mesh
               name="line"
               geometry={nodes.line.geometry}
@@ -759,12 +659,7 @@ export default function Scene({ ...props }) {
               rotation={[2.79, 1.36, -2.8]}
               scale={[-2.04, 2.04, 2.04]}
             />
-            <group
-              name="Group 50"
-              position={[-38.67, 10.21, 105.47]}
-              rotation={[-0.08, 0.47, -1.6]}
-              scale={0.84}
-            >
+            <group name="Group 50" position={[-38.67, 10.21, 105.47]} rotation={[-0.08, 0.47, -1.6]} scale={0.84}>
               <mesh
                 name="Rectangle 34"
                 geometry={nodes["Rectangle 34"].geometry}
@@ -781,21 +676,9 @@ export default function Scene({ ...props }) {
                 receiveShadow
                 position={[-1.2, -0.12, 8.51]}
               />
-              <mesh
-                name="Cube3"
-                geometry={nodes.Cube3.geometry}
-                material={materials["Cube3 Material"]}
-                castShadow
-                receiveShadow
-                position={[0, 0, -7.36]}
-              />
+              <mesh name="Cube3" geometry={nodes.Cube3.geometry} material={materials["Cube3 Material"]} castShadow receiveShadow position={[0, 0, -7.36]} />
             </group>
-            <group
-              name="Group 51"
-              position={[-111.24, 1.41, -9.91]}
-              rotation={[3.07, -0.73, 1.6]}
-              scale={0.84}
-            >
+            <group name="Group 51" position={[-111.24, 1.41, -9.91]} rotation={[3.07, -0.73, 1.6]} scale={0.84}>
               <mesh
                 name="Rectangle 35"
                 geometry={nodes["Rectangle 35"].geometry}
@@ -812,14 +695,7 @@ export default function Scene({ ...props }) {
                 receiveShadow
                 position={[-1.2, -0.12, 8.51]}
               />
-              <mesh
-                name="Cube4"
-                geometry={nodes.Cube4.geometry}
-                material={materials["Cube4 Material"]}
-                castShadow
-                receiveShadow
-                position={[0, 0, -7.36]}
-              />
+              <mesh name="Cube4" geometry={nodes.Cube4.geometry} material={materials["Cube4 Material"]} castShadow receiveShadow position={[0, 0, -7.36]} />
             </group>
             <mesh
               name="Cylinder 22"
@@ -852,12 +728,7 @@ export default function Scene({ ...props }) {
               scale={[1.26, 1.2, 1.2]}
             />
           </group>
-          <group
-            name="plant1"
-            position={[121.46, -340.72, -663.83]}
-            rotation={[-Math.PI, 0.32, -Math.PI]}
-            scale={[1.84, 1.83, 2.18]}
-          >
+          <group name="plant1" position={[121.46, -340.72, -663.83]} rotation={[-Math.PI, 0.32, -Math.PI]} scale={[1.84, 1.83, 2.18]}>
             <mesh
               name="Cylinder 31"
               geometry={nodes["Cylinder 31"].geometry}
@@ -884,11 +755,7 @@ export default function Scene({ ...props }) {
               position={[-0.96, -139, -2.72]}
             />
           </group>
-          <group
-            name="table-2"
-            position={[619.15, -528.41, 711.6]}
-            scale={[1, 1, 0.93]}
-          >
+          <group name="table-2" position={[619.15, -528.41, 711.6]} scale={[1, 1, 0.93]}>
             <mesh
               name="Cube 10"
               geometry={nodes["Cube 10"].geometry}
@@ -977,11 +844,7 @@ export default function Scene({ ...props }) {
               rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
             />
           </group>
-          <group
-            name="cd-5"
-            position={[538.66, 77.44, -839.84]}
-            scale={[0.72, 0.72, 0.33]}
-          >
+          <group name="cd-5" position={[538.66, 77.44, -839.84]} scale={[0.72, 0.72, 0.33]}>
             <mesh
               name="红色2"
               geometry={nodes.红色2.geometry}
@@ -1001,11 +864,7 @@ export default function Scene({ ...props }) {
               scale={[1, 0.28, 1]}
             />
           </group>
-          <group
-            name="cd-6"
-            position={[538.66, 473.74, -839.84]}
-            scale={[1, 1, 0.47]}
-          >
+          <group name="cd-6" position={[538.66, 473.74, -839.84]} scale={[1, 1, 0.47]}>
             <mesh
               name="红色3"
               geometry={nodes.红色3.geometry}
@@ -1054,12 +913,7 @@ export default function Scene({ ...props }) {
               rotation={[0, -Math.PI / 2, 0]}
             />
           </group>
-          <group
-            name="box 2"
-            position={[547.09, -552.18, -478.18]}
-            rotation={[0, -1.48, 0]}
-            scale={[2.25, 2.26, 2.26]}
-          >
+          <group name="box 2" position={[547.09, -552.18, -478.18]} rotation={[0, -1.48, 0]} scale={[2.25, 2.26, 2.26]}>
             <mesh
               name="Rectangle 9"
               geometry={nodes["Rectangle 9"].geometry}
@@ -1079,12 +933,7 @@ export default function Scene({ ...props }) {
               scale={0.78}
             />
           </group>
-          <group
-            name="box"
-            position={[-650.29, -551.73, -670.1]}
-            rotation={[-Math.PI, -Math.PI / 9, -Math.PI]}
-            scale={2.25}
-          >
+          <group name="box" position={[-650.29, -551.73, -670.1]} rotation={[-Math.PI, -Math.PI / 9, -Math.PI]} scale={2.25}>
             <mesh
               name="Rectangle 91"
               geometry={nodes["Rectangle 91"].geometry}
@@ -1113,12 +962,7 @@ export default function Scene({ ...props }) {
               scale={0.78}
             />
           </group>
-          <group
-            name="Guitar"
-            position={[-558.49, -331.43, -541.53]}
-            rotation={[-0.4, 0.18, 0.23]}
-            scale={1.09}
-          >
+          <group name="Guitar" position={[-558.49, -331.43, -541.53]} rotation={[-0.4, 0.18, 0.23]} scale={1.09}>
             <mesh
               name="Shape 4"
               geometry={nodes["Shape 4"].geometry}
@@ -1144,12 +988,7 @@ export default function Scene({ ...props }) {
               position={[-82, -132.42, -38.9]}
             />
           </group>
-          <group
-            name="chair 2"
-            position={[-144.03, -505.17, 342.19]}
-            rotation={[0, -Math.PI / 6, 0]}
-            scale={1.39}
-          >
+          <group name="chair 2" position={[-144.03, -505.17, 342.19]} rotation={[0, -Math.PI / 6, 0]} scale={1.39}>
             <mesh
               name="Cube 91"
               geometry={nodes["Cube 91"].geometry}
@@ -1218,12 +1057,7 @@ export default function Scene({ ...props }) {
               scale={1.24}
             />
           </group>
-          <group
-            name="lamp"
-            position={[-316.87, -107.97, -585.2]}
-            rotation={[0, 1.22, 0]}
-            scale={1.67}
-          >
+          <group name="lamp" position={[-316.87, -107.97, -585.2]} rotation={[0, 1.22, 0]} scale={1.67}>
             <mesh
               name="Sphere 2"
               geometry={nodes["Sphere 2"].geometry}
@@ -1270,12 +1104,7 @@ export default function Scene({ ...props }) {
             position={[715.69, -104.43, 824.96]}
             rotation={[-0.34, -1.14, -1.08]}
           />
-          <group
-            name="cd-ui"
-            position={[669.59, 132.72, 342.13]}
-            rotation={[0, -Math.PI / 2, 0]}
-            scale={[-1, 1, 1]}
-          >
+          <group name="cd-ui" position={[669.59, 132.72, 342.13]} rotation={[0, -Math.PI / 2, 0]} scale={[-1, 1, 1]}>
             <mesh
               name="Torus1"
               geometry={nodes.Torus1.geometry}
@@ -1302,11 +1131,7 @@ export default function Scene({ ...props }) {
               position={[104, 13, -12.17]}
             />
           </group>
-          <group
-            name="music-ui"
-            position={[689.31, -31.84, 9.39]}
-            scale={[1, 0.81, 1]}
-          >
+          <group name="music-ui" position={[689.31, -31.84, 9.39]} scale={[1, 0.81, 1]}>
             <mesh
               name="Rectangle5"
               geometry={nodes.Rectangle5.geometry}
@@ -1408,11 +1233,7 @@ export default function Scene({ ...props }) {
               rotation={[0, -Math.PI / 2, 0]}
             />
           </group>
-          <group
-            name="video-ui"
-            position={[694.15, 306.45, -410.95]}
-            rotation={[0, -Math.PI / 2, 0]}
-          >
+          <group name="video-ui" position={[694.15, 306.45, -410.95]} rotation={[0, -Math.PI / 2, 0]}>
             <mesh
               name="Rectangle 72"
               geometry={nodes["Rectangle 72"].geometry}
@@ -1501,12 +1322,7 @@ export default function Scene({ ...props }) {
               rotation={[0, -Math.PI / 2, 0]}
             />
           </group>
-          <group
-            name="bg-ui"
-            position={[753.38, 263.16, -30.44]}
-            rotation={[0, -Math.PI / 2, 0]}
-            scale={0.66}
-          >
+          <group name="bg-ui" position={[753.38, 263.16, -30.44]} rotation={[0, -Math.PI / 2, 0]} scale={0.66}>
             <mesh
               name="Ellipse 25"
               geometry={nodes["Ellipse 25"].geometry}
@@ -1808,11 +1624,7 @@ export default function Scene({ ...props }) {
               rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
             />
           </group>
-          <group
-            name="carpet "
-            position={[-256.11, -681.27, 145.27]}
-            scale={0.96}
-          >
+          <group name="carpet " position={[-256.11, -681.27, 145.27]} scale={0.96}>
             <mesh
               name="Ellipse 33"
               geometry={nodes["Ellipse 33"].geometry}
@@ -1854,12 +1666,7 @@ export default function Scene({ ...props }) {
           position={[-3213.2, 3187.24, 3639.33]}
           rotation={[-0.58, -0.65, -0.38]}
         />
-        <hemisphereLight
-          name="Default Ambient Light"
-          intensity={0.75}
-          color="#eaeaea"
-          position={[0, 1, 0]}
-        />
+        <hemisphereLight name="Default Ambient Light" intensity={0.75} color="#eaeaea" position={[0, 1, 0]} />
       </group>
     </>
   );

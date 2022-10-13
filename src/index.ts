@@ -1,2 +1,2 @@
 export { createOrchestrate, createField } from "./keyframes";
-export { orchestrate } from "./fields";
+export { orchestrate, defaultFields } from "./fields";

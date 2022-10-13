@@ -10,6 +10,7 @@
     "operator-linebreak": "off",
     "@typescript-eslint/comma-dangle": "off",
     "@typescript-eslint/brace-style": "off",
-    "@typescript-eslint/prefer-ts-expect-error": "off"
+    "@typescript-eslint/prefer-ts-expect-error": "off",
+    "arrow-parens": ["error", "as-needed"]
   }
 }
