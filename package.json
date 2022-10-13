@@ -19,6 +19,7 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build",
+    "build:example": "pnpm run --filter demo... build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
