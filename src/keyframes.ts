@@ -26,9 +26,13 @@ export const createOrchestrate =
     const store = createStore<Fields, Base>();
 
     // wauw, such easy
-    const register: Register<Fields, Base> = obj => target => {
-      if (isSome(target)) store.getState().setSlot(obj, target);
-    };
+    const register: Register<Fields, Base> =
+      (obj, id = "default") =>
+      target => {
+        store.getState().setSlot(obj, target, id);
+      };
+
+    store.subscribe(console.log);
 
     return [0, register];
   };

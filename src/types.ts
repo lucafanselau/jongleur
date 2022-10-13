@@ -11,17 +11,11 @@ export type FieldsBase = { [K: string]: FieldDefinition<any, any> };
 /**
  * Utility type used to get the apply function for a specific field (K)
  **/
-type ApplyFunctionForField<
-  Fields extends FieldsBase,
-  K extends keyof Fields
-> = Fields[K]["apply"];
+type ApplyFunctionForField<Fields extends FieldsBase, K extends keyof Fields> = Fields[K]["apply"];
 /**
  * Utility type used to get the Store type of a specific field (K)
  **/
-type StoreFromFields<
-  Fields extends FieldsBase,
-  K extends keyof Fields
-> = Parameters<ApplyFunctionForField<Fields, K>>[1];
+type StoreFromFields<Fields extends FieldsBase, K extends keyof Fields> = Parameters<ApplyFunctionForField<Fields, K>>[1];
 
 /**
  * Utility Type to the field target for an object (Obj) in the Scene (specified by Base)
@@ -31,12 +25,7 @@ export type TargetFromBase<
   Base extends StateBase<Fields>,
   Obj extends keyof Base
   // @ts-ignore I know, I know, but try to convince typescript that `keyof Base[Obj]` extends `keyof Fields` (The inference works btw)
-> = ApplyFunctionForField<Fields, keyof Base[Obj]> extends (
-  i: infer I,
-  ...other: any[]
-) => void
-  ? I
-  : never;
+> = ApplyFunctionForField<Fields, keyof Base[Obj]> extends (i: infer I, ...other: any[]) => void ? I : never;
 
 /**
  * Typing for the definition of the Base scene
@@ -47,10 +36,7 @@ export type StateBase<Fields extends FieldsBase> = {
   [K: string]: { [F in keyof Fields]?: StoreFromFields<Fields, F> };
 };
 
-export type KeyframeDefinitionBase<
-  Fields extends FieldsBase,
-  Base extends StateBase<Fields>
-> = {
+export type KeyframeDefinitionBase<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
   [O in keyof Base]: { [T: number]: Base[O] };
 };
 
@@ -59,9 +45,7 @@ export type KeyframeDefinitionBase<
  * of the required TargetType (inferred through the `TargetFromBase` utility). If the object specifies multiple fields to
  * be modified, this will be the Intersection type of all fields
  **/
-export type Register<
-  Fields extends FieldsBase,
-  Base extends StateBase<Fields>
-> = <Obj extends keyof Base>(
-  obj: Obj
+export type Register<Fields extends FieldsBase, Base extends StateBase<Fields>> = <Obj extends keyof Base>(
+  obj: Obj,
+  id?: string
 ) => RefCallback<TargetFromBase<Fields, Base, Obj>>;

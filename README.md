@@ -18,6 +18,15 @@ This library can be installed through your favorite package manager
 
 ## Concepts & Usage
 
+At the core of every animation sequence is the orchestration function. This function enables you to 
+
+
+### Registering components
+
+Using the `register` function returned from 
+
+- Register multiple slots
+
 
 ## Advanced Usage
 

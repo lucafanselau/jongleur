@@ -5,9 +5,15 @@
 import useSpline from "@splinetool/r3f-spline";
 import { OrthographicCamera } from "@react-three/drei";
 import { register } from "./keyframes";
+import { useEffect, useState } from "react";
 
 export default function Scene({ ...props }) {
   const { nodes, materials } = useSpline("https://prod.spline.design/eMD2ksI4dFfhwo7y/scene.splinecode");
+
+  const [state, setState] = useState(0);
+  useEffect(() => {
+    setTimeout(() => setState(1), 1000);
+  }, []);
   return (
     <>
       <color attach="background" args={["#fee6f0"]} />
@@ -26,17 +32,19 @@ export default function Scene({ ...props }) {
           shadow-camera-bottom={-3108.301}
           position={[-723.38, 1320.76, 435.43]}
         />
-        <mesh
-          ref={register("camera")}
-          name="Walls"
-          geometry={nodes.Walls.geometry}
-          material={materials["Walls Material"]}
-          castShadow
-          receiveShadow
-          position={[33.17, -323.76, -23.55]}
-          rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
-          scale={0.7}
-        />
+        {state === 0 && (
+          <mesh
+            ref={register("camera", "wall")}
+            name="Walls"
+            geometry={nodes.Walls.geometry}
+            material={materials["Walls Material"]}
+            castShadow
+            receiveShadow
+            position={[33.17, -323.76, -23.55]}
+            rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
+            scale={0.7}
+          />
+        )}
         <group name="Objects" position={[52.27, 362.21, -20.87]}>
           <mesh
             name="Ellipse 2"
