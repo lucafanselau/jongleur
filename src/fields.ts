@@ -1,14 +1,13 @@
-import { Object3D, Vector3 } from "three";
-import {
-  createField,
-  createOrchestrate,
-  FunctionParameters,
-} from "./keyframes";
+import type { Object3D, Vector3 } from "three";
+import { createField, createOrchestrate } from "./keyframes";
 
 /**
  * A default implementation of fields to be used in a r3f context
+ *
+ * If you feel like one of your custom fields, should be usable for everybody, don't hesitate
+ * to open a pull request
  **/
-export const orchestrate = createOrchestrate({
+export const defaultFields = {
   position: createField(
     (value: Object3D, target: Vector3) =>
       value.position.set(target.x, target.y, target.z),
@@ -19,21 +18,12 @@ export const orchestrate = createOrchestrate({
       value.set(target.x, target.y, target.z),
     (a, b, alpha) => a
   ),
-});
+};
 
-export const [progression, register] = orchestrate(
-  {
-    camera: {
-      position: new Vector3(0, 0, 0),
-    },
-  },
-  {
-    camera: {
-      0: {
-        position: new Vector3(1, 2, 0),
-      },
-    },
-  }
-);
-
-const reg = register("camera");
+/**
+ * The default orchestration function using the fields
+ *
+ * This is a specalization of the `createOrchestrate` function, tailored to be suitable in
+ * most r3f context
+ **/
+export const orchestrate = createOrchestrate(defaultFields);
