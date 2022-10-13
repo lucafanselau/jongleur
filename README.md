@@ -15,17 +15,20 @@ Jongleur is a library that aims to make orchestrating complex 3d animations on w
 
 This library can be installed through your favorite package manager
 
+...tbd
+
 
 ## Concepts & Usage
 
-At the core of every animation sequence is the orchestration function. This function enables you to 
+At the core of every animation sequence is the orchestration function. This function enables you to have a single source of truth for the transitions that happen in the scene. _Jongleur_ heavily uses typescript features to enable writing these transition easily. The first part of an orchestration is the base state of the scene:
+
 
 
 ### Registering components
 
 Using the `register` function returned from 
 
-- Register multiple slots
+- Register multiple slots (with id's)
 
 
 ## Advanced Usage

@@ -1,4 +1,4 @@
-import { orchestrate } from "jongleur";
+import { clips, InheritSymbol, orchestrate } from "jongleur";
 import { Vector3 } from "three";
 
 export const [progression, register] = orchestrate(
@@ -10,7 +10,7 @@ export const [progression, register] = orchestrate(
   {
     camera: {
       0: {
-        position: new Vector3(1, 2, 0)
+        position: InheritSymbol
       }
     }
   }

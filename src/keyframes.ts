@@ -25,6 +25,8 @@ export const createOrchestrate =
     // NOTE: store is returned to the user, so lifetime management could be a problem
     const store = createStore<Fields, Base>();
 
+    // Parse the keyframes
+
     // wauw, such easy
     const register: Register<Fields, Base> =
       (obj, id = "default") =>

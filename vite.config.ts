@@ -9,18 +9,18 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
-      insertTypesEntry: true,
-    }),
+      insertTypesEntry: true
+    })
   ],
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "dirigent",
+      name: pkg.name,
       formats: ["es", "umd"],
-      fileName: format => `${pkg.name}.${format}.js`,
+      fileName: format => `${pkg.name}.${format}.js`
     },
     rollupOptions: {
-      external: Object.keys(pkg.peerDependencies),
-    },
-  },
+      external: Object.keys(pkg.peerDependencies)
+    }
+  }
 });

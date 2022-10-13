@@ -1,4 +1,5 @@
 import type { RefCallback } from "react";
+import type { InheritSymbol } from "./clip";
 
 // Field Definitions
 export type FieldDefinition<Target, Store> = {
@@ -36,8 +37,12 @@ export type StateBase<Fields extends FieldsBase> = {
   [K: string]: { [F in keyof Fields]?: StoreFromFields<Fields, F> };
 };
 
+type PartialOrInherit<T extends object> = {
+  [K in keyof T]?: T[K] | typeof InheritSymbol;
+};
+
 export type KeyframeDefinitionBase<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
-  [O in keyof Base]: { [T: number]: Base[O] };
+  [O in keyof Base]: { [T: number]: PartialOrInherit<Base[O]> };
 };
 
 /**
