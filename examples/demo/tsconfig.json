@@ -16,8 +16,12 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "paths": {
+      "jongleur/*": ["../../src/*"],
+      "jongleur": ["../../src/index.ts"]
+    }
   },
   "include": ["src/**/*"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }, { "path": "../.." }]
 }
