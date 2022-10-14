@@ -1,4 +1,4 @@
-import type { Object3D, Vector3 } from "three";
+import type { Camera, Object3D, Vector3 } from "three";
 import { createField, createOrchestrate } from "./keyframes";
 
 /**
@@ -9,15 +9,17 @@ import { createField, createOrchestrate } from "./keyframes";
  **/
 export const defaultFields = {
   position: createField(
-    (value: Object3D, target: Vector3) =>
-      value.position.set(target.x, target.y, target.z),
+    (value: Object3D, target: Vector3) => value.position.set(target.x, target.y, target.z),
     (a, b, alpha) => a
   ),
   rotation: createField(
-    (value: Vector3, target: Vector3) =>
-      value.set(target.x, target.y, target.z),
+    (value: Vector3, target: Vector3) => value.set(target.x, target.y, target.z),
     (a, b, alpha) => a
   ),
+  viewPosition: createField(
+    (value: Camera, target: Vector3) => value.position.set(target.x, target.y, target.z),
+    (a, b, alpha) => a
+  )
 };
 
 /**

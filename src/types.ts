@@ -1,4 +1,5 @@
 import type { RefCallback } from "react";
+import type { Object3D } from "three";
 import type { InheritSymbol } from "./clip";
 
 // Field Definitions
@@ -54,3 +55,20 @@ export type Register<Fields extends FieldsBase, Base extends StateBase<Fields>> 
   obj: Obj,
   id?: string
 ) => RefCallback<TargetFromBase<Fields, Base, Obj>>;
+
+// Utility types
+
+/**
+ * This type returns all objects in `Base` which have an Object3D target
+ *
+ * Unfortunately due to the `extends Object3D` this cannot detect if the base requires additional restrictions
+ * on the target type
+ *
+ * For future reference this type is inspired by:
+ * https://stackoverflow.com/questions/60291002/can-typescript-restrict-keyof-to-a-list-of-properties-of-a-particular-type
+ **/
+export type Object3DTargets<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
+  // for all keys in T
+  [K in keyof Base]: TargetFromBase<Fields, Base, K> extends Object3D ? K : never; // if the value of this key is a string, keep it. Else, discard it
+  // Get the union type of the remaining values.
+}[keyof Base];

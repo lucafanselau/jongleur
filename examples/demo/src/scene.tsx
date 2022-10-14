@@ -6,14 +6,19 @@ import useSpline from "@splinetool/r3f-spline";
 import { OrthographicCamera } from "@react-three/drei";
 import { register } from "./keyframes";
 import { useEffect, useState } from "react";
+import { useThree } from "@react-three/fiber";
+import { useThreeCamera } from "jongleur";
 
 export default function Scene({ ...props }) {
   const { nodes, materials } = useSpline("https://prod.spline.design/eMD2ksI4dFfhwo7y/scene.splinecode");
+
+  useThreeCamera(register, "camera");
 
   const [state, setState] = useState(0);
   useEffect(() => {
     setTimeout(() => setState(1), 1000);
   }, []);
+
   return (
     <>
       <color attach="background" args={["#fee6f0"]} />
