@@ -12,7 +12,7 @@ import type {
   Register,
   StateBase
 } from "./types";
-import { isSome } from "./utils";
+import { isNone, isSome } from "./utils";
 
 export const createField = <Target, Store>(
   apply: (obj: Target, a: Store, b: Store, alpha: number) => void
@@ -123,6 +123,9 @@ export const createOrchestrate =
           progress: { last }
         } = store.getState();
         setSlot(obj, target, id);
+
+        // handle if target is null
+        if (isNone(target)) return;
         const progress = length * last;
 
         // and apply the state at lastProgress
@@ -157,7 +160,7 @@ export const createOrchestrate =
           if (isSome(considered)) {
             // -> means, we find a clip that should be applied, for the current progress, so lets apply that to all registered
             Object.values(slots[o] ?? {}).forEach(target => {
-              applyClip(fields[field as keyof Fields], target, considered, progress);
+              if (isSome(target)) applyClip(fields[field as keyof Fields], target, considered, progress);
             });
           }
         })
