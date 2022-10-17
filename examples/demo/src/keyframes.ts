@@ -5,10 +5,7 @@ export const [progression, register] = orchestrate(
   {
     camera: {
       position: new Vector3(0, 2, 0),
-      lookAt:
-    },
-    realCamera: {
-      position: new Vector3(0, 0, 0)
+      lookAt: new Vector3(0, 0, 0)
     }
   },
   {
@@ -16,7 +13,6 @@ export const [progression, register] = orchestrate(
       0: {
         position: InheritSymbol
       }
-    },
-    realCamera: {}
+    }
   }
 );

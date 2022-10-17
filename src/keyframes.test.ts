@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { Vector3 } from "three";
+import { Object3D, Vector3 } from "three";
 import { parseKeyframes } from "./keyframes";
 import { InheritSymbol } from "./clip";
+import { orchestrate } from "./fields";
 
 // type TestScene = { test: { position: Vector3 } };
 
@@ -15,13 +16,16 @@ describe("parsing", () => {
     expect(objects).to.eql(["test"]);
     expect(keyframes).to.eql({
       test: {
-        position: [
-          {
-            start: [0, new Vector3(0, 0, 0)],
-            end: [1, new Vector3(0, 1, 0)],
-            interpolation: "linear"
-          }
-        ]
+        fields: ["position"],
+        clips: {
+          position: [
+            {
+              start: [0, new Vector3(0, 0, 0)],
+              end: [1, new Vector3(0, 1, 0)],
+              interpolation: "linear"
+            }
+          ]
+        }
       }
     });
   });
@@ -37,13 +41,16 @@ describe("parsing", () => {
     );
     expect(keyframes).to.eql({
       test: {
-        position: [
-          {
-            start: [0.5, new Vector3(0, 0, 0)],
-            end: [1, new Vector3(0, 1, 0)],
-            interpolation: "linear"
-          }
-        ]
+        fields: ["position"],
+        clips: {
+          position: [
+            {
+              start: [0.5, new Vector3(0, 0, 0)],
+              end: [1, new Vector3(0, 1, 0)],
+              interpolation: "linear"
+            }
+          ]
+        }
       }
     });
   });
@@ -61,18 +68,21 @@ describe("parsing", () => {
     );
     expect(keyframes).to.eql({
       test: {
-        position: [
-          {
-            start: [0.5, new Vector3(0, 0, 0)],
-            end: [1, new Vector3(0, 1, 0)],
-            interpolation: "linear"
-          },
-          {
-            start: [1.5, new Vector3(0, 1, 0)],
-            end: [2, new Vector3(0, 2, 0)],
-            interpolation: "ease-in"
-          }
-        ]
+        fields: ["position"],
+        clips: {
+          position: [
+            {
+              start: [0.5, new Vector3(0, 0, 0)],
+              end: [1, new Vector3(0, 1, 0)],
+              interpolation: "linear"
+            },
+            {
+              start: [1.5, new Vector3(0, 1, 0)],
+              end: [2, new Vector3(0, 2, 0)],
+              interpolation: "ease-in"
+            }
+          ]
+        }
       }
     });
   });
@@ -93,26 +103,81 @@ describe("parsing", () => {
     );
     expect(keyframes).to.eql({
       test: {
-        position: [
-          {
-            start: [0.5, new Vector3(0, 0, 0)],
-            end: [1, new Vector3(0, 1, 0)],
-            interpolation: "linear"
-          },
-          {
-            start: [1.5, new Vector3(0, 1, 0)],
-            end: [2, new Vector3(0, 2, 0)],
-            interpolation: "ease-in"
-          }
-        ],
-        rotation: [
-          {
-            start: [0.7, 0],
-            end: [2.3, 1],
-            interpolation: "start"
-          }
-        ]
+        fields: ["position", "rotation"],
+        clips: {
+          position: [
+            {
+              start: [0.5, new Vector3(0, 0, 0)],
+              end: [1, new Vector3(0, 1, 0)],
+              interpolation: "linear"
+            },
+            {
+              start: [1.5, new Vector3(0, 1, 0)],
+              end: [2, new Vector3(0, 2, 0)],
+              interpolation: "ease-in"
+            }
+          ],
+          rotation: [
+            {
+              start: [0.7, 0],
+              end: [2.3, 1],
+              interpolation: "start"
+            }
+          ]
+        }
       }
     });
+  });
+});
+
+describe("register", () => {
+  // although this is in keyframe test, we use the predefined keys
+  const initialize = () =>
+    orchestrate(
+      {
+        obj: {
+          position: new Vector3(4, 4, 4)
+        }
+      },
+      {
+        obj: {
+          1: {
+            position: [new Vector3(3, 3, 3), "linear"]
+          }
+        }
+      }
+    );
+
+  it("applied state", () => {
+    const [, register] = initialize();
+    const target = new Object3D();
+    register("obj")(target);
+
+    expect(target.position).to.eql(new Vector3(4, 4, 4));
+  });
+  it("applied state after progres", () => {
+    const [progress, register] = initialize();
+    // first update progress
+    progress(0.5);
+
+    const target = new Object3D();
+    register("obj")(target);
+
+    expect(target.position).to.eql(new Vector3(3.5, 3.5, 3.5));
+  });
+  it("apply state after update", () => {
+    const [progress, register] = initialize();
+
+    // first register
+    const target = new Object3D();
+    register("obj")(target);
+
+    expect(target.position).to.eql(new Vector3(4, 4, 4));
+
+    progress(0.1);
+    expect(target.position).to.eql(new Vector3(3.9, 3.9, 3.9));
+
+    progress(1);
+    expect(target.position).to.eql(new Vector3(3, 3, 3));
   });
 });

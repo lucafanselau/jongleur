@@ -14,24 +14,26 @@ export type Store<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
   length: number;
 
   progress: {
-    lastProgress?: number;
+    last: number;
   };
 };
 
 export type Actions<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
   setSlot: <Obj extends keyof Base>(obj: Obj, target: TargetFromBase<Fields, Base, Obj> | null, id: string) => void;
 
-  handleProgress: (progress: number) => void;
+  updateProgress: (progress: number) => void;
 };
 
 export const createStore = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
   initial: Omit<Store<Fields, Base>, "slots" | "progress">
 ) =>
   create<Store<Fields, Base> & Actions<Fields, Base>>()(
-    immer((set, get) => ({
+    immer((set, _get) => ({
       // Initial store content
       slots: {},
-      progress: {},
+      progress: {
+        last: 0
+      },
       ...initial,
 
       // Action implementations
@@ -47,16 +49,6 @@ export const createStore = <Fields extends FieldsBase, Base extends StateBase<Fi
           else delete objSlot[id];
         });
       },
-      handleProgress: progress => {
-        // get the previous progress
-        const {
-          progress: { lastProgress }
-        } = get();
-
-        // and apply the active clips
-
-        // at the end prepare the state for the next update
-        set(s => (s.progress.lastProgress = progress));
-      }
+      updateProgress: progress => set(s => void (s.progress.last = progress))
     }))
   );

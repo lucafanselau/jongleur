@@ -1,18 +1,21 @@
 import { InheritSymbol } from "./clip";
 import type { Interpolation } from "./interpolation";
+import { applyClip, findActiveClip, findLastClip } from "./progress";
 import { createStore } from "./store";
 import type {
   Clip,
   FieldDefinition,
   FieldsBase,
+  HandleProgress,
   KeyframeDefinitionBase,
   Keyframes,
   Register,
   StateBase
 } from "./types";
+import { isSome } from "./utils";
 
 export const createField = <Target, Store>(
-  apply: (obj: Target, a: Store, b: Store, alpha: number) => void,
+  apply: (obj: Target, a: Store, b: Store, alpha: number) => void
 ): FieldDefinition<Target, Store> => ({ apply });
 
 /**
@@ -78,7 +81,7 @@ export const parseKeyframes = <
 
     return {
       ...acc,
-      [current]: clips
+      [current]: { clips, fields }
     };
   }, {} as Keyframes<Fields, Base>);
 
@@ -101,7 +104,7 @@ export const createOrchestrate =
     base: Base,
     definition: KeyframeDefintion,
     length?: number
-  ): [ReturnType<typeof createStore<Fields, Base>>, Register<Fields, Base>] => {
+  ): [HandleProgress, Register<Fields, Base>] => {
     // Start by parsing the keyframes
     const [objects, keyframes, lastFrame] = parseKeyframes(base, definition);
 
@@ -112,8 +115,56 @@ export const createOrchestrate =
     const register: Register<Fields, Base> =
       (obj, id = "default") =>
       target => {
-        store.getState().setSlot(obj, target, id);
+        // Update the slot in the store
+        const {
+          setSlot,
+          keyframes,
+          length,
+          progress: { last }
+        } = store.getState();
+        setSlot(obj, target, id);
+        const progress = length * last;
+
+        // and apply the state at lastProgress
+        keyframes[obj].fields.forEach(field => {
+          // do all of the fields
+          const clips = keyframes[obj].clips[field];
+          const clip = findLastClip(progress, clips);
+          if (isSome(clip)) applyClip(fields[field as keyof Fields], target, clip, progress);
+        });
       };
 
-    return [store, register];
+    // Some notes about why the stuff in here is sane:
+    // Since we applied the `progress.last` state to
+    const progress: HandleProgress = progress => {
+      const {
+        updateProgress,
+        length,
+        objects,
+        slots,
+        keyframes,
+        progress: { last }
+      } = store.getState();
+
+      // apply the updates, applicable to range
+      const range: [number, number] = [last * length, progress * length];
+
+      objects.forEach(o =>
+        keyframes[o].fields.forEach(field => {
+          const clips = keyframes[o].clips[field];
+
+          const considered = findActiveClip(range, clips);
+          if (isSome(considered)) {
+            // -> means, we find a clip that should be applied, for the current progress, so lets apply that to all registered
+            Object.values(slots[o] ?? {}).forEach(target => {
+              applyClip(fields[field as keyof Fields], target, considered, progress);
+            });
+          }
+        })
+      );
+
+      updateProgress(progress);
+    };
+
+    return [progress, register];
   };

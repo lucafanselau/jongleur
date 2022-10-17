@@ -61,7 +61,8 @@ export type Clip<Store = any> = {
  **/
 export type Keyframes<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
   [O in keyof Base]: {
-    [K in keyof Base[O]]: Clip<Base[O][K]>[];
+    clips: { [K in keyof Base[O]]: Clip<Base[O][K]>[] };
+    fields: (keyof Base[O])[];
   };
 };
 
@@ -74,6 +75,8 @@ export type Register<Fields extends FieldsBase, Base extends StateBase<Fields>> 
   obj: Obj,
   id?: string
 ) => RefCallback<TargetFromBase<Fields, Base, Obj>>;
+
+export type HandleProgress = (progress: number) => void;
 
 // Utility types
 

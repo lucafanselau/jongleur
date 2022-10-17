@@ -15,6 +15,9 @@ Jongleur is a library that aims to make orchestrating complex 3d animations on w
 
 tbd
 
+## Terminology
+
+
 ## Getting started
 
 This library can be installed through your favorite package manager
@@ -62,6 +65,8 @@ const [...] = orchestrate({ ... }, {
 ```
 
 ## Handling progress
+
+`progress ∈ [0, 1]` is supplied to the orchestration store via the progress function (which is the first returned value of the orchestrate function). 
 
 ## Applying state
 
