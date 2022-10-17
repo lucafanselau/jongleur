@@ -8,7 +8,7 @@ on:
 
 jobs:
   install:
-    name: Install pnpm and dependencies
+    name: Run tests and lint project
     runs-on: ubuntu-latest
 
     steps:
@@ -31,3 +31,6 @@ jobs:
 
       - name: Run eslint
         run: pnpm lint
+
+      - name: Check types
+        run: pnpm typecheck

@@ -15,20 +15,18 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build",
-    "test": "vitest",
     "build:example": "pnpm run --filter demo... build",
+    "test": "vitest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "nr build",
     "release": "bumpp && npm publish",
-    "start": "pnpm run --parallel dev"
+    "start": "pnpm run --filter demo dev"
   },
   "peerDependencies": {
     "@react-three/fiber": "^8.8.9",
