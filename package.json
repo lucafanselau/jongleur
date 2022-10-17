@@ -15,7 +15,9 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build",
@@ -43,6 +45,7 @@
     "@types/three": "^0.144.0",
     "@typescript-eslint/parser": "^5.40.0",
     "@vitejs/plugin-react": "^2.1.0",
+    "@vitest/coverage-c8": "^0.24.3",
     "bumpp": "^8.2.1",
     "eslint": "^8.23.1",
     "react": "^18.2.0",

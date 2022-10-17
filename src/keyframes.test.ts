@@ -76,6 +76,7 @@ describe("parsing", () => {
       }
     });
   });
+
   it("interleaved clips", () => {
     const [, keyframes] = parseKeyframes(
       { test: { position: new Vector3(0, 0, 0), rotation: 0 } },

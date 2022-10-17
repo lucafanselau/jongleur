@@ -1,5 +1,5 @@
 import { InheritSymbol } from "./clip";
-import { Interpolation } from "./interpolation";
+import type { Interpolation } from "./interpolation";
 import { createStore } from "./store";
 import type {
   Clip,
@@ -12,9 +12,8 @@ import type {
 } from "./types";
 
 export const createField = <Target, Store>(
-  apply: (obj: Target, value: Store) => void,
-  interpolate: (a: Store, b: Store, alpha: number) => Store
-): FieldDefinition<Target, Store> => ({ apply, interpolate });
+  apply: (obj: Target, a: Store, b: Store, alpha: number) => void,
+): FieldDefinition<Target, Store> => ({ apply });
 
 /**
  * This converts the keyframe definitions into the usable keyframes
@@ -26,9 +25,10 @@ export const parseKeyframes = <
 >(
   base: Base,
   definition: KeyframeDefintion
-): [(keyof Base)[], Keyframes<Fields, Base>] => {
+): [(keyof Base)[], Keyframes<Fields, Base>, number] => {
   // loop over all object
   const objects = Object.keys(base) as (keyof Base)[];
+  let lastFrame = 0;
 
   const keyframes = objects.reduce<Keyframes<Fields, Base>>((acc, current) => {
     // get the fields for the base state (those are the animated fields)
@@ -50,18 +50,18 @@ export const parseKeyframes = <
 
     // now traverse the keyframes
     Object.entries(def)
-
       // since javascript doesn't really have number keys, we have to parse them first
       .map(([key, frame]) => [parseFloat(key), frame] as const)
       // and we have to sort by the time, so that the clips are built predictably
       .sort(([a], [b]) => a - b)
       .forEach(([time, frame]) => {
+        if (time > lastFrame) lastFrame = time;
         // and go through all fields
         Object.entries(frame).forEach(([field, value]) => {
           if (value === InheritSymbol) {
             // Inherit symbol represents a reset of clipStack
             clipStack[field] = [time, clipStack[field][1]];
-          } else {
+          } else if (Array.isArray(value)) {
             const [end, interpolation] = value as [any, Interpolation];
             // insert the new clip
             clips[field].push({
@@ -72,6 +72,7 @@ export const parseKeyframes = <
             // and reset the clip stack
             clipStack[field] = [time, end];
           }
+          // ...else, we don't really know what to do, but typescript should have yelled at them before hand, sooo
         });
       });
 
@@ -81,7 +82,7 @@ export const parseKeyframes = <
     };
   }, {} as Keyframes<Fields, Base>);
 
-  return [objects, keyframes];
+  return [objects, keyframes, lastFrame];
 };
 
 /**
@@ -92,17 +93,20 @@ export const parseKeyframes = <
  *
  * You can refer to the top-level guide in `README.md` or look at the default implementation of this function in `field.ts` for usage
  * examples
+ *
  **/
 export const createOrchestrate =
   <Fields extends FieldsBase>(fields: Fields) =>
   <Base extends StateBase<Fields>, KeyframeDefintion extends KeyframeDefinitionBase<Fields, Base>>(
     base: Base,
-    defintion: KeyframeDefintion
-  ): [any, Register<Fields, Base>] => {
-    // NOTE: store is returned to the user, so lifetime management could be a problem
-    const store = createStore<Fields, Base>();
+    definition: KeyframeDefintion,
+    length?: number
+  ): [ReturnType<typeof createStore<Fields, Base>>, Register<Fields, Base>] => {
+    // Start by parsing the keyframes
+    const [objects, keyframes, lastFrame] = parseKeyframes(base, definition);
 
-    // Parse the keyframes
+    // NOTE: store is returned to the user, so lifetime management could be a problem
+    const store = createStore<Fields, Base>({ fields, objects, keyframes, length: length ?? lastFrame });
 
     // wauw, such easy
     const register: Register<Fields, Base> =
@@ -111,7 +115,5 @@ export const createOrchestrate =
         store.getState().setSlot(obj, target, id);
       };
 
-    store.subscribe(console.log);
-
-    return [0, register];
+    return [store, register];
   };

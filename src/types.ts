@@ -1,12 +1,10 @@
 import type { RefCallback } from "react";
-import type { Object3D } from "three";
 import type { InheritSymbol } from "./clip";
-import { Interpolation } from "./interpolation";
+import type { Interpolation } from "./interpolation";
 
 // Field Definitions
 export type FieldDefinition<Target, Store> = {
-  apply: (target: Target, store: Store) => void;
-  interpolate: (a: Store, b: Store, alpha: number) => Store;
+  apply: (target: Target, a: Store, b: Store, alpha: number) => void;
 };
 
 export type FieldsBase = { [K: string]: FieldDefinition<any, any> };

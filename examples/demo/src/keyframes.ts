@@ -4,8 +4,8 @@ import { Vector3 } from "three";
 export const [progression, register] = orchestrate(
   {
     camera: {
-      position: new Vector3(0, 0, 0),
-      rotation: new Vector3(0, 0, 0)
+      position: new Vector3(0, 2, 0),
+      lookAt:
     },
     realCamera: {
       position: new Vector3(0, 0, 0)

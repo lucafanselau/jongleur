@@ -61,6 +61,17 @@ const [...] = orchestrate({ ... }, {
 
 ```
 
+## Handling progress
+
+## Applying state
+
+> This is just a brainstorming section for now, outlining the different ideas. The outlined approach might differ from the actual algorithm implemented
+
+- The underlying store keeps track of the last recorded progress. If no progress has been recorded, the last progress is `0`, which is implicitly the base state (aka the first parameter to the orchestrate function)
+- Since the register function (aka the mounting and unmounting) can be called at any time, even when the animation is already in progress, the state at _last progress_ gets applied to the mounted element.
+- When the progress is updated, the range between the _last progress_ and the _current progress_ gets compared to all clips, to check which clips might be in active transition. If multiple clips for a specific field are affected (this could be the case if the difference between the last and current progress is large) the last clip with regards to the time gets applied.
+
+Hopefully, this pseudo definition is robust against most corner cases and weird register calls.
 
 ## Advanced Usage
 
