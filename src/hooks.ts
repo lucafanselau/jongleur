@@ -1,10 +1,10 @@
+import type { Camera } from "@react-three/fiber";
 import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
-import type { FieldsBase, Object3DTargets, Register, StateBase, TargetFromBase } from "./types";
+import type { FieldsBase, ObjectsForTarget, Register, StateBase, TargetFromBase } from "./types";
 
 // Mostly utility hooks, that aim to make some of the library features easier to use
-
-export const useThreeCamera = <Fields extends FieldsBase, Base extends StateBase<Fields>, Obj extends Object3DTargets<Fields, Base>>(
+export const useThreeCamera = <Fields extends FieldsBase, Base extends StateBase<Fields>, Obj extends ObjectsForTarget<Camera, Fields, Base>>(
   register: Register<Fields, Base>,
   obj: Obj,
   id?: string

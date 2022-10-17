@@ -12,7 +12,7 @@ import { useThreeCamera } from "jongleur";
 export default function Scene({ ...props }) {
   const { nodes, materials } = useSpline("https://prod.spline.design/eMD2ksI4dFfhwo7y/scene.splinecode");
 
-  useThreeCamera(register, "camera");
+  useThreeCamera(register, "realCamera");
 
   const [state, setState] = useState(0);
   useEffect(() => {

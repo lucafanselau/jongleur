@@ -22,6 +22,8 @@ export const defaultFields = {
   )
 };
 
+export type DefaultFields = typeof defaultFields;
+
 /**
  * The default orchestration function using the fields
  *
