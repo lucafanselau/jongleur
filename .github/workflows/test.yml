@@ -44,11 +44,13 @@ jobs:
   test:
     name: Run vitest
     needs: install
+    runs-on: ubuntu-latest
     steps:
       - run: pnpm test
 
   lint:
     name: Run eslint
     needs: install
+    runs-on: ubuntu-latest
     steps:
       - run: pnpm lint
