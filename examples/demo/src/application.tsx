@@ -2,6 +2,8 @@ import Scene from "./scene";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { Html, useProgress } from "@react-three/drei";
+import { ScrollOverlay } from "jongleur";
+import { progress } from "./keyframes";
 
 // Simple full page loader, during scene setup
 const Loader = () => {
@@ -19,7 +21,9 @@ function App() {
     <div className="bg-neutral h-[100vh]">
       <Canvas>
         <Suspense fallback={<Loader />}>
-          <Scene />
+          <ScrollOverlay pages={2} progress={progress}>
+            <Scene />
+          </ScrollOverlay>
         </Suspense>
       </Canvas>
     </div>
