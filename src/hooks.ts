@@ -1,5 +1,5 @@
-import { Camera, useFrame } from "@react-three/fiber";
-import { useThree } from "@react-three/fiber";
+import type { Camera } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect } from "react";
 import type { FieldsBase, HandleProgress, ObjectsForTarget, Register, StateBase, TargetFromBase } from "./types";
 

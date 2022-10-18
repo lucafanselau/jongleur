@@ -11,11 +11,12 @@ German /Jon·g·leur/ ~ Juggler
 
 Jongleur is a library that aims to make orchestrating complex 3d animations on websites easier to maintain and scale. Animations of different objects are expressed in an object notation, that is inspired by keyframes, such as commonly found in many animation softwares. This allows having a single source of truth for the movement of objects in the scene.
 
-## Features
 
-tbd
+## Basic example
 
 ## Terminology
+
+- 
 
 
 ## Getting started
@@ -26,8 +27,11 @@ This library can be installed through your favorite package manager
 
 ## Concepts & Usage
 
-At the core of every animation sequence is the orchestration function. This function enables you to have a single source of truth for the transitions that happen in the scene. _Jongleur_ heavily uses typescript features to enable writing these transitions easily while also enforcing a strict structure and preventing mistakes at development time. 
+At the core of every animation sequence is the orchestration function. This function enables you to have a single source of truth for the transitions that happen in the scene. _Jongleur_ heavily uses typescript features to enable writing these transitions while also enforcing a strict structure and preventing mistakes at development time. The orchestration function has the following form:
 
+``` typescript
+const orchestrate = <...>(base, keyframes, )
+```
 
 ## Defining a scene and registering
 
