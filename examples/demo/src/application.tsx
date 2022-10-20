@@ -24,7 +24,7 @@ function App() {
     <div className="bg-base-100 h-[100vh]">
       <Canvas frameloop="demand">
         <Suspense fallback={<Loader />}>
-          <Scroll pages={3} progress={progress}>
+          <Scroll pages={4} progress={progress}>
             <Scene />
             <Scroll.Scrolled>
               <p>Hello world</p>

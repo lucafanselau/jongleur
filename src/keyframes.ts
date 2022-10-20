@@ -1,3 +1,4 @@
+import { invalidate } from "@react-three/fiber";
 import { InheritSymbol } from "./clip";
 import type { Interpolation } from "./interpolation";
 import { applyClip, findActiveClip, findLastClip } from "./progress";
@@ -88,6 +89,9 @@ export const parseKeyframes = <
   return [objects, keyframes, lastFrame];
 };
 
+export type OrchestrateStore<Fields extends FieldsBase, Base extends StateBase<Fields>> = ReturnType<
+  typeof createStore<Fields, Base>
+>;
 /**
  * Create a new orchestration function that allows for custom fields to be included in the scene
  *
@@ -104,7 +108,7 @@ export const createOrchestrate =
     base: Base,
     definition: KeyframeDefintion,
     length?: number
-  ): [HandleProgress, Register<Fields, Base>, ReturnType<typeof createStore<Fields, Base>>] => {
+  ): [HandleProgress, Register<Fields, Base>, OrchestrateStore<Fields, Base>] => {
     // Start by parsing the keyframes
     const [objects, keyframes, lastFrame] = parseKeyframes(base, definition);
 
@@ -132,8 +136,9 @@ export const createOrchestrate =
           // do all of the fields
           const clips = keyframes[obj].clips[field];
           const clip = findLastClip(progress, clips);
-          if (isSome(clip)) { applyClip(fields[field as keyof Fields], target, clip, progress); }
-          else {
+          if (isSome(clip)) {
+            applyClip(fields[field as keyof Fields], target, clip, progress);
+          } else {
             // If we can't find the last clip, fallback to applying the base state
             const baseValue = base[obj][field];
             fields[field as keyof Fields].apply(target, baseValue, baseValue, 0);
@@ -153,24 +158,32 @@ export const createOrchestrate =
         progress: { last }
       } = store.getState();
 
-      const progress = p * length;
-
+      const progress = p(last / length) * length;
       // apply the updates, applicable to range
       const range: [number, number] = [Math.min(last, progress), Math.max(last, progress)];
+
+      // also handle invalidation
+      let hasApplied = false;
 
       objects.forEach(o =>
         keyframes[o].fields.forEach(field => {
           const clips = keyframes[o].clips[field];
 
           const considered = findActiveClip(range, clips);
+          // console.log(considered, field, o);
           if (isSome(considered)) {
             // -> means, we find a clip that should be applied, for the current progress, so lets apply that to all registered
             Object.values(slots[o] ?? {}).forEach(target => {
-              if (isSome(target)) applyClip(fields[field as keyof Fields], target, considered, progress);
+              if (isSome(target)) {
+                applyClip(fields[field as keyof Fields], target, considered, progress);
+                hasApplied = true;
+              }
             });
           }
         })
       );
+
+      if (hasApplied) invalidate();
 
       updateProgress(progress);
     };

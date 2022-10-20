@@ -3,6 +3,7 @@ import type { Clip, FieldDefinition } from "./types";
 import { clamp, rangesOverlap } from "./utils";
 
 export const findLastClip = (progress: number, clips: Clip[]): Clip | undefined => {
+  // console.log(clips);
   // Since clips are non overlapping, we can just take the one, where the start of the clip is closest to the current progress
   return clips.reduce<Clip | undefined>((prev, current) => {
     // if the clip happens after the current progress, dont even consider it
