@@ -1,10 +1,10 @@
 {
-  "extends": "@antfu",
+  "extends": ["@antfu", "plugin:react/recommended"],
   "rules": {
     "@typescript-eslint/semi": ["off", "never"],
     "antfu/if-newline": "off",
     "@typescript-eslint/quotes": ["error", "double"],
-    "@typescript-eslint/member-delimiter-style": [ "error", {} ],
+    "@typescript-eslint/member-delimiter-style": ["error", {}],
     "@typescript-eslint/consistent-type-definitions": ["warn", "type"],
     "@typescript-eslint/indent": "off",
     "operator-linebreak": "off",
@@ -13,6 +13,9 @@
     "@typescript-eslint/prefer-ts-expect-error": "off",
     "arrow-parens": ["error", "as-needed"],
     "no-void": "off",
-    "jsonc/sort-keys": "off"
+    "jsonc/sort-keys": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/display-name": "off",
+    "react/prop-types": "off"
   }
 }

@@ -1,6 +1,7 @@
-import type { Object3D } from "three";
+import type { Light, Object3D } from "three";
 import { Vector3 } from "three";
 import { createField, createOrchestrate } from "./keyframes";
+import { lerp } from "./utils";
 
 // utility to interpolate vector
 export type KeysForVector3 = {
@@ -23,7 +24,9 @@ export const defaultFields = {
   rotation: createField<Object3D, Vector3>((target, a, b, alpha) =>
     target.rotation.setFromVector3(vec.lerpVectors(a, b, alpha))
   ),
-  lookAt: createField<Object3D, Vector3>((target, a, b, alpha) => target.lookAt(vec.lerpVectors(a, b, alpha)))
+  lookAt: createField<Object3D, Vector3>((target, a, b, alpha) => target.lookAt(vec.lerpVectors(a, b, alpha))),
+  visible: createField<Object3D, boolean>((target, a, b, alpha) => (target.visible = alpha > 0.5 ? b : a)),
+  intensity: createField<Light, number>((target, a, b, alpha) => (target.intensity = lerp(a, b, alpha)))
 };
 
 export type DefaultFields = typeof defaultFields;

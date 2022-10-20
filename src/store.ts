@@ -9,8 +9,11 @@ export type Store<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
 
   // The active implementation of fields
   fields: Fields;
+
+  // the user supplied stuff, most notably the clips
   objects: (keyof Base)[];
   keyframes: Keyframes<Fields, Base>;
+  base: Base;
   length: number;
 
   progress: {

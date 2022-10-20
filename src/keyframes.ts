@@ -104,12 +104,12 @@ export const createOrchestrate =
     base: Base,
     definition: KeyframeDefintion,
     length?: number
-  ): [HandleProgress, Register<Fields, Base>] => {
+  ): [HandleProgress, Register<Fields, Base>, ReturnType<typeof createStore<Fields, Base>>] => {
     // Start by parsing the keyframes
     const [objects, keyframes, lastFrame] = parseKeyframes(base, definition);
 
     // NOTE: store is returned to the user, so lifetime management could be a problem
-    const store = createStore<Fields, Base>({ fields, objects, keyframes, length: length ?? lastFrame });
+    const store = createStore<Fields, Base>({ fields, objects, keyframes, base, length: length ?? lastFrame });
 
     // wauw, such easy
     const register: Register<Fields, Base> =
@@ -119,27 +119,31 @@ export const createOrchestrate =
         const {
           setSlot,
           keyframes,
-          length,
+          base,
           progress: { last }
         } = store.getState();
         setSlot(obj, target, id);
 
         // handle if target is null
         if (isNone(target)) return;
-        const progress = length * last;
-
+        const progress = last;
         // and apply the state at lastProgress
         keyframes[obj].fields.forEach(field => {
           // do all of the fields
           const clips = keyframes[obj].clips[field];
           const clip = findLastClip(progress, clips);
-          if (isSome(clip)) applyClip(fields[field as keyof Fields], target, clip, progress);
+          if (isSome(clip)) { applyClip(fields[field as keyof Fields], target, clip, progress); }
+          else {
+            // If we can't find the last clip, fallback to applying the base state
+            const baseValue = base[obj][field];
+            fields[field as keyof Fields].apply(target, baseValue, baseValue, 0);
+          }
         });
       };
 
     // Some notes about why the stuff in here is sane:
     // Since we applied the `progress.last` state to
-    const progress: HandleProgress = progress => {
+    const progress: HandleProgress = p => {
       const {
         updateProgress,
         length,
@@ -149,8 +153,10 @@ export const createOrchestrate =
         progress: { last }
       } = store.getState();
 
+      const progress = p * length;
+
       // apply the updates, applicable to range
-      const range: [number, number] = [last * length, progress * length];
+      const range: [number, number] = [Math.min(last, progress), Math.max(last, progress)];
 
       objects.forEach(o =>
         keyframes[o].fields.forEach(field => {
@@ -169,5 +175,5 @@ export const createOrchestrate =
       updateProgress(progress);
     };
 
-    return [progress, register];
+    return [progress, register, store];
   };

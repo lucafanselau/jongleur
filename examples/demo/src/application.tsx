@@ -2,7 +2,7 @@ import Scene from "./scene";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { Html, useProgress } from "@react-three/drei";
-import { Scrollable, ScrollOverlay } from "jongleur";
+import { Scroll } from "jongleur";
 import { progress } from "./keyframes";
 
 // Simple full page loader, during scene setup
@@ -12,8 +12,8 @@ const Loader = () => {
   return (
     <Html center>
       <div className="flex flex-col items-center gap-1">
-        <p className="text-accent text-lg">Loading</p>
-        <progress className="progress bg-secondary w-56 progress-accent"></progress>
+        <p className="text-neutral text-lg">Loading</p>
+        <progress className="progress bg-neutral w-56 progress-primary shadow-md"></progress>
       </div>
     </Html>
   );
@@ -21,16 +21,16 @@ const Loader = () => {
 
 function App() {
   return (
-    <div className="bg-neutral h-[100vh]">
-      <Canvas>
+    <div className="bg-base-100 h-[100vh]">
+      <Canvas frameloop="demand">
         <Suspense fallback={<Loader />}>
-          <ScrollOverlay pages={2} progress={progress}>
+          <Scroll pages={3} progress={progress}>
             <Scene />
-            <Scrollable>
+            <Scroll.Scrolled>
               <p>Hello world</p>
               <p style={{ position: "absolute", top: "100vh" }}>Hello world</p>
-            </Scrollable>
-          </ScrollOverlay>
+            </Scroll.Scrolled>
+          </Scroll>
         </Suspense>
       </Canvas>
     </div>
