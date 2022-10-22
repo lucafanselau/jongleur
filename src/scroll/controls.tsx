@@ -1,23 +1,112 @@
-import { useContext, useEffect, useMemo } from "react";
+import { useContext, useEffect, useMemo, useRef } from "react";
 import type { FC, ReactNode } from "react";
 import { useStore } from "zustand";
-import { useThree } from "@react-three/fiber";
+import { RootState, useFrame, useThree } from "@react-three/fiber";
 import type { OrchestrateStore } from "../keyframes";
 import type { FieldsBase, StateBase } from "../types";
 import type { ScrollStoreContext } from "./context";
 import { createScrollStore, scrollContext } from "./context";
 import { applyStyle, containerStyle } from "./styles";
+import { isNone, isSome } from "../utils";
+import { DomEvent } from "@react-three/fiber/dist/declarations/src/core/events";
+import { useRegister } from "../hooks";
+import { MathUtils } from "three";
+
+const ScrollEvents: FC = () => {
+  // mount r3f specific events stuff based on the layout create by scroll pane
+  const store = useContext(scrollContext);
+  const layout = useStore(store, s => s.layout);
+
+  const {
+    get,
+    invalidate,
+    setEvents,
+    size,
+    gl: { domElement }
+  } = useThree();
+  const target = domElement.parentNode;
+
+  useEffect(() => {
+    if (isNone(layout)) return;
+
+    const { container } = layout;
+
+    // this part is copied from @react-three/drei ScollControls
+    const events = get().events;
+    const oldTarget = (events.connected || domElement) as HTMLElement;
+    requestAnimationFrame(() => events.connect?.(container));
+    const oldCompute = events.compute;
+    setEvents({
+      compute(event: DomEvent, state: RootState) {
+        const offsetX = event.clientX - (target as HTMLElement).offsetLeft;
+        const offsetY = event.clientY - (target as HTMLElement).offsetTop;
+        state.pointer.set((offsetX / state.size.width) * 2 - 1, -(offsetY / state.size.height) * 2 + 1);
+        state.raycaster.setFromCamera(state.pointer, state.camera);
+      }
+    });
+    return () => {
+      setEvents({ compute: oldCompute });
+      events.connect?.(oldTarget);
+    };
+  }, [layout, domElement, get, setEvents, target]);
+
+  const animation = useStore(store, s => s.orchestrate);
+  const damping = useStore(store, s => s.damping);
+  const progress = useStore(animation, s => s.progress);
+  const scroll = useRef<number>(0);
+
+  const connected = useThree(s => s.events.connected);
+
+  // the progress
+  useEffect(() => {
+    if (isNone(layout) || connected !== layout.container) return;
+    const containerLength = size.height;
+    const scrollLength = layout.container.scrollHeight;
+    const scrollThreshold = scrollLength - containerLength;
+
+    const onScroll = () => {
+      if (!layout.container) return;
+      const current = layout.container.scrollTop;
+      const currentProgress = current / scrollThreshold;
+
+      // if damping, don't handle progress immediately
+      if (isSome(damping)) {
+        // here we have to invalidate at least once, to trigger the useFrame function
+        invalidate();
+        scroll.current = currentProgress;
+      } else {
+        progress(() => currentProgress);
+      }
+    };
+
+    layout.container.addEventListener("scroll", onScroll);
+    // dispatch initial scroll
+    requestAnimationFrame(() => onScroll());
+
+    return () => {
+      layout.container.removeEventListener("scroll", onScroll);
+    };
+  }, [layout, size, get, invalidate, progress, damping, connected]);
+
+  useFrame((_, delta) => {
+    if (isSome(damping)) {
+      // damp the scrolls if that is required
+      progress(last => {
+        const progress = MathUtils.damp(last, scroll.current, damping, Math.min(delta, 1 / 20));
+        if (Math.abs(progress - scroll.current) > 1e-3) invalidate();
+        return progress;
+      });
+    }
+  });
+
+  return null;
+};
 
 const ScrollPane: FC = () => {
   const store = useContext(scrollContext);
   const length = useStore(store, s => s.orchestrate.getState().length);
 
   const {
-    /* get,
-     * invalidate,
-     * setEvents,
-     * size,
-     * events, */
     gl: { domElement }
   } = useThree();
 
@@ -57,16 +146,19 @@ const ScrollPane: FC = () => {
 
 export const Controls = <Fields extends FieldsBase, Base extends StateBase<Fields>>({
   children,
-  orchestrate
+  orchestrate,
+  damping = 2
 }: {
   children: ReactNode;
   orchestrate: OrchestrateStore<Fields, Base>;
+  damping?: number;
 }): ReturnType<FC> => {
-  const store = useMemo(() => createScrollStore({ orchestrate }), [orchestrate]);
+  const store = useMemo(() => createScrollStore({ orchestrate, damping }), [orchestrate, damping]);
 
   return (
     <scrollContext.Provider value={store as ScrollStoreContext}>
       <ScrollPane />
+      <ScrollEvents />
       {children}
     </scrollContext.Provider>
   );

@@ -108,85 +108,11 @@ export const createOrchestrate =
     base: Base,
     definition: KeyframeDefintion,
     length?: number
-  ): [HandleProgress, Register<Fields, Base>, OrchestrateStore<Fields, Base>] => {
+  ): OrchestrateStore<Fields, Base> => {
     // Start by parsing the keyframes
     const [objects, keyframes, lastFrame] = parseKeyframes(base, definition);
 
     // NOTE: store is returned to the user, so lifetime management could be a problem
     const store = createStore<Fields, Base>({ fields, objects, keyframes, base, length: length ?? lastFrame });
-
-    // wauw, such easy
-    const register: Register<Fields, Base> =
-      (obj, id = "default") =>
-      target => {
-        // Update the slot in the store
-        const {
-          setSlot,
-          keyframes,
-          base,
-          progress: { last }
-        } = store.getState();
-        setSlot(obj, target, id);
-
-        // handle if target is null
-        if (isNone(target)) return;
-        const progress = last;
-        // and apply the state at lastProgress
-        keyframes[obj].fields.forEach(field => {
-          // do all of the fields
-          const clips = keyframes[obj].clips[field];
-          const clip = findLastClip(progress, clips);
-          if (isSome(clip)) {
-            applyClip(fields[field as keyof Fields], target, clip, progress);
-          } else {
-            // If we can't find the last clip, fallback to applying the base state
-            const baseValue = base[obj][field];
-            fields[field as keyof Fields].apply(target, baseValue, baseValue, 0);
-          }
-        });
-      };
-
-    // Some notes about why the stuff in here is sane:
-    // Since we applied the `progress.last` state to
-    const progress: HandleProgress = p => {
-      const {
-        updateProgress,
-        length,
-        objects,
-        slots,
-        keyframes,
-        progress: { last }
-      } = store.getState();
-
-      const progress = p(last / length) * length;
-      // apply the updates, applicable to range
-      const range: [number, number] = [Math.min(last, progress), Math.max(last, progress)];
-
-      // also handle invalidation
-      let hasApplied = false;
-
-      objects.forEach(o =>
-        keyframes[o].fields.forEach(field => {
-          const clips = keyframes[o].clips[field];
-
-          const considered = findActiveClip(range, clips);
-          // console.log(considered, field, o);
-          if (isSome(considered)) {
-            // -> means, we find a clip that should be applied, for the current progress, so lets apply that to all registered
-            Object.values(slots[o] ?? {}).forEach(target => {
-              if (isSome(target)) {
-                applyClip(fields[field as keyof Fields], target, considered, progress);
-                hasApplied = true;
-              }
-            });
-          }
-        })
-      );
-
-      if (hasApplied) invalidate();
-
-      updateProgress(progress);
-    };
-
-    return [progress, register, store];
+    return store;
   };

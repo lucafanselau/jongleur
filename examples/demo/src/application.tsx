@@ -1,9 +1,9 @@
 import Scene from "./scene";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect } from "react";
-import { Html, useProgress } from "@react-three/drei";
+import { Html, Stats, useProgress } from "@react-three/drei";
 import { Scroll } from "jongleur";
-import { progress, store } from "./keyframes";
+import { sceneAnimation } from "./keyframes";
 
 // Simple full page loader, during scene setup
 const Loader = () => {
@@ -23,8 +23,9 @@ function App() {
   return (
     <div className="bg-base-100 h-[100vh]">
       <Canvas frameloop="demand">
+        <Stats />
         <Suspense fallback={<Loader />}>
-          <Scroll.Controls orchestrate={store}>
+          <Scroll.Controls orchestrate={sceneAnimation}>
             <Scroll.Snaps
               points={[0, 1, 2, 3]}
               align={"start"}

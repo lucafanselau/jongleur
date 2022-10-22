@@ -9,6 +9,7 @@ export type ScrollStore<Fields extends FieldsBase, Base extends StateBase<Fields
     container: HTMLDivElement;
     scrollPane: HTMLDivElement;
   };
+  damping?: number;
 };
 
 // actually this file just exists because of an issue in HMR with vite.js
@@ -18,7 +19,7 @@ export type ScrollStore<Fields extends FieldsBase, Base extends StateBase<Fields
 // The context just enables exposing the zustand store of the orchestrate function to a r3f sub tree
 
 export const createScrollStore = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
-  initial: Pick<ScrollStore<Fields, Base>, "orchestrate">
+  initial: Pick<ScrollStore<Fields, Base>, "orchestrate" | "damping">
 ) =>
   createStore<ScrollStore<Fields, Base>>((_set, _get) => ({
     ...initial
