@@ -1,5 +1,5 @@
 {
-  "extends": ["@antfu", "plugin:react/recommended"],
+  "extends": ["@antfu", "plugin:react/recommended", "plugin:react-hooks/recommended"],
   "rules": {
     "@typescript-eslint/semi": ["off", "never"],
     "antfu/if-newline": "off",

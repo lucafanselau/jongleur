@@ -6,4 +6,4 @@ export type { DefaultFields } from "./fields";
 export * from "./hooks";
 
 // exports of strategies (maybe we should package that seperately (like in a scroll.ts))
-export { Scroll } from "./strategy/overlay";
+export { Scroll } from "./scroll";

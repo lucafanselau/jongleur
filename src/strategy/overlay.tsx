@@ -2,11 +2,12 @@ import { MathUtils } from "three";
 import { RootState, useFrame } from "@react-three/fiber";
 import { useThree } from "@react-three/fiber";
 import type { DomEvent } from "@react-three/fiber/dist/declarations/src/core/events";
-import { FC, ReactNode, useRef } from "react";
+import { FC, MutableRefObject, ReactNode, useRef } from "react";
 import { Fragment, createContext, useContext, useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom/client";
 import type { HandleProgress } from "../types";
 import { isNone, isSome } from "../utils";
+import { createPortal } from "react-dom";
 
 const fullscreenStyle = {
   width: "100%",
@@ -16,9 +17,9 @@ const fullscreenStyle = {
 };
 
 const context = createContext<{
-  fixed: HTMLDivElement;
-  filled: HTMLDivElement;
+  div: HTMLDivElement;
   root: ReactDOM.Root;
+  ref: MutableRefObject<HTMLDivElement>;
 }>(null!);
 
 export type ScrollType = FC<{
@@ -49,27 +50,27 @@ export const Scroll: ScrollType = ({ children, pages, progress, damping = 2 }) =
     setEvents,
     size,
     events,
-    performance,
     gl: { domElement }
   } = useThree();
 
   const target = domElement.parentNode;
-  const a = 0;
 
-  const [fixed] = useState(() => document.createElement("div"));
-  const [div] = useState(() => document.createElement("div"));
-  const [filled] = useState(() => document.createElement("div"));
+  const [div, setDiv] = useState<HTMLDivElement>();
+  const [root, setRoot] = useState<ReactDOM.Root>();
+  const ref = useRef<HTMLDivElement>(null!);
 
   const scroll = useRef(0);
 
-  useEffect(() => {
+  useMemo(() => {
     // the setup of divs is based on ScrollControls
 
     const style = {
       position: "absolute",
-      overflow: "auto",
+      overflowY: "auto",
       ...fullscreenStyle
     };
+
+    const div = document.createElement("div");
 
     (Object.keys(style) as (keyof typeof style)[]).forEach(
       key => void (div.style[key as keyof typeof style] = style[key])
@@ -86,17 +87,15 @@ export const Scroll: ScrollType = ({ children, pages, progress, damping = 2 }) =
        * ); */
 
     // this makes the container scroll
-    const filledStyle = {
-      height: `${100 * pages}%`,
-      width: "100%",
-      pointerEvents: "none"
-    };
-    (Object.keys(filledStyle) as (keyof typeof filledStyle)[]).forEach(
-      key => void (filled.style[key as keyof typeof filledStyle] = filledStyle[key])
-    );
+    /* const filledStyle = {
+     *   height: `${100 * pages}%`,
+     *   width: "100%",
+     *   pointerEvents: "none"
+     * };
+     * (Object.keys(filledStyle) as (keyof typeof filledStyle)[]).forEach(
+     *   key => void (filled.style[key as keyof typeof filledStyle] = filledStyle[key])
+     * ); */
 
-    div.appendChild(filled);
-    // div.appendChild(fixed);
     target?.appendChild(div);
 
     // those are things from drei, that seem to make sense
@@ -113,20 +112,27 @@ export const Scroll: ScrollType = ({ children, pages, progress, damping = 2 }) =
       }
     });
 
+    const root = ReactDOM.createRoot(div);
+    root?.render(<div ref={ref}>Hello world</div>);
+    setDiv(div);
+    setRoot(root);
+
     return () => {
       target?.removeChild(div);
       setEvents({ compute: oldCompute });
       events.connect?.(oldTarget);
+      root.unmount();
     };
-  }, [pages, domElement, div, filled, fixed]);
+  }, [pages, domElement]);
 
   useEffect(() => {
-    if (events.connected === div) {
+    if (div && events.connected === div) {
       const containerLength = size.height;
       const scrollLength = div.scrollHeight;
       const scrollThreshold = scrollLength - containerLength;
 
       const onScroll = () => {
+        if (!div) return;
         const current = div.scrollTop;
         const currentProgress = current / scrollThreshold;
 
@@ -150,8 +156,6 @@ export const Scroll: ScrollType = ({ children, pages, progress, damping = 2 }) =
     }
   }, [div, events, size, invalidate, progress]);
 
-  const root = useMemo(() => ReactDOM.createRoot(filled), [filled]);
-
   useFrame((_, delta) => {
     if (isSome(damping)) {
       // damp the scrolls if that is required
@@ -163,12 +167,30 @@ export const Scroll: ScrollType = ({ children, pages, progress, damping = 2 }) =
     }
   });
 
-  return <context.Provider value={{ root, fixed, filled }}>{children}</context.Provider>;
+  return <context.Provider value={{ div, root, ref }}>{children}</context.Provider>;
 };
 
 Scroll.Scrolled = ({ children }) => {
   const state = useContext(context);
 
-  if (isSome(state) && isSome(state.root)) state.root.render(<Fragment>{children}</Fragment>);
+  // if (isSome(state) && isSome(state.root)) state.root.render(<Fragment>{children}</Fragment>);
+  return null;
+};
+
+Scroll.Snaps = ({ points }) => {
+  const state = useContext(context);
+
+  if (isSome(state?.ref.current)) {
+    createPortal(
+      <Fragment>
+        {points.map(v => (
+          <div key={v} style={{ position: "absolute", top: `${v * 100}%`, left: 0, scrollSnapAlign: "center" }}>
+            {v}
+          </div>
+        ))}
+      </Fragment>,
+      state.ref.current
+    );
+  }
   return null;
 };

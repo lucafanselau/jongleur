@@ -1,9 +1,9 @@
 import Scene from "./scene";
 import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { Html, useProgress } from "@react-three/drei";
 import { Scroll } from "jongleur";
-import { progress } from "./keyframes";
+import { progress, store } from "./keyframes";
 
 // Simple full page loader, during scene setup
 const Loader = () => {
@@ -24,13 +24,19 @@ function App() {
     <div className="bg-base-100 h-[100vh]">
       <Canvas frameloop="demand">
         <Suspense fallback={<Loader />}>
-          <Scroll pages={4} progress={progress}>
+          <Scroll.Controls orchestrate={store}>
+            <Scroll.Snaps
+              points={[0, 1, 2, 3]}
+              align={"start"}
+              marker={<div className={"w-3 h-3 bg-primary rounded-xl ml-4 mt-4"} />}
+            />
             <Scene />
-            <Scroll.Scrolled>
-              <p>Hello world</p>
-              <p style={{ position: "absolute", top: "100vh" }}>Hello world</p>
-            </Scroll.Scrolled>
-          </Scroll>
+            {/* <Scroll.Scrolled>
+                <p>Hello world</p>
+                <p style={{ position: "absolute", top: "100vh" }}>Hello world</p>
+                </Scroll.Scrolled>
+                <Scroll.Snaps points={[0, 1, 2].map(v => v + 0.5)} /> */}
+          </Scroll.Controls>
         </Suspense>
       </Canvas>
     </div>

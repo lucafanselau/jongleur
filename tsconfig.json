@@ -13,7 +13,6 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react-jsx",
     "plugins": [
       {
@@ -22,5 +21,6 @@
     ]
   },
   "include": ["src"],
+  "exclude": ["src/strategy"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

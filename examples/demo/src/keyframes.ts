@@ -1,7 +1,7 @@
 import { clips, InheritSymbol, orchestrate } from "jongleur";
 import { Vector3 } from "three";
 
-export const [progress, register] = orchestrate(
+export const [progress, register, store] = orchestrate(
   {
     bed: { scale: new Vector3(0, 0, 0) },
     lamp: { visible: true as boolean, position: new Vector3(0, 480, 0) },
