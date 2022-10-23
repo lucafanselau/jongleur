@@ -11,3 +11,5 @@ export const rangesOverlap = (a: [number, number], b: [number, number]) => {
 
 export const clamp = (value: number, min: number, max: number) => (value > max ? max : value < min ? min : value);
 export const lerp = (x: number, y: number, a: number) => x * (1 - a) + y * a;
+
+export const range = (start: number, end: number): number[] => Array.from({ length: end - start }, (_, k) => k + start);

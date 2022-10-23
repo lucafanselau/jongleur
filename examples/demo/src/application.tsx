@@ -4,6 +4,7 @@ import { Suspense, useEffect } from "react";
 import { Html, Stats, useProgress } from "@react-three/drei";
 import { Scroll } from "jongleur";
 import { sceneAnimation } from "./keyframes";
+import { range } from "jongleur/utils";
 
 // Simple full page loader, during scene setup
 const Loader = () => {
@@ -25,11 +26,17 @@ function App() {
       <Canvas frameloop="demand">
         <Stats />
         <Suspense fallback={<Loader />}>
-          <Scroll.Controls orchestrate={sceneAnimation}>
+          <Scroll.Controls orchestrate={sceneAnimation} damping={15}>
             <Scroll.Snaps
               points={[0, 1, 2, 3]}
               align={"start"}
-              marker={<div className={"w-3 h-3 bg-primary rounded-xl ml-4 mt-4"} />}
+              marker={(_, i) => (
+                <div className={"flex flex-col space-y-2"}>
+                  {range(0, i + 1).map((_, i) => (
+                    <div className={"w-3 h-3 bg-primary rounded-xl ml-4 mt-4"} key={i} />
+                  ))}
+                </div>
+              )}
             />
             <Scene />
             {/* <Scroll.Scrolled>

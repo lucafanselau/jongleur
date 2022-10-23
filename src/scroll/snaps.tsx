@@ -1,10 +1,11 @@
 import { createRoot } from "react-dom/client";
-import type { FC, ReactNode } from "react";
+import { FC, ReactNode, useLayoutEffect, useMemo } from "react";
 import { useContext, useEffect } from "react";
 import { useStore } from "zustand";
-import { isNone } from "../utils";
+import { isNone, isSome } from "../utils";
 import { scrollContext } from "./context";
 import { applyStyle } from "./styles";
+import { Html } from "./html";
 
 // the main logic of calculating the container sizes for the snap points
 // points are expected to be sorted
@@ -56,7 +57,7 @@ export type SnapsProps = {
    * An optional marker, that gets positioned to indicate the scroll snap to the user
    * position is dependent on the `align` property
    */
-  marker?: ReactNode;
+  marker?: (point: number, index: number) => ReactNode;
 };
 
 /**
@@ -70,20 +71,26 @@ export const Snaps: FC<SnapsProps> = ({ points, snapType = "mandatory", align = 
   // NOTE: for the subscribe feature of `useSyncExternalStore` hook to work, we need to get the state object in itself first
   const clips = useStore(store, s => s.orchestrate);
   const length = useStore(clips, s => s.length);
-  useEffect(() => {
+
+  // apply the style to the container
+  useLayoutEffect(() => {
     // and mount children to the filled attribute
     if (isNone(layout)) return;
 
-    const { container, scrollPane } = layout;
+    const { container } = layout;
     // enable scrollSnap on main container
     container.style.scrollSnapType = `y ${snapType}`;
+    return () => {
+      // also reset container configuration
+      container.style.scrollSnapType = "none";
+    };
+  }, [layout, snapType]);
 
+  const pointStyles = useMemo(() => {
     // normalize the points before applying layout algorithm
-    const elements = points2range(points.map(p => p / (length + 1)).sort(), align).map(({ start, height }) => {
-      const el = document.createElement("div");
-
-      applyStyle(
-        {
+    return points2range(points.map(p => p / (length + 1)).sort(), align).map(({ start, height }, i) => {
+      return {
+        style: {
           position: "absolute",
           width: "100%",
           top: `${100 * start}%`,
@@ -91,25 +98,19 @@ export const Snaps: FC<SnapsProps> = ({ points, snapType = "mandatory", align = 
           scrollSnapAlign: align,
           display: "flex",
           alignItems: "center"
-        },
-        el
-      );
-
-      scrollPane.appendChild(el);
-
-      if (marker) {
-        const root = createRoot(el);
-        root.render(marker);
-      }
-
-      return el;
+        } as const,
+        point: points[i]
+      };
     });
-    return () => {
-      elements.forEach(el => el.remove());
-      // also reset container configuration
-      container.style.scrollSnapType = "none";
-    };
-  }, [align, points, length, layout, store, snapType, marker]);
+  }, [align, points, length]);
 
-  return null;
+  return (
+    <Html>
+      {pointStyles.map(({ style, point }, index) => (
+        <div style={style} key={point.toString()}>
+          {isSome(marker) && marker(point, index)}
+        </div>
+      ))}
+    </Html>
+  );
 };
