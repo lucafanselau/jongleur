@@ -20,11 +20,13 @@ module.exports = {
     themes: [
       {
         spline: {
-          primary: "#BB7553", // the orange
-          secondary: "#9A8DF0", // the chair tone
-          accent: "#445E85",
-          neutral: "#663D26", //"#FFFFFF",
-          "base-100": "#a9866b" // "#663D26"
+          primary: "#4A4485", // the orange
+          secondary: "#BB7553", // the chair tone
+          accent: "#9A8DF0",
+          neutral: "#020202", //"#FFFFFF",
+          "base-100": "#F3F6F6", // "#663D26"
+          "base-200": "#E5EBEA",
+          "base-300": "#D0DCDC"
         }
       }
     ]

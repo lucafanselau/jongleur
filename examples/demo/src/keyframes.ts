@@ -4,7 +4,7 @@ import { Vector3 } from "three";
 export const sceneAnimation = orchestrate(
   {
     bed: { scale: new Vector3(0, 0, 0) },
-    lamp: { visible: true as boolean, position: new Vector3(0, 480, 0) },
+    lamp: { visible: true as boolean, position: new Vector3(0, 800, 0) },
     lampLights: { intensity: 0 }
   },
   {

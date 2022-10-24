@@ -61,6 +61,7 @@ importers:
       '@react-three/fiber': ^8.8.9
       '@splinetool/loader': ^0.9.117
       '@splinetool/r3f-spline': ^1.0.2
+      '@tabler/icons': ^1.107.0
       '@types/react': ^18.0.17
       '@types/react-dom': ^18.0.6
       '@types/three': ^0.144.0
@@ -80,6 +81,7 @@ importers:
       '@react-three/fiber': 8.8.9_ee34sidbpuk5ebd4phepfgxxdi
       '@splinetool/loader': 0.9.117_three@0.145.0
       '@splinetool/r3f-spline': 1.0.2_4ppvw2t2t5pmkqanczrwarvwla
+      '@tabler/icons': 1.107.0_biqbaboplfbrettd7655fr4n2y
       '@types/three': 0.144.0
       daisyui: 2.31.0_5zjlt5w4ir2cay3te66iu3k3ji
       react: 18.2.0
@@ -835,6 +837,21 @@ packages:
     dependencies:
       '@react-three/fiber': 8.8.9_ee34sidbpuk5ebd4phepfgxxdi
       '@splinetool/loader': 0.9.117_three@0.145.0
+    dev: false
+
+  /@tabler/icons/1.107.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-HlNN5uXPr9NUD2IqTNv5HfL2P3P8RT8VzYip3CBSiB4t9n7ZNFj/9gJRKgy9ONn9AN+hqACRaisu7M+koLAZzA==}
+    peerDependencies:
+      react: ^16.x || 17.x || 18.x
+      react-dom: ^16.x || 17.x || 18.x
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@ts-morph/common/0.17.0:

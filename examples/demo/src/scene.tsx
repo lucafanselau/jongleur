@@ -12,7 +12,7 @@ export default function Scene({ ...props }) {
   const { nodes, materials } = useSpline("https://prod.spline.design/Hmz1Escqe3w2cHBn/scene.splinecode");
   return (
     <>
-      <color attach="background" args={["#a9866b"]} />
+      {/* <color attach="background" args={["#a9866b"]} /> */}
       <group {...props} dispose={null}>
         <directionalLight
           name="Directional Light 2"

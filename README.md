@@ -16,7 +16,8 @@ Jongleur is a library that aims to make orchestrating complex 3d animations on w
 
 ## Terminology
 
-- 
+- Clips: The parsed keyframes, that can be applied to the 
+- Keyframes: The data that is supplied to the orchestrate function
 
 
 ## Getting started
