@@ -153,7 +153,11 @@ export const Controls = <Fields extends FieldsBase, Base extends StateBase<Field
   orchestrate: OrchestrateStore<Fields, Base>;
   damping?: number;
 }): ReturnType<FC> => {
-  const store = useMemo(() => createScrollStore({ orchestrate, damping }), [orchestrate, damping]);
+  const store = useMemo(() => createScrollStore({ orchestrate }), [orchestrate]);
+
+  useEffect(() => {
+    store.setState({ damping });
+  }, [damping, store]);
 
   return (
     <scrollContext.Provider value={store as ScrollStoreContext}>

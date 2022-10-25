@@ -27,8 +27,9 @@ export const Html: FC<{ children: ReactNode }> = ({ children }) => {
 
   useLayoutEffect(() => {
     if (isNone(layout)) return;
-    layout.scrollPane.appendChild(el);
-    return () => void layout.scrollPane.removeChild(el);
+    const parent = layout.scrollPane;
+    parent.appendChild(el);
+    return () => void parent.removeChild(el);
   }, [el, layout]);
 
   // forward the scrollContext

@@ -12,10 +12,13 @@ spline: {
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        "neutral-400": "#525252"
+      }
+    }
   },
   plugins: [require("daisyui")],
-
   daisyui: {
     themes: [
       {
