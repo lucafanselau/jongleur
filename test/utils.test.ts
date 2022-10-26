@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { rangesOverlap } from "./utils";
+import { rangesOverlap } from "@/utils";
 
 describe("utils", () => {
   it("overlap", () => {

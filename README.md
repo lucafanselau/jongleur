@@ -11,13 +11,18 @@ German /Jon·g·leur/ ~ Juggler
 
 Jongleur is a library that aims to make orchestrating complex 3d animations on websites easier to maintain and scale. Animations of different objects are expressed in an object notation, that is inspired by keyframes, such as commonly found in many animation softwares. This allows having a single source of truth for the movement of objects in the scene.
 
+Additionally, the library provides a set of Scroll related react components. These help to 
 
 ## Basic example
+
+## TODO:
+- Damping:
+  
 
 ## Terminology
 
 - **Fields**: The fields to be animated (eg. position/rotation/...) can also be user defined
-- **Base** (or StateBase for the type): The definition of the scene. An object that maps name  
+- **Base** (or StateBase for the type): The definition of the scene. 
 - Keyframes: The data that is supplied to the orchestrate function
 - Clips: The parsed keyframes, that can be applied to the 
 

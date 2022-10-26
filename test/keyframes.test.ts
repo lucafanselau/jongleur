@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { Object3D, Vector3 } from "three";
-import { parseKeyframes } from "./keyframes";
-import { InheritSymbol } from "./clip";
-import { orchestrate } from "./fields";
+import { parseKeyframes } from "@/keyframes";
+import { InheritSymbol } from "@/clip";
+import { orchestrate } from "@/fields";
 
 // type TestScene = { test: { position: Vector3 } };
 

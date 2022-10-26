@@ -26,6 +26,7 @@ importers:
       typescript-eslint-language-service: ^5.0.0
       vite: ^3.1.0
       vite-plugin-dts: ^1.6.4
+      vite-tsconfig-paths: ^3.5.1
       vitest: ^0.24.3
       zustand: ^4.1.1
     dependencies:
@@ -53,6 +54,7 @@ importers:
       typescript-eslint-language-service: 5.0.0_5pis6ihbzmgdgbtarzxb5jenpy
       vite: 3.1.4
       vite-plugin-dts: 1.6.4_vite@3.1.4
+      vite-tsconfig-paths: 3.5.1_vite@3.1.4
       vitest: 0.24.3
 
   examples/demo:
