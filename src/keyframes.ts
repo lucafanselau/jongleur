@@ -1,19 +1,7 @@
-import { invalidate } from "@react-three/fiber";
 import { InheritSymbol } from "./clip";
 import type { Interpolation } from "./interpolation";
-import { applyClip, findActiveClip, findLastClip } from "./progress";
 import { createStore } from "./store";
-import type {
-  Clip,
-  FieldDefinition,
-  FieldsBase,
-  HandleProgress,
-  KeyframeDefinitionBase,
-  Keyframes,
-  Register,
-  StateBase
-} from "./types";
-import { isNone, isSome } from "./utils";
+import type { Clip, FieldDefinition, FieldsBase, KeyframeDefinitionBase, Keyframes, StateBase } from "./types";
 
 export const createField = <Target, Store>(
   apply: (obj: Target, a: Store, b: Store, alpha: number) => void

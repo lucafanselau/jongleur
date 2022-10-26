@@ -1,10 +1,8 @@
-import { createRoot } from "react-dom/client";
-import { FC, ReactNode, useLayoutEffect, useMemo } from "react";
-import { useContext, useEffect } from "react";
+import type { FC, ReactNode } from "react";
+import { useContext, useLayoutEffect, useMemo } from "react";
 import { useStore } from "zustand";
 import { isNone, isSome } from "../utils";
 import { scrollContext } from "./context";
-import { applyStyle } from "./styles";
 import { Html } from "./html";
 
 // the main logic of calculating the container sizes for the snap points

@@ -1,4 +1,3 @@
-import { invalidate } from "@react-three/fiber";
 import type { Draft } from "immer";
 import create from "zustand";
 import { immer } from "zustand/middleware/immer";
@@ -90,7 +89,7 @@ export const createStore = <Fields extends FieldsBase, Base extends StateBase<Fi
         const range: [number, number] = [Math.min(last, progress), Math.max(last, progress)];
 
         // also handle invalidation
-        let hasApplied = false;
+        // let _hasApplied = false;
 
         objects.forEach(o =>
           keyframes[o].fields.forEach(field => {
@@ -101,10 +100,8 @@ export const createStore = <Fields extends FieldsBase, Base extends StateBase<Fi
             if (isSome(considered)) {
               // -> means, we find a clip that should be applied, for the current progress, so lets apply that to all registered
               Object.values(slots[o] ?? {}).forEach(target => {
-                if (isSome(target)) {
-                  applyClip(fields[field as keyof Fields], target, considered, progress);
-                  hasApplied = true;
-                }
+                if (isSome(target)) applyClip(fields[field as keyof Fields], target, considered, progress);
+                // _hasApplied = true;
               });
             }
           })

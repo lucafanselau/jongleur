@@ -1,4 +1,4 @@
-import type { Light, Object3D, Vector2 } from "three";
+import type { Light, Object3D } from "three";
 import { Vector3 } from "three";
 import { createField, createOrchestrate } from "./keyframes";
 import { lerp } from "./utils";

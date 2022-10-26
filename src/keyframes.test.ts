@@ -132,8 +132,8 @@ describe("parsing", () => {
 
 describe("register", () => {
   // although this is in keyframe test, we use the predefined keys
-  const initialize = () =>
-    orchestrate(
+  const initialize = () => {
+    const clips = orchestrate(
       {
         obj: {
           position: new Vector3(4, 4, 4)
@@ -147,6 +147,9 @@ describe("register", () => {
         }
       }
     );
+    const { progress, register } = clips.getState();
+    return [progress, register] as const;
+  };
 
   it("applied state", () => {
     const [, register] = initialize();

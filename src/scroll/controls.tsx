@@ -1,16 +1,16 @@
 import { useContext, useEffect, useMemo, useRef } from "react";
 import type { FC, ReactNode } from "react";
 import { useStore } from "zustand";
-import { RootState, useFrame, useThree } from "@react-three/fiber";
+import type { RootState } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
+import type { DomEvent } from "@react-three/fiber/dist/declarations/src/core/events";
+import { MathUtils } from "three";
 import type { OrchestrateStore } from "../keyframes";
 import type { FieldsBase, StateBase } from "../types";
+import { isNone, isSome } from "../utils";
 import type { ScrollStoreContext } from "./context";
 import { createScrollStore, scrollContext } from "./context";
 import { applyStyle, containerStyle } from "./styles";
-import { isNone, isSome } from "../utils";
-import { DomEvent } from "@react-three/fiber/dist/declarations/src/core/events";
-import { useRegister } from "../hooks";
-import { MathUtils } from "three";
 
 const ScrollEvents: FC = () => {
   // mount r3f specific events stuff based on the layout create by scroll pane
