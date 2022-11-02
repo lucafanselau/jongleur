@@ -2,11 +2,11 @@
  * @file Parse keyframes into clips, this is achieved using an `orchestrate` function
  **/
 import { InheritSymbol } from "./utils";
-import type { Clip, FieldsBase, KeyframeDefinitionBase, Keyframes, StateBase } from "./types";
+import type { Clip, FieldKeyframeState, FieldsBase, KeyframeDefinitionBase, Keyframes, StateBase } from "./types";
+import type { ClipsConfig } from "./config";
 import type { ClipStore } from "@/store";
 import { createClipStore } from "@/store";
-import type { Interpolation } from "@/progress";
-import { FieldConfig } from "./config";
+import { isSome } from "@/utils";
 
 /**
  * This converts the keyframe definitions into the usable keyframes
@@ -17,7 +17,8 @@ export const parseKeyframes = <
   KeyframeDefintion extends KeyframeDefinitionBase<Fields, Base>
 >(
   base: Base,
-  definition: KeyframeDefintion
+  definition: KeyframeDefintion,
+  config: ClipsConfig
 ): [(keyof Base)[], Keyframes<Fields, Base>, number] => {
   // loop over all object
   const objects = Object.keys(base) as (keyof Base)[];
@@ -25,7 +26,8 @@ export const parseKeyframes = <
 
   const keyframes = objects.reduce<Keyframes<Fields, Base>>((acc, current) => {
     // get the fields for the base state (those are the animated fields)
-    const fields: string[] = Object.keys(base[current]);
+    const { config: objectConfig, ...rest } = base[current];
+    const fields: string[] = Object.keys(rest);
 
     // build the clips
     // first we construct an empty list of clips for every _field_ and then we populate it
@@ -54,13 +56,16 @@ export const parseKeyframes = <
           if (value === InheritSymbol) {
             // Inherit symbol represents a reset of clipStack
             clipStack[field] = [time, clipStack[field][1]];
-          } else if (Array.isArray(value)) {
-            const [end, config] = value as [any, FieldConfig];
+          } else if (isSome(value) && typeof value === "object") {
+            const { value: end, config: fieldConfig } = value as FieldKeyframeState<any>;
+
+            // Config is created by falling back onto the higher level configs
+            const clipConfig = { ...fieldConfig, ...objectConfig, ...config };
             // insert the new clip
             clips[field].push({
               start: clipStack[field],
               end: [time, end],
-              interpolation: config.interpolation
+              config: clipConfig
             });
             // and reset the clip stack
             clipStack[field] = [time, end];
@@ -93,12 +98,18 @@ export const createOrchestrate =
   <Base extends StateBase<Fields>, KeyframeDefintion extends KeyframeDefinitionBase<Fields, Base>>(
     base: Base,
     definition: KeyframeDefintion,
-    length?: number
+    config: ClipsConfig
   ): ClipStore<Fields, Base> => {
     // Start by parsing the keyframes
-    const [objects, keyframes, lastFrame] = parseKeyframes(base, definition);
+    const [objects, keyframes, length] = parseKeyframes(base, definition, config);
 
     // NOTE: store is returned to the user, so lifetime management could be a problem
-    const store = createClipStore<Fields, Base>({ fields, objects, keyframes, base, length: length ?? lastFrame });
+    const store = createClipStore<Fields, Base>({
+      fields,
+      objects,
+      keyframes,
+      base,
+      length: config.length ?? length
+    });
     return store;
   };

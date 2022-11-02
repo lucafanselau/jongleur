@@ -1,16 +1,14 @@
 import type { Interpolation } from "@/progress";
 
-export type FieldConfig = {
+export type ClipConfig = {
   damping?: number;
   interpolation?: Interpolation;
 };
 
-export type ObjectConfig = FieldConfig & {
+export type ObjectConfig = ClipConfig & {
   // dont know yet
 };
 
-export type ClipsConfig = ObjectConfig & {
-  /**
-   * */
+export type ClipsConfig = Required<ObjectConfig> & {
   length: number;
 };

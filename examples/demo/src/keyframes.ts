@@ -22,26 +22,26 @@ export const clips = orchestrate(
   {
     start: {
       // pretty early the start label has to vanish
-      0.15: { opacity: 0 }
+      0.15: { opacity: helpers.state(0) }
     },
     second: {
       0.75: { opacity: InheritSymbol },
-      1: { opacity: [1, { interpolation: "ease-in-out" }] },
-      1.25: { opacity: helpers.state(0, "ease-in-out") }
+      1: { opacity: helpers.state(1) },
+      1.25: { opacity: helpers.state(0) }
     },
     third: {
       1.75: { opacity: InheritSymbol },
-      2: { opacity: helpers.state(1, "ease-in-out") },
-      2.25: { opacity: helpers.state(0, "ease-in-out") }
+      2: { opacity: helpers.state(1) },
+      2.25: { opacity: helpers.state(0) }
     },
     fourth: {
       2.75: { opacity: InheritSymbol },
-      3: { opacity: helpers.state(1, "ease-in-out") },
-      3.25: { opacity: helpers.state(0, "ease-in-out") }
+      3: { opacity: helpers.state(1) },
+      3.25: { opacity: helpers.state(0) }
     },
     fifth: {
       3.75: { opacity: InheritSymbol },
-      4: { opacity: helpers.state(1, "ease-in-out") }
+      4: { opacity: helpers.state(1) }
     },
     wall: {
       1.1: { scale: InheritSymbol },
@@ -59,7 +59,7 @@ export const clips = orchestrate(
       2: { scale: InheritSymbol },
       2.2: { scale: helpers.state(new Vector3(1, 1, 1), "linear"), rotation: InheritSymbol },
       2.4: { position: InheritSymbol },
-      2.6: { rotation: helpers.state(new Vector3(0, -Math.PI / 2, 0), "ease-in-out") },
+      2.6: { rotation: helpers.state(new Vector3(0, -Math.PI / 2, 0)) },
       2.9: { position: helpers.state(new Vector3(-50, 0, 0), "ease-out") }
     },
     bed: {
@@ -75,5 +75,9 @@ export const clips = orchestrate(
       4: { intensity: helpers.state(1.5, "linear") }
     }
   },
-  5
+  {
+    interpolation: "ease-in-out",
+    damping: 2,
+    length: 5
+  }
 );

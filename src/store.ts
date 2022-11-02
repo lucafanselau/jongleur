@@ -23,8 +23,6 @@ export type Actions<Fields extends FieldsBase, Base extends StateBase<Fields>> =
   setSlot: <Obj extends keyof Base>(obj: Obj, target: TargetFromBase<Fields, Base, Obj> | null, id: string) => void;
 
   updateProgress: (progress: number) => void;
-  // progress: HandleProgress;
-  // register: Register<Fields, Base>;
 };
 
 export type ClipStore<Fields extends FieldsBase, Base extends StateBase<Fields>> = ReturnType<

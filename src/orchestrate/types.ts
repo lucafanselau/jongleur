@@ -1,7 +1,6 @@
 import type { RefCallback } from "react";
 import type { InheritSymbol } from "./utils";
-import type { FieldConfig } from "./config";
-import type { Interpolation } from "@/progress";
+import type { ClipConfig, ObjectConfig } from "./config";
 
 // Field Definitions
 export type FieldDefinition<Target, Store> = {
@@ -37,15 +36,17 @@ export type TargetFromBase<
  * This is generic over the specific Fields (which mostly should be `typeof defaultFields` from `./fields.ts`)
  **/
 export type StateBase<Fields extends FieldsBase> = {
-  [K: string]: { [F in keyof Fields]?: StoreFromFields<Fields, F> };
+  [K: string]: { [F in keyof Fields]?: StoreFromFields<Fields, F> } & { config?: ObjectConfig };
 };
 
-type PartialOrInherit<T extends object> = {
-  [K in keyof T]?: T[K] | [T[K], FieldConfig] | typeof InheritSymbol;
+export type FieldKeyframeState<T> = { value: T; config: ClipConfig };
+
+type ObjectKeyframe<T extends object> = {
+  [K in keyof T]?: FieldKeyframeState<T[K]> | typeof InheritSymbol;
 };
 
 export type KeyframeDefinitionBase<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
-  [O in keyof Base]: { [T: number]: PartialOrInherit<Base[O]> };
+  [O in keyof Base]: { [T: number]: ObjectKeyframe<Base[O]> };
 };
 
 /**
@@ -54,7 +55,7 @@ export type KeyframeDefinitionBase<Fields extends FieldsBase, Base extends State
 export type Clip<Store = any> = {
   start: [number, Store];
   end: [number, Store];
-  interpolation: Interpolation;
+  config: Required<ClipConfig>;
 };
 
 /**

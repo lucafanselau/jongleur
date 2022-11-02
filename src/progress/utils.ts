@@ -1,5 +1,5 @@
 import { interpolate } from "./interpolation";
-import type { Clip, FieldDefinition } from "@/orchestrate";
+import type { Clip, ClipConfig, FieldDefinition, ObjectConfig } from "@/orchestrate";
 import { clamp, rangesOverlap } from "@/utils";
 
 export const findLastClip = (progress: number, clips: Clip[]): Clip | undefined => {
@@ -20,7 +20,7 @@ export const alphaForClip = (clip: Clip, progress: number) => {
   const {
     start: [lower],
     end: [upper],
-    interpolation
+    config: { interpolation }
   } = clip;
   const alpha = clamp((progress - lower) / (upper - lower), 0, 1);
   // and apply interpolation
