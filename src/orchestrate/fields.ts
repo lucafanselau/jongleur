@@ -1,7 +1,12 @@
 import type { Light, Object3D } from "three";
 import { Vector3 } from "three";
-import { createField, createOrchestrate } from "./keyframes";
-import { lerp } from "./utils";
+import { createOrchestrate } from "./parse";
+import type { FieldDefinition } from "./types";
+import { lerp } from "@/utils";
+
+export const createField = <Target, Store>(
+  apply: (obj: Target, a: Store, b: Store, alpha: number) => void
+): FieldDefinition<Target, Store> => ({ apply });
 
 // utility to interpolate vector
 export type KeysForVector3 = {

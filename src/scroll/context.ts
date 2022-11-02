@@ -1,10 +1,10 @@
 import { createContext } from "react";
 import { createStore } from "zustand";
-import type { OrchestrateStore } from "../keyframes";
-import type { FieldsBase, StateBase } from "../types";
+import type { ClipStore } from "@/store";
+import type { FieldsBase, StateBase } from "@/orchestrate";
 
 export type ScrollStore<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
-  orchestrate: OrchestrateStore<Fields, Base>;
+  orchestrate: ClipStore<Fields, Base>;
   layout?: {
     container: HTMLDivElement;
     scrollPane: HTMLDivElement;

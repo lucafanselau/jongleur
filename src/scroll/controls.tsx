@@ -5,12 +5,13 @@ import type { RootState } from "@react-three/fiber";
 import { useFrame, useThree } from "@react-three/fiber";
 import type { DomEvent } from "@react-three/fiber/dist/declarations/src/core/events";
 import { MathUtils } from "three";
-import type { OrchestrateStore } from "../keyframes";
-import type { FieldsBase, StateBase } from "../types";
 import { isNone, isSome } from "../utils";
 import type { ScrollStoreContext } from "./context";
 import { createScrollStore, scrollContext } from "./context";
 import { applyStyle, containerStyle } from "./styles";
+import type { FieldsBase, StateBase } from "@/orchestrate";
+import type { ClipStore } from "@/store";
+import { useProgress } from "@/progress";
 
 const ScrollEvents: FC = () => {
   // mount r3f specific events stuff based on the layout create by scroll pane
@@ -50,9 +51,9 @@ const ScrollEvents: FC = () => {
     };
   }, [layout, domElement, get, setEvents, target]);
 
-  const animation = useStore(store, s => s.orchestrate);
+  const clips = useStore(store, s => s.orchestrate);
   const damping = useStore(store, s => s.damping);
-  const progress = useStore(animation, s => s.progress);
+  const progress = useProgress(clips);
   const scroll = useRef<number>(0);
 
   const connected = useThree(s => s.events.connected);
@@ -150,7 +151,7 @@ export const Controls = <Fields extends FieldsBase, Base extends StateBase<Field
   damping = 2
 }: {
   children: ReactNode;
-  orchestrate: OrchestrateStore<Fields, Base>;
+  orchestrate: ClipStore<Fields, Base>;
   damping?: number;
 }): ReturnType<FC> => {
   const store = useMemo(() => createScrollStore({ orchestrate }), [orchestrate]);

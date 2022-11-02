@@ -1,6 +1,7 @@
 import type { RefCallback } from "react";
-import type { InheritSymbol } from "./clip";
-import type { Interpolation } from "./interpolation";
+import type { InheritSymbol } from "./utils";
+import type { FieldConfig } from "./config";
+import type { Interpolation } from "@/progress";
 
 // Field Definitions
 export type FieldDefinition<Target, Store> = {
@@ -40,7 +41,7 @@ export type StateBase<Fields extends FieldsBase> = {
 };
 
 type PartialOrInherit<T extends object> = {
-  [K in keyof T]?: [T[K], Interpolation] | typeof InheritSymbol;
+  [K in keyof T]?: T[K] | [T[K], FieldConfig] | typeof InheritSymbol;
 };
 
 export type KeyframeDefinitionBase<Fields extends FieldsBase, Base extends StateBase<Fields>> = {

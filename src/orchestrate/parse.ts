@@ -1,11 +1,11 @@
-import { InheritSymbol } from "./clip";
-import type { Interpolation } from "./interpolation";
-import { createStore } from "./store";
-import type { Clip, FieldDefinition, FieldsBase, KeyframeDefinitionBase, Keyframes, StateBase } from "./types";
-
-export const createField = <Target, Store>(
-  apply: (obj: Target, a: Store, b: Store, alpha: number) => void
-): FieldDefinition<Target, Store> => ({ apply });
+/**
+ * @file Parse keyframes into clips, this is achieved using an `orchestrate` function
+ **/
+import { InheritSymbol } from "./utils";
+import type { Clip, FieldsBase, KeyframeDefinitionBase, Keyframes, StateBase } from "./types";
+import type { ClipStore } from "@/store";
+import { createClipStore } from "@/store";
+import type { Interpolation } from "@/progress";
 
 /**
  * This converts the keyframe definitions into the usable keyframes
@@ -77,9 +77,6 @@ export const parseKeyframes = <
   return [objects, keyframes, lastFrame];
 };
 
-export type OrchestrateStore<Fields extends FieldsBase, Base extends StateBase<Fields>> = ReturnType<
-  typeof createStore<Fields, Base>
->;
 /**
  * Create a new orchestration function that allows for custom fields to be included in the scene
  *
@@ -96,11 +93,11 @@ export const createOrchestrate =
     base: Base,
     definition: KeyframeDefintion,
     length?: number
-  ): OrchestrateStore<Fields, Base> => {
+  ): ClipStore<Fields, Base> => {
     // Start by parsing the keyframes
     const [objects, keyframes, lastFrame] = parseKeyframes(base, definition);
 
     // NOTE: store is returned to the user, so lifetime management could be a problem
-    const store = createStore<Fields, Base>({ fields, objects, keyframes, base, length: length ?? lastFrame });
+    const store = createClipStore<Fields, Base>({ fields, objects, keyframes, base, length: length ?? lastFrame });
     return store;
   };
