@@ -6,6 +6,7 @@ import type { Clip, FieldsBase, KeyframeDefinitionBase, Keyframes, StateBase } f
 import type { ClipStore } from "@/store";
 import { createClipStore } from "@/store";
 import type { Interpolation } from "@/progress";
+import { FieldConfig } from "./config";
 
 /**
  * This converts the keyframe definitions into the usable keyframes
@@ -54,12 +55,12 @@ export const parseKeyframes = <
             // Inherit symbol represents a reset of clipStack
             clipStack[field] = [time, clipStack[field][1]];
           } else if (Array.isArray(value)) {
-            const [end, interpolation] = value as [any, Interpolation];
+            const [end, config] = value as [any, FieldConfig];
             // insert the new clip
             clips[field].push({
               start: clipStack[field],
               end: [time, end],
-              interpolation
+              interpolation: config.interpolation
             });
             // and reset the clip stack
             clipStack[field] = [time, end];

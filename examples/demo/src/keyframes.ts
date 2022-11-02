@@ -1,7 +1,7 @@
-import { clips, InheritSymbol, orchestrate } from "jongleur";
+import { helpers, InheritSymbol, orchestrate } from "jongleur";
 import { Vector3 } from "three";
 
-export const sceneAnimation = orchestrate(
+export const clips = orchestrate(
   {
     // DOM cards
     start: { opacity: 1 },
@@ -27,52 +27,52 @@ export const sceneAnimation = orchestrate(
     second: {
       0.75: { opacity: InheritSymbol },
       1: { opacity: [1, { interpolation: "ease-in-out" }] },
-      1.25: { opacity: clips.state(0, "ease-in-out") }
+      1.25: { opacity: helpers.state(0, "ease-in-out") }
     },
     third: {
       1.75: { opacity: InheritSymbol },
-      2: { opacity: clips.state(1, "ease-in-out") },
-      2.25: { opacity: clips.state(0, "ease-in-out") }
+      2: { opacity: helpers.state(1, "ease-in-out") },
+      2.25: { opacity: helpers.state(0, "ease-in-out") }
     },
     fourth: {
       2.75: { opacity: InheritSymbol },
-      3: { opacity: clips.state(1, "ease-in-out") },
-      3.25: { opacity: clips.state(0, "ease-in-out") }
+      3: { opacity: helpers.state(1, "ease-in-out") },
+      3.25: { opacity: helpers.state(0, "ease-in-out") }
     },
     fifth: {
       3.75: { opacity: InheritSymbol },
-      4: { opacity: clips.state(1, "ease-in-out") }
+      4: { opacity: helpers.state(1, "ease-in-out") }
     },
     wall: {
       1.1: { scale: InheritSymbol },
-      1.5: { scale: clips.state(new Vector3(1, 1, 1), "linear") }
+      1.5: { scale: helpers.state(new Vector3(1, 1, 1), "linear") }
     },
     table: {
       1.1: { position: InheritSymbol },
-      1.6: { position: clips.state(new Vector3(0, 0, 0), "ease-out") }
+      1.6: { position: helpers.state(new Vector3(0, 0, 0), "ease-out") }
     },
     tableStuff: {
       1.6: { scale: InheritSymbol },
-      1.9: { scale: clips.state(new Vector3(1, 1, 1), "ease-out") }
+      1.9: { scale: helpers.state(new Vector3(1, 1, 1), "ease-out") }
     },
     chair: {
       2: { scale: InheritSymbol },
-      2.2: { scale: clips.state(new Vector3(1, 1, 1), "linear"), rotation: InheritSymbol },
+      2.2: { scale: helpers.state(new Vector3(1, 1, 1), "linear"), rotation: InheritSymbol },
       2.4: { position: InheritSymbol },
-      2.6: { rotation: clips.state(new Vector3(0, -Math.PI / 2, 0), "ease-in-out") },
-      2.9: { position: clips.state(new Vector3(-50, 0, 0), "ease-out") }
+      2.6: { rotation: helpers.state(new Vector3(0, -Math.PI / 2, 0), "ease-in-out") },
+      2.9: { position: helpers.state(new Vector3(-50, 0, 0), "ease-out") }
     },
     bed: {
       3: { scale: InheritSymbol },
-      3.5: { scale: clips.state(new Vector3(1, 1, 1), "ease-out") }
+      3.5: { scale: helpers.state(new Vector3(1, 1, 1), "ease-out") }
     },
     lamp: {
       3: { visible: InheritSymbol, position: InheritSymbol },
-      3.8: { visible: clips.state(true, "start"), position: clips.state(new Vector3(0, 0, 0), "ease-out") }
+      3.8: { visible: helpers.state(true, "start"), position: helpers.state(new Vector3(0, 0, 0), "ease-out") }
     },
     lampLights: {
       3.5: { intensity: InheritSymbol },
-      4: { intensity: clips.state(1.5, "linear") }
+      4: { intensity: helpers.state(1.5, "linear") }
     }
   },
   5

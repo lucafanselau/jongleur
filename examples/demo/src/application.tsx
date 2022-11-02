@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { FC, ReactNode, Suspense, useEffect, useState } from "react";
 import { Html, Stats, useProgress } from "@react-three/drei";
 import { Scroll, useRegister } from "jongleur";
-import { sceneAnimation } from "./keyframes";
+import { clips } from "./keyframes";
 import { range } from "jongleur/utils";
 import { IconBrandGithub, IconArrowDown } from "@tabler/icons";
 import ReactSlider from "react-slider";
@@ -25,7 +25,7 @@ const Code: FC<{ children: ReactNode }> = ({ children }) => (
 );
 
 function App() {
-  const register = useRegister(sceneAnimation);
+  const register = useRegister(clips);
 
   const [damping, setDamping] = useState(2);
   return (
@@ -33,7 +33,7 @@ function App() {
       <Canvas frameloop="demand">
         {/* <Stats /> */}
         <Suspense fallback={<Loader />}>
-          <Scroll.Controls orchestrate={sceneAnimation} damping={damping}>
+          <Scroll.Controls orchestrate={clips} damping={damping}>
             <Scroll.Snaps
               points={[0, 1, 2, 3, 4, 5].map(v => v + 0.5)}
               align={"center"}

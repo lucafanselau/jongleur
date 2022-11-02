@@ -4,11 +4,11 @@
 
 import useSpline from "@splinetool/r3f-spline";
 import { OrthographicCamera } from "@react-three/drei";
-import { sceneAnimation } from "./keyframes";
+import { clips } from "./keyframes";
 import { useRegister } from "jongleur";
 
 export default function Scene({ ...props }) {
-  const register = useRegister(sceneAnimation);
+  const register = useRegister(clips);
   const { nodes, materials } = useSpline("https://prod.spline.design/Hmz1Escqe3w2cHBn/scene.splinecode");
   return (
     <>

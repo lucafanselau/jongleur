@@ -19,7 +19,8 @@
     "types": ["vite/client"],
     "paths": {
       "jongleur/*": ["../../src/*"],
-      "jongleur": ["../../src/index.ts"]
+      "jongleur": ["../../src/index.ts"],
+      "@/*": ["../../src/*"]
     }
   },
   "include": ["src/**/*"],
