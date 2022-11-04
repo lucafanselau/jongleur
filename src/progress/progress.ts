@@ -88,3 +88,40 @@ export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fi
     [store, damping]
   );
 };
+
+/**
+ * A progress hook that can be used outside of an R3F Canvas component
+ *
+ * Due to a missing frameloop, this progress ignores the ~damping~ setting and
+ * applies progress directly
+ **/
+export const useUndampedProgress = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
+  store: ClipStore<Fields, Base>
+): HandleProgress => {
+  return useCallback(
+    p => {
+      const { length, objects, slots, keyframes, last, fields } = store.getState();
+      const progress = p * length;
+      // apply the updates, applicable to range
+      const range: [number, number] = [Math.min(last, progress), Math.max(last, progress)];
+
+      objects.forEach(o =>
+        keyframes[o].fields.forEach(f => {
+          const field = f as keyof Fields;
+          const clips = keyframes[o].clips[field];
+          const considered = findActiveClip(range, clips);
+          // console.log(considered, field, o);
+          if (isSome(considered)) {
+            // apply directissimy
+            Object.values(slots[o] ?? {}).forEach(target => {
+              if (isSome(target)) applyClip(fields[field], target, considered, progress);
+            });
+          }
+        })
+      );
+      const { setLastProgress } = store.getState();
+      setLastProgress(progress);
+    },
+    [store]
+  );
+};

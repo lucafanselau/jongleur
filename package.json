@@ -15,7 +15,9 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build",
@@ -40,6 +42,7 @@
     "@antfu/eslint-config": "^0.27.0",
     "@antfu/ni": "^0.18.2",
     "@react-three/fiber": "^8.8.9",
+    "@testing-library/react": "^13.4.0",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@types/three": "^0.144.0",
@@ -50,6 +53,7 @@
     "eslint": "^8.23.1",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "jsdom": "^20.0.2",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
