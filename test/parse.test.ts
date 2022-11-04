@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { Object3D, Vector3 } from "three";
+import { Vector3 } from "three";
 import { parseKeyframes } from "@/orchestrate/parse";
-import { helpers, InheritSymbol, orchestrate } from "@/orchestrate";
+import { InheritSymbol, helpers } from "@/orchestrate";
 
 // type TestScene = { test: { position: Vector3 } };
 
@@ -18,6 +18,7 @@ describe("parsing", () => {
       { interpolation: "ease-in-out", damping: true }
     );
 
+    expect(length).to.eql(2);
     expect(objects).to.eql(["test"]);
     expect(keyframes).to.eql({
       test: {

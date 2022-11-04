@@ -28,6 +28,6 @@ export const useThreeCamera = <
 export const useTimeProgress = (progress: HandleProgress, loop: number) => {
   useFrame(({ clock: { elapsedTime } }) => {
     const total = (elapsedTime % loop) / loop;
-    progress(() => total);
+    progress(total);
   });
 };

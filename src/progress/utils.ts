@@ -1,5 +1,5 @@
 import { interpolate } from "./interpolation";
-import type { Clip, ClipConfig, FieldDefinition, ObjectConfig } from "@/orchestrate";
+import type { Clip, FieldDefinition } from "@/orchestrate";
 import { clamp, rangesOverlap } from "@/utils";
 
 export const findLastClip = (progress: number, clips: Clip[]): Clip | undefined => {
