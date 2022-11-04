@@ -1,11 +1,10 @@
-import { useContext, useEffect, useMemo, useRef } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import type { FC, ReactNode } from "react";
 import { useStore } from "zustand";
 import type { RootState } from "@react-three/fiber";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useThree } from "@react-three/fiber";
 import type { DomEvent } from "@react-three/fiber/dist/declarations/src/core/events";
-import { MathUtils } from "three";
-import { isNone, isSome } from "../utils";
+import { isNone } from "../utils";
 import type { ScrollStoreContext } from "./context";
 import { createScrollStore, scrollContext } from "./context";
 import { applyStyle, containerStyle } from "./styles";
@@ -53,8 +52,7 @@ const ScrollEvents: FC = () => {
 
   const clips = useStore(store, s => s.orchestrate);
   const damping = useStore(store, s => s.damping);
-  const progress = useProgress(clips);
-  const scroll = useRef<number>(0);
+  const progress = useProgress(clips, damping);
 
   const connected = useThree(s => s.events.connected);
 
@@ -69,15 +67,7 @@ const ScrollEvents: FC = () => {
       if (!layout.container) return;
       const current = layout.container.scrollTop;
       const currentProgress = current / scrollThreshold;
-
-      // if damping, don't handle progress immediately
-      if (isSome(damping)) {
-        // here we have to invalidate at least once, to trigger the useFrame function
-        invalidate();
-        scroll.current = currentProgress;
-      } else {
-        progress(() => currentProgress);
-      }
+      progress(currentProgress);
     };
 
     layout.container.addEventListener("scroll", onScroll);
@@ -87,18 +77,7 @@ const ScrollEvents: FC = () => {
     return () => {
       layout.container.removeEventListener("scroll", onScroll);
     };
-  }, [layout, size, get, invalidate, progress, damping, connected]);
-
-  useFrame((_, delta) => {
-    if (isSome(damping)) {
-      // damp the scrolls if that is required
-      progress(last => {
-        const progress = MathUtils.damp(last, scroll.current, damping, Math.min(delta, 1 / 20));
-        if (Math.abs(progress - scroll.current) > 1e-3) invalidate();
-        return progress;
-      });
-    }
-  });
+  }, [layout, size, get, invalidate, progress, connected]);
 
   return null;
 };

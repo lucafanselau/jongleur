@@ -120,6 +120,7 @@ function App() {
                       onChange={value => setDamping(value)}
                     />
                     <p className={"text-neutral-400 text-xs"}>Note: 0.1 is extremely slow 🐌 and 10 is snappy 🚀</p>
+                    <p>You can even disable damping for any object or even any single animation in the scene.</p>
                     <p>
                       At least now the room is not that empty anymore, but{" "}
                       <span className={"contents italic"}>wait</span> there is more that we can do...

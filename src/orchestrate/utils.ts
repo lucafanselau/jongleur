@@ -8,7 +8,7 @@ export const InheritSymbol: unique symbol = Symbol("jongleur-inherit-symbol");
  **/
 export const helpers = {
   inherit: InheritSymbol,
-  state: <T>(value: T, interpolation?: Interpolation, damping?: number): FieldKeyframeState<T> => ({
+  state: <T>(value: T, interpolation?: Interpolation, damping?: boolean): FieldKeyframeState<T> => ({
     value,
     config: { interpolation, damping }
   })

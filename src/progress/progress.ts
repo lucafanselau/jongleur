@@ -1,43 +1,90 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
+import { invalidate, useFrame } from "@react-three/fiber";
+import { MathUtils } from "three";
 import { applyClip, findActiveClip } from "./utils";
-import type { FieldsBase, HandleProgress, StateBase } from "@/orchestrate";
+import type { Clip, FieldsBase, HandleProgress, StateBase } from "@/orchestrate";
 import type { ClipStore } from "@/store";
 import { isSome } from "@/utils";
 
 export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
-  store: ClipStore<Fields, Base>
+  store: ClipStore<Fields, Base>,
+  damping?: number,
+  eps = 1e-2
 ): HandleProgress => {
-  // TODO: damping
+  // a list of clips that were determined to have to be applied until during the next update
+  const shouldUpdate = useRef<{ considered: Clip; o: keyof Base; field: keyof Fields }[]>([]);
+  const target = useRef<number>(0);
+  // const last = useRef<number>(target.current);
+
+  useFrame(
+    useCallback(
+      (_, delta) => {
+        if (isSome(damping) && shouldUpdate.current.length > 0) {
+          const { slots, fields, setLastProgress, last } = store.getState();
+          // damp the scrolls if that is required
+          const progress = MathUtils.damp(last, target.current, damping, Math.min(delta, 1 / 20));
+          setLastProgress(progress);
+          // apply all the clips
+          shouldUpdate.current.forEach(({ considered, o, field }) => {
+            Object.values(slots[o] ?? {}).forEach(target => {
+              if (isSome(target)) applyClip(fields[field], target, considered, progress);
+            });
+          });
+
+          // this is our stop condition, to enable demand based invalidating loops
+          if (Math.abs(progress - target.current) < eps) {
+            // means we reached our target (to a sufficient degree) and can stop the frames (if we are in frameloop: "demand" mode)
+            // setLastProgress(target.current);
+            shouldUpdate.current = [];
+          } else {
+            // otherwise,  dispatch at least another frame
+            invalidate();
+          }
+        }
+      },
+      [store, damping, eps]
+    )
+  );
+
   return useCallback(
     p => {
-      const { updateProgress, length, objects, slots, keyframes, last, fields } = store.getState();
-      const progress = p(last / length) * length;
+      const { length, objects, slots, keyframes, last, fields } = store.getState();
+      const progress = p * length;
       // apply the updates, applicable to range
       const range: [number, number] = [Math.min(last, progress), Math.max(last, progress)];
 
-      // also handle invalidation
-      // let _hasApplied = false;
+      // also invalidate, to kick of at least one frame
+      invalidate();
+
+      // This works, since last is only overridden, once the frame was applied
+      shouldUpdate.current = [];
+      target.current = progress;
 
       objects.forEach(o =>
-        keyframes[o].fields.forEach(field => {
+        keyframes[o].fields.forEach(f => {
+          const field = f as keyof Fields;
           const clips = keyframes[o].clips[field];
-
           const considered = findActiveClip(range, clips);
           // console.log(considered, field, o);
           if (isSome(considered)) {
-            // -> means, we find a clip that should be applied, for the current progress, so lets apply that to all registered
-            Object.values(slots[o] ?? {}).forEach(target => {
-              if (isSome(target)) applyClip(fields[field as keyof Fields], target, considered, progress);
-              // _hasApplied = true;
-            });
+            if (isSome(damping) && considered.config.damping) {
+              // store that, so that the damping is applied in the useFrame callback
+              shouldUpdate.current.push({ considered, o, field });
+            } else {
+              // apply directissimy
+              Object.values(slots[o] ?? {}).forEach(target => {
+                if (isSome(target)) applyClip(fields[field], target, considered, progress);
+              });
+            }
           }
         })
       );
-
-      // if (hasApplied) invalidate();
-
-      updateProgress(progress);
+      // handle the case that no damped object is added
+      if (shouldUpdate.current.length === 0) {
+        const { setLastProgress } = store.getState();
+        setLastProgress(progress);
+      }
     },
-    [store]
+    [store, damping]
   );
 };

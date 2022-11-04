@@ -21,8 +21,7 @@ export type Store<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
 
 export type Actions<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
   setSlot: <Obj extends keyof Base>(obj: Obj, target: TargetFromBase<Fields, Base, Obj> | null, id: string) => void;
-
-  updateProgress: (progress: number) => void;
+  setLastProgress: (progress: number) => void;
 };
 
 export type ClipStore<Fields extends FieldsBase, Base extends StateBase<Fields>> = ReturnType<
@@ -52,6 +51,6 @@ export const createClipStore = <Fields extends FieldsBase, Base extends StateBas
           else delete objSlot[id];
         });
       },
-      updateProgress: progress => set(s => void (s.last = progress))
+      setLastProgress: progress => set(s => void (s.last = progress))
     }))
   );

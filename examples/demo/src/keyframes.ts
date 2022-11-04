@@ -4,7 +4,7 @@ import { Vector3 } from "three";
 export const clips = orchestrate(
   {
     // DOM cards
-    start: { opacity: 1 },
+    start: { opacity: 1, config: { interpolation: "linear" } },
     second: { opacity: 0 },
     third: { opacity: 0 },
     fourth: { opacity: 0 },
@@ -22,7 +22,7 @@ export const clips = orchestrate(
   {
     start: {
       // pretty early the start label has to vanish
-      0.15: { opacity: helpers.state(0) }
+      0.08: { opacity: helpers.state(0, undefined, false) }
     },
     second: {
       0.75: { opacity: InheritSymbol },
@@ -77,7 +77,6 @@ export const clips = orchestrate(
   },
   {
     interpolation: "ease-in-out",
-    damping: 2,
     length: 5
   }
 );

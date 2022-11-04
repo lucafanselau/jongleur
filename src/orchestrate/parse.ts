@@ -3,10 +3,11 @@
  **/
 import { InheritSymbol } from "./utils";
 import type { Clip, FieldKeyframeState, FieldsBase, KeyframeDefinitionBase, Keyframes, StateBase } from "./types";
-import type { ClipsConfig } from "./config";
+import type { ClipsConfig, ObjectConfig } from "./config";
+import { defaultObjectConfig } from "./config";
 import type { ClipStore } from "@/store";
 import { createClipStore } from "@/store";
-import { isSome } from "@/utils";
+import { isSome, omitUndefined } from "@/utils";
 
 /**
  * This converts the keyframe definitions into the usable keyframes
@@ -18,7 +19,7 @@ export const parseKeyframes = <
 >(
   base: Base,
   definition: KeyframeDefintion,
-  config: ClipsConfig
+  config: Required<ObjectConfig>
 ): [(keyof Base)[], Keyframes<Fields, Base>, number] => {
   // loop over all object
   const objects = Object.keys(base) as (keyof Base)[];
@@ -60,7 +61,12 @@ export const parseKeyframes = <
             const { value: end, config: fieldConfig } = value as FieldKeyframeState<any>;
 
             // Config is created by falling back onto the higher level configs
-            const clipConfig = { ...fieldConfig, ...objectConfig, ...config };
+            // this is a bit weirder then it should be, since this approach does not work with undefine's as object values
+            const clipConfig = {
+              ...omitUndefined(config),
+              ...omitUndefined(objectConfig ?? {}),
+              ...omitUndefined(fieldConfig)
+            };
             // insert the new clip
             clips[field].push({
               start: clipStack[field],
@@ -101,7 +107,7 @@ export const createOrchestrate =
     config: ClipsConfig
   ): ClipStore<Fields, Base> => {
     // Start by parsing the keyframes
-    const [objects, keyframes, length] = parseKeyframes(base, definition, config);
+    const [objects, keyframes, length] = parseKeyframes(base, definition, { ...defaultObjectConfig, ...config });
 
     // NOTE: store is returned to the user, so lifetime management could be a problem
     const store = createClipStore<Fields, Base>({
