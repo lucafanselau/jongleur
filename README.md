@@ -1,5 +1,5 @@
 <div align="center">
-    <img src='https://jongleur.vercel.app/juggling.png' border='0' alt='juggling'/>
+    <img src='https://jongleur-docs.vercel.app/img/logo.png' border='0' alt='juggling'/>
 </div>
 <h1 align="center"> Jongleur </h1>
 
