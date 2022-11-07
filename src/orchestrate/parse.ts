@@ -103,7 +103,7 @@ export const createOrchestrate =
   <Fields extends FieldsBase>(fields: Fields) =>
   <Base extends StateBase<Fields>, KeyframeDefintion extends KeyframeDefinitionBase<Fields, Base>>(
     base: Base,
-    definition: KeyframeDefintion,
+    definition: KeyframeDefinitionBase<Fields, Base>,
     config: ClipsConfig
   ): ClipStore<Fields, Base> => {
     // Start by parsing the keyframes

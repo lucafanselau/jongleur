@@ -16,7 +16,10 @@ Additionally, the library provides a set of Scroll related react components. The
 ## Basic example
 
 ## TODO:
-- Damping:
+- [x] Damping
+- [ ] Spring movement
+- [ ] Sticky Scroll Controls (like stripe or owna.world)
+- [ ] Better in code documentation
   
 
 ## Terminology

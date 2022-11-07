@@ -27,6 +27,25 @@ const config = {
     locales: ["en"]
   },
 
+  plugins: [
+    [
+      "docusaurus-plugin-typedoc",
+      /** @type {import("docusaurus-plugin-typedoc/dist/types").PluginOptions} */
+      {
+        // typedoc options
+        entryPoints: ["../src/index.ts"],
+        tsconfig: "../tsconfig.json",
+        readme: "none",
+
+        // plugin options
+        sidebar: {
+          // fullNames: true,
+          categoryLabel: "API"
+        }
+      }
+    ]
+  ],
+
   presets: [
     [
       "classic",
@@ -36,7 +55,7 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/"
+          editUrl: "https://github.com/lucafanselau/jongleur"
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css")
@@ -57,12 +76,18 @@ const config = {
         items: [
           {
             type: "doc",
-            docId: "intro",
+            docId: "guides/getting-started",
             position: "left",
-            label: "Tutorial"
+            label: "Documentation"
           },
           {
-            href: "https://github.com/facebook/docusaurus",
+            to: "docs/api/modules", // 'api' is the 'out' directory
+            activeBasePath: "docs",
+            label: "API",
+            position: "left"
+          },
+          {
+            href: "https://github.com/lucafanselau/jongleur",
             label: "GitHub",
             position: "right"
           }
@@ -75,25 +100,12 @@ const config = {
             title: "Docs",
             items: [
               {
-                label: "Tutorial",
-                to: "/docs/intro"
-              }
-            ]
-          },
-          {
-            title: "Community",
-            items: [
-              {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus"
+                label: "Documentation",
+                to: "/docs/guides/getting-started"
               },
               {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus"
-              },
-              {
-                label: "Twitter",
-                href: "https://twitter.com/docusaurus"
+                label: "API",
+                to: "/docs/api/modules"
               }
             ]
           },
@@ -101,17 +113,13 @@ const config = {
             title: "More",
             items: [
               {
-                label: "Blog",
-                to: "/blog"
-              },
-              {
                 label: "GitHub",
-                href: "https://github.com/facebook/docusaurus"
+                href: "https://github.com/lucafanselau/jongleur"
               }
             ]
           }
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`
+        ]
+        // copyright: `Copyright © ${new Date().getFullYear()} Jongleur, Inc.`
       },
       prism: {
         theme: lightCodeTheme,

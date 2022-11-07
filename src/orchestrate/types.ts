@@ -87,7 +87,7 @@ export type HandleProgress = (progress: number) => void;
  * if you want to define reusable functionality for a scene object and only want the caller to be able to provide
  * object with a specific target type.
  *
- * For future reference this type is loosley inspired by:
+ * For future reference this type is loosely inspired by:
  * https://stackoverflow.com/questions/60291002/can-typescript-restrict-keyof-to-a-list-of-properties-of-a-particular-type
  **/
 export type ObjectsForTarget<Target, Fields extends FieldsBase, Base extends StateBase<Fields>> = {
