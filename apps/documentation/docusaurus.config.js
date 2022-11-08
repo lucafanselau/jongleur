@@ -33,8 +33,8 @@ const config = {
       /** @type {import("docusaurus-plugin-typedoc/dist/types").PluginOptions} */
       {
         // typedoc options
-        entryPoints: ["../src/index.ts"],
-        tsconfig: "../tsconfig.json",
+        entryPoints: ["../../src/index.ts"],
+        tsconfig: "../../tsconfig.json",
         readme: "none",
 
         // plugin options

@@ -15,9 +15,7 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build",
@@ -29,7 +27,8 @@
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "nr build",
     "release": "bumpp && npm publish",
-    "start": "pnpm run --filter demo dev",
+    "start:demo": "pnpm run --filter demo dev",
+    "start:docs": "pnpm run --filter documentation start",
     "check": "pnpm run typecheck && pnpm run lint && pnpm run test"
   },
   "peerDependencies": {

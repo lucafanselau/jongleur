@@ -28,7 +28,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[store.ts:22](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/store.ts#L22)
+[store.ts:22](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/store.ts#L22)
 
 ___
 
@@ -54,7 +54,7 @@ A clip represents a single transition sequence for a Field Store
 
 #### Defined in
 
-[orchestrate/types.ts:55](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/types.ts#L55)
+[orchestrate/types.ts:55](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/types.ts#L55)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 #### Defined in
 
-[orchestrate/config.ts:3](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/config.ts#L3)
+[orchestrate/config.ts:3](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/config.ts#L3)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[store.ts:27](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/store.ts#L27)
+[store.ts:27](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/store.ts#L27)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[orchestrate/config.ts:12](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/config.ts#L12)
+[orchestrate/config.ts:12](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/config.ts#L12)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[orchestrate/fields.ts:67](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/fields.ts#L67)
+[orchestrate/fields.ts:67](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/fields.ts#L67)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[orchestrate/types.ts:6](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/types.ts#L6)
+[orchestrate/types.ts:6](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/types.ts#L6)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[orchestrate/types.ts:42](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/types.ts#L42)
+[orchestrate/types.ts:42](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/types.ts#L42)
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 #### Defined in
 
-[orchestrate/types.ts:10](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/types.ts#L10)
+[orchestrate/types.ts:10](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/types.ts#L10)
 
 ___
 
@@ -192,7 +192,7 @@ ___
 
 #### Defined in
 
-[orchestrate/types.ts:81](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/types.ts#L81)
+[orchestrate/types.ts:81](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/types.ts#L81)
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 #### Defined in
 
-[progress/interpolation.ts:1](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/progress/interpolation.ts#L1)
+[progress/interpolation.ts:1](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/progress/interpolation.ts#L1)
 
 ___
 
@@ -219,7 +219,7 @@ ___
 
 #### Defined in
 
-[orchestrate/types.ts:48](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/types.ts#L48)
+[orchestrate/types.ts:48](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/types.ts#L48)
 
 ___
 
@@ -238,7 +238,7 @@ The parsed keyframes, that are computed by the orchestrate function.
 
 #### Defined in
 
-[orchestrate/types.ts:64](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/types.ts#L64)
+[orchestrate/types.ts:64](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/types.ts#L64)
 
 ___
 
@@ -248,7 +248,7 @@ ___
 
 #### Defined in
 
-[orchestrate/config.ts:8](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/config.ts#L8)
+[orchestrate/config.ts:8](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/config.ts#L8)
 
 ___
 
@@ -273,7 +273,7 @@ https://stackoverflow.com/questions/60291002/can-typescript-restrict-keyof-to-a-
 
 #### Defined in
 
-[orchestrate/types.ts:93](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/types.ts#L93)
+[orchestrate/types.ts:93](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/types.ts#L93)
 
 ___
 
@@ -315,7 +315,7 @@ be modified, this will be the Intersection type of all fields
 
 #### Defined in
 
-[orchestrate/types.ts:76](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/types.ts#L76)
+[orchestrate/types.ts:76](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/types.ts#L76)
 
 ___
 
@@ -339,7 +339,7 @@ This is generic over the specific Fields (which mostly should be `typeof default
 
 #### Defined in
 
-[orchestrate/types.ts:38](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/types.ts#L38)
+[orchestrate/types.ts:38](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/types.ts#L38)
 
 ___
 
@@ -368,7 +368,7 @@ ___
 
 #### Defined in
 
-[store.ts:7](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/store.ts#L7)
+[store.ts:7](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/store.ts#L7)
 
 ___
 
@@ -388,7 +388,7 @@ Utility Type to the field target for an object (Obj) in the Scene (specified by 
 
 #### Defined in
 
-[orchestrate/types.ts:26](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/types.ts#L26)
+[orchestrate/types.ts:26](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/types.ts#L26)
 
 ## Variables
 
@@ -398,7 +398,7 @@ Utility Type to the field target for an object (Obj) in the Scene (specified by 
 
 #### Defined in
 
-[orchestrate/utils.ts:4](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/utils.ts#L4)
+[orchestrate/utils.ts:4](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/utils.ts#L4)
 
 ___
 
@@ -417,7 +417,7 @@ ___
 
 #### Defined in
 
-[scroll/index.ts:5](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/scroll/index.ts#L5)
+[scroll/index.ts:5](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/scroll/index.ts#L5)
 
 ___
 
@@ -439,7 +439,7 @@ to open a pull request
 
 #### Defined in
 
-[orchestrate/fields.ts:51](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/fields.ts#L51)
+[orchestrate/fields.ts:51](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/fields.ts#L51)
 
 ___
 
@@ -462,7 +462,7 @@ ___
 
 #### Defined in
 
-[orchestrate/fields.ts:62](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/fields.ts#L62)
+[orchestrate/fields.ts:62](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/fields.ts#L62)
 
 ___
 
@@ -472,7 +472,7 @@ ___
 
 #### Defined in
 
-[orchestrate/config.ts:16](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/config.ts#L16)
+[orchestrate/config.ts:16](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/config.ts#L16)
 
 ___
 
@@ -498,7 +498,7 @@ to open a pull request
 
 #### Defined in
 
-[orchestrate/fields.ts:26](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/fields.ts#L26)
+[orchestrate/fields.ts:26](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/fields.ts#L26)
 
 ___
 
@@ -517,7 +517,7 @@ Utilities to be used to create keyframe clips
 
 #### Defined in
 
-[orchestrate/utils.ts:9](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/utils.ts#L9)
+[orchestrate/utils.ts:9](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/utils.ts#L9)
 
 ## Functions
 
@@ -544,7 +544,7 @@ Utilities to be used to create keyframe clips
 
 #### Defined in
 
-[store.ts:31](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/store.ts#L31)
+[store.ts:31](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/store.ts#L31)
 
 ___
 
@@ -571,7 +571,7 @@ ___
 
 #### Defined in
 
-[orchestrate/fields.ts:7](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/fields.ts#L7)
+[orchestrate/fields.ts:7](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/fields.ts#L7)
 
 ___
 
@@ -626,7 +626,7 @@ examples
 
 #### Defined in
 
-[orchestrate/parse.ts:103](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/parse.ts#L103)
+[orchestrate/parse.ts:103](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/parse.ts#L103)
 
 ___
 
@@ -649,7 +649,7 @@ Get the interpolation function for a linear offset between 0..1
 
 #### Defined in
 
-[progress/interpolation.ts:16](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/progress/interpolation.ts#L16)
+[progress/interpolation.ts:16](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/progress/interpolation.ts#L16)
 
 ___
 
@@ -683,7 +683,7 @@ most r3f context
 
 #### Defined in
 
-[orchestrate/parse.ts:104](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/orchestrate/parse.ts#L104)
+[orchestrate/parse.ts:104](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/orchestrate/parse.ts#L104)
 
 ___
 
@@ -712,7 +712,7 @@ ___
 
 #### Defined in
 
-[progress/progress.ts:9](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/progress/progress.ts#L9)
+[progress/progress.ts:9](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/progress/progress.ts#L9)
 
 ___
 
@@ -739,7 +739,7 @@ ___
 
 #### Defined in
 
-[progress/register.ts:7](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/progress/register.ts#L7)
+[progress/register.ts:7](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/progress/register.ts#L7)
 
 ___
 
@@ -769,7 +769,7 @@ ___
 
 #### Defined in
 
-[progress/hooks.ts:9](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/progress/hooks.ts#L9)
+[progress/hooks.ts:9](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/progress/hooks.ts#L9)
 
 ___
 
@@ -790,7 +790,7 @@ ___
 
 #### Defined in
 
-[progress/hooks.ts:28](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/progress/hooks.ts#L28)
+[progress/hooks.ts:28](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/progress/hooks.ts#L28)
 
 ___
 
@@ -822,4 +822,4 @@ applies progress directly
 
 #### Defined in
 
-[progress/progress.ts:98](https://github.com/lucafanselau/jongleur/blob/847c2c6/src/progress/progress.ts#L98)
+[progress/progress.ts:98](https://github.com/lucafanselau/jongleur/blob/46f4d6f/src/progress/progress.ts#L98)
