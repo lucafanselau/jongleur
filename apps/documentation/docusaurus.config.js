@@ -1,7 +1,7 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/github");
+const lightCodeTheme = require("prism-react-renderer/themes/palenight");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
@@ -28,24 +28,35 @@ const config = {
   },
 
   plugins: [
-    [
-      "docusaurus-plugin-typedoc",
-      /** @type {import("docusaurus-plugin-typedoc/dist/types").PluginOptions} */
-      {
-        // typedoc options
-        entryPoints: ["../../src/index.ts"],
-        tsconfig: "../../tsconfig.json",
-        readme: "none",
-
-        // plugin options
-        sidebar: {
-          // fullNames: true,
-          categoryLabel: "API"
-        }
+    // [
+    //   "docusaurus-plugin-typedoc",
+    //   /** @type {import("docusaurus-plugin-typedoc/dist/types").PluginOptions} */
+    //   {
+    //     // typedoc options
+    //     entryPoints: ["../../src/index.ts"],
+    //     tsconfig: "../../tsconfig.json",
+    //     readme: "none",
+    //     // plugin options
+    //     sidebar: {
+    //       // fullNames: true,
+    //       categoryLabel: "API"
+    //     }
+    //   }
+    // ]
+    () => ({
+      name: "resolve-react",
+      configureWebpack() {
+        return {
+          resolve: {
+            alias: {
+              // assuming root node_modules is up from "./packages/<your-docusaurus>
+              react: require.resolve("./node_modules/react")
+            }
+          }
+        };
       }
-    ]
+    })
   ],
-
   presets: [
     [
       "classic",
@@ -61,6 +72,16 @@ const config = {
           customCss: require.resolve("./src/css/custom.css")
         }
       })
+    ],
+    [
+      "docusaurus-preset-shiki-twoslash",
+      {
+        vfsRoot: process.cwd(),
+        themes: ["material-lighter", "one-dark-pro"],
+        defaultCompilerOptions: {
+          types: ["node"]
+        }
+      }
     ]
   ],
 

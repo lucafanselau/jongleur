@@ -17,7 +17,7 @@ const PkgCommands: FC<{ type: "add"; cmd: string }> = ({ type, cmd }) => {
         </CodeBlock>
       </TabItem>
       <TabItem value="npm" label="npm">
-        <CodeBlock language="bash">
+        <CodeBlock language="bash" showLineNumbers>
           npm {type === "add" ? "install" : ""} {cmd}
         </CodeBlock>
       </TabItem>
