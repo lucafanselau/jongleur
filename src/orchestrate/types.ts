@@ -45,7 +45,7 @@ type ObjectKeyframe<T extends object> = {
   [K in keyof T]?: FieldKeyframeState<T[K]> | typeof InheritSymbol;
 };
 
-export type KeyframeDefinitionBase<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
+export type KeyframeDefinition<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
   [O in keyof Base]: { [T: number]: ObjectKeyframe<Base[O]> };
 };
 
