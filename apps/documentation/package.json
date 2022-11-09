@@ -1,5 +1,5 @@
 {
-  "name": "@example/docs",
+  "name": "documentation",
   "type": "module",
   "version": "0.0.1",
   "private": true,
@@ -19,6 +19,7 @@
     "@astrojs/tailwind": "^2.1.2",
     "@docsearch/css": "^3.1.0",
     "@docsearch/react": "^3.1.0",
+    "@fontsource/roboto-flex": "^4.5.2",
     "@types/node": "^18.0.0",
     "@types/react": "^17.0.45",
     "@types/react-dom": "^18.0.0",
@@ -32,6 +33,8 @@
     "tailwindcss": "^3.0.24"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.8"
+    "@tailwindcss/typography": "^0.5.8",
+    "prettier": "^2.7.1",
+    "prettier-plugin-astro": "^0.7.0"
   }
 }

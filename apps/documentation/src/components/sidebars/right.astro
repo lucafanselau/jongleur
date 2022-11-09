@@ -1,0 +1,35 @@
+---
+import DarkToggle from "../utils/dark-toggle.tsx";
+
+const { headings } = Astro.props;
+---
+
+<aside class="w-64 flex flex-col space-y-4" aria-label="Sidebar">
+  <div>
+    <h2 class="mb-2 text-2xl">On this page</h2>
+    <ul class="space-y-2 list-disc list-inside">
+      {
+        headings.map(({ depth, slug, text }) => (
+          <li class="items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+            <a href={slug}>{text}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <div>
+    <h2 class="mb-2 text-2xl">More</h2>
+    <ul class="space-y-2 list-outside">
+      <li>
+        <a
+          href={"#"}
+          class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+          >🖋 <span class="ml-3">Edit this page</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="flex justify-center">
+    <DarkToggle client:idle />
+  </div>
+</aside>

@@ -1,40 +1,56 @@
 ---
-
-import * as CONFIG from '../config';
+import * as CONFIG from "../config";
 
 type Props = {
-	frontmatter: CONFIG.Frontmatter;
-	headings: MarkdownHeading[];
+  frontmatter: CONFIG.Frontmatter;
+  headings: MarkdownHeading[];
 };
 
 const { frontmatter, headings } = Astro.props as Props;
 import Navigation from "../components/navbar/navbar.astro";
 import DarkToggle from "../components/utils/dark-toggle.tsx";
 import LeftSidebar from "../components/sidebars/left.astro";
+import RightSidebar from "../components/sidebars/right.astro";
 
+import "@fontsource/roboto-flex";
 import "../styles/shiki.css";
-
 ---
 
-<html dir={frontmatter.dir ?? 'ltr'} lang={frontmatter.lang ?? 'en-us'} class="initial">
-	<head>
-		<title>
-			{frontmatter.title ? `${frontmatter.title} 🚀 ${CONFIG.SITE.title}` : CONFIG.SITE.title}
-		</title>
-      </head>
-    <body>
-      <main class="bg-white dark:bg-dark-gray text-dark-gray dark:text-white min-h-[100vh] flex flex-col items-center">
-        <Navigation />
-        <div class="gap-1 grid grid-cols-1 md:grid-cols-md-layout w-full lg:grid-cols-layout items-center justify-items-stretch">
+<html
+  dir={frontmatter.dir ?? "ltr"}
+  lang={frontmatter.lang ?? "en-us"}
+  class="initial"
+>
+  <head>
+    <title>
+      {
+        frontmatter.title
+          ? `${frontmatter.title} 🚀 ${CONFIG.SITE.title}`
+          : CONFIG.SITE.title
+      }
+    </title>
+  </head>
+  <body>
+    <main
+      class="bg-white dark:bg-dark-gray text-dark-gray dark:text-white min-h-[100vh] flex flex-col items-center"
+    >
+      <Navigation />
+      <div
+        class="gap-4 grid grid-cols-1 md:grid-cols-md-layout w-full lg:grid-cols-layout justify-items-stretch p-4"
+      >
         <LeftSidebar />
-          <article class="prose prose-slate lg:prose-xl dark:prose-invert ">
-        <slot />
-            </article>
-        <DarkToggle client:idle/>
-          </div>
+        <div class="md:hidden h-[1px] w-full bg-current"></div>
+        <article
+          class="md:row-span-3 prose prose-slate lg:prose-xl dark:prose-invert"
+        >
+          <slot />
+        </article>
+        <div class="lg:hidden h-[1px] w-full bg-current"></div>
+        <RightSidebar headings={headings} />
+      </div>
     </main>
-    </body>
+  </body>
+  <script>
+    import "flowbite";
+  </script>
 </html>
-<script>
-import "flowbite";
-</script>

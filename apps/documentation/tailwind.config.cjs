@@ -1,4 +1,5 @@
 const colors = require("tailwindcss/colors");
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -6,6 +7,9 @@ module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Roboto Flex", ...defaultTheme.fontFamily.sans]
+      },
       gridTemplateColumns: {
         "md-layout": "16rem minmax(0, 1fr)",
         layout: "16rem minmax(0, 64rem) 16rem"
