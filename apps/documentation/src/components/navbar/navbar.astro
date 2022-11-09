@@ -5,11 +5,14 @@ import * as CONFIG from "../../config.ts";
 <header class={"w-full"}>
   <nav class="border-slate-200 px-2 sm:px-4 py-2.5 rounded">
     <div class="container flex flex-wrap justify-between items-center mx-auto">
-      <a href={CONFIG.SITE.url} class="flex items-center">
+      <a
+        href={"/"}
+        class="p-2 flex items-center hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"
+      >
         <img src="/logo.png" class="mr-3 h-6 sm:h-9" alt="Juggling man emoji" />
         <span
           class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-          >Flowbite</span
+          >Jongleur</span
         >
       </a>
       <div class="flex md:order-2">
@@ -106,19 +109,19 @@ import * as CONFIG from "../../config.ts";
           />
         </div>
         <ul
-          class="flex flex-col p-4 mt-4 bg-slate-50 rounded-lg border border-slate-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-slate-800 md:dark:bg-slate-700 dark:border-slate-700"
+          class="flex flex-col p-4 mt-4 bg-slate-100 rounded-lg border border-slate-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 dark:bg-slate-800 dark:border-slate-700"
         >
           <li>
             <a
               href="/"
-              class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
-              aria-current="page">Home</a
+              class="block py-2 text-slate-700 rounded hover:text-blue-700 pl-3 md:p-0 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
+              >Home</a
             >
           </li>
           <li>
             <a
               href="/docs"
-              class="block py-2 pr-4 pl-3 text-slate-700 rounded hover:bg-slate-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
+              class="block py-2 text-slate-700 rounded hover:text-blue-700 pl-3 md:p-0 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
               >Documentation</a
             >
           </li>

@@ -10,7 +10,7 @@ const { headings } = Astro.props;
     <ul class="space-y-2 list-disc list-inside">
       {
         headings.map(({ depth, slug, text }) => (
-          <li class="items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+          <li class="items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
             <a href={slug}>{text}</a>
           </li>
         ))
@@ -23,13 +23,34 @@ const { headings } = Astro.props;
       <li>
         <a
           href={"#"}
-          class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+          class="flex items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
           >🖋 <span class="ml-3">Edit this page</span>
         </a>
       </li>
     </ul>
   </div>
   <div class="flex justify-center">
-    <DarkToggle client:idle />
+    <DarkToggle client:only="react" />
+    <script is:inline>
+      // to apply initial dark mode setting during page load
+      const theme = () => {
+        if (
+          typeof localStorage !== undefined &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      };
+      const root = document.documentElement;
+      if (theme === "light") {
+        root.classList.remove("dark");
+      } else {
+        root.classList.add("dark");
+      }
+    </script>
   </div>
 </aside>
