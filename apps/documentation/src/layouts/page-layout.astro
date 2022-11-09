@@ -8,9 +8,9 @@ type Props = {
 
 const { frontmatter, headings } = Astro.props as Props;
 import Navigation from "../components/navbar/navbar.astro";
-import DarkToggle from "../components/utils/dark-toggle.tsx";
 import LeftSidebar from "../components/sidebars/left.astro";
 import RightSidebar from "../components/sidebars/right.astro";
+import Head from "../components/utils/head.astro";
 
 import "@fontsource/roboto-flex";
 import "../styles/shiki.css";
@@ -29,10 +29,11 @@ import "../styles/shiki.css";
           : CONFIG.SITE.title
       }
     </title>
+    <Head />
   </head>
   <body>
     <main
-      class="bg-white dark:bg-dark-gray text-dark-gray dark:text-white min-h-[100vh] flex flex-col items-center"
+      class="bg-white dark:bg-slate-900 text-dark-gray dark:text-white min-h-[100vh] flex flex-col items-center"
     >
       <Navigation />
       <div
