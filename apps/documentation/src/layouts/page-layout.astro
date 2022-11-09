@@ -1,0 +1,40 @@
+---
+
+import * as CONFIG from '../config';
+
+type Props = {
+	frontmatter: CONFIG.Frontmatter;
+	headings: MarkdownHeading[];
+};
+
+const { frontmatter, headings } = Astro.props as Props;
+import Navigation from "../components/navbar/navbar.astro";
+import DarkToggle from "../components/utils/dark-toggle.tsx";
+import LeftSidebar from "../components/sidebars/left.astro";
+
+import "../styles/shiki.css";
+
+---
+
+<html dir={frontmatter.dir ?? 'ltr'} lang={frontmatter.lang ?? 'en-us'} class="initial">
+	<head>
+		<title>
+			{frontmatter.title ? `${frontmatter.title} 🚀 ${CONFIG.SITE.title}` : CONFIG.SITE.title}
+		</title>
+      </head>
+    <body>
+      <main class="bg-white dark:bg-dark-gray text-dark-gray dark:text-white min-h-[100vh] flex flex-col items-center">
+        <Navigation />
+        <div class="gap-1 grid grid-cols-1 md:grid-cols-md-layout w-full lg:grid-cols-layout items-center justify-items-stretch">
+        <LeftSidebar />
+          <article class="prose prose-slate lg:prose-xl dark:prose-invert ">
+        <slot />
+            </article>
+        <DarkToggle client:idle/>
+          </div>
+    </main>
+    </body>
+</html>
+<script>
+import "flowbite";
+</script>
