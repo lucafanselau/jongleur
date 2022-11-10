@@ -1,63 +1,40 @@
 ---
+import type { Frontmatter } from "../../config";
+
+const posts = await Astro.glob<Frontmatter>("../../pages/**/*.mdx");
+
+// only unique folders
+const folders = ["Getting Started", "Advanced"];
 ---
 
-<aside class="w-64 flex flex-col space-y-4" aria-label="Sidebar">
-  <div>
-    <h2 class="mb-2 text-2xl">Introduction</h2>
-    <ul class="space-y-2">
-      <li>
-        <a
-          href="#"
-          class="flex items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
-        >
-          ⚙ <span class="ml-3">Installation</span>
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
-        >
-          🚀 <span class="ml-3">Fast Track</span>
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
-        >
-          Keyframes / Orchestration
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
-        >
-          Register objects
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
-        >
-          Progress
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div>
-    <h2 class="mb-2 text-2xl">Advanced</h2>
-    <ul class="space-y-2">
-      <li>
-        <a
-          href="#"
-          class="flex items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
-        >
-          Custom Fields
-        </a>
-      </li>
-    </ul>
-  </div>
+<aside
+  class="w-full items-center md:items-start flex flex-col space-y-4"
+  aria-label="Sidebar"
+>
+  {
+    folders.map((f) => {
+      // get pages for that folder and sort by index
+      const folderPosts = posts
+        .filter((p) => p.frontmatter.folder === f)
+        .sort((a, b) => a.frontmatter.index - b.frontmatter.index);
+
+      return (
+        <div class="w-64">
+          <h2 class="mb-2 text-2xl">{f}</h2>
+          <ul class="space-y-2">
+            {folderPosts.map((post) => (
+              <li>
+                <a
+                  href={post.url}
+                  class="flex items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
+                >
+                  {post.frontmatter.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    })
+  }
 </aside>

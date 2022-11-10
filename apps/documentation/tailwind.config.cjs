@@ -12,7 +12,9 @@ module.exports = {
       },
       gridTemplateColumns: {
         "md-layout": "16rem minmax(0, 1fr)",
-        layout: "16rem minmax(0, 64rem) 16rem",
+        // The 65vh width comes from the max width of the tailwind typography plugin
+        // https://tailwindcss.com/docs/typography-plugin#overriding-max-width
+        layout: "16rem minmax(0, 65ch) 16rem",
       },
       colors: {
         "light-blue": colors.sky[300],

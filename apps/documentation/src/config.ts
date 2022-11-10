@@ -19,6 +19,9 @@ export const SITE = {
 export type Frontmatter = {
   title: string;
   description: string;
+  folder: string;
+  // ordering for the pages (ordering for the folders is currently hardcoded in left.astro)
+  index: number;
   layout: string;
   image?: { src: string; alt: string };
   dir?: "ltr" | "rtl";

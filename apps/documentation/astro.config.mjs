@@ -12,7 +12,7 @@ import remarkTwoslash from "remark-shiki-twoslash";
 // https://astro.build/config
 export default defineConfig({
   markdown: {
-    syntaxHighlight: false
+    syntaxHighlight: false,
   },
   integrations: [
     // DEPRECATED:
@@ -22,8 +22,8 @@ export default defineConfig({
     react(),
     tailwind(),
     mdx({
-      remarkPlugins: [[remarkTwoslash.default, { theme: "one-dark-pro" }]]
-    })
+      remarkPlugins: [[remarkTwoslash.default, { theme: "one-dark-pro" }]],
+    }),
   ],
-  site: `http://jongleur-docs.vercel.app`
+  site: `http://jongleur-docs.vercel.app`,
 });
