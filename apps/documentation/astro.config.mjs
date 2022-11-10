@@ -15,14 +15,11 @@ export default defineConfig({
     syntaxHighlight: false,
   },
   integrations: [
-    // DEPRECATED:
-    // Enable Preact to support Preact JSX components.
-    preact(),
     // Enable React for the Algolia search component.
     react(),
     tailwind(),
     mdx({
-      remarkPlugins: [[remarkTwoslash.default, { theme: "one-dark-pro" }]],
+      remarkPlugins: [[remarkTwoslash.default, { theme: "nord" }]],
     }),
   ],
   site: `http://jongleur-docs.vercel.app`,

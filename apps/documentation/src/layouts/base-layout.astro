@@ -20,10 +20,13 @@ import "../styles/shiki.css";
 
 <html lang={"en-us"} class="initial h-full">
   <head>
+    <style lang="sass">
+      @import "../styles/font.sass"
+    </style>
     <title>
       {
         frontmatter?.title
-          ? `${frontmatter?.title} 🚀 ${CONFIG.SITE.title}`
+          ? `${frontmatter?.title} @ ${CONFIG.SITE.title}`
           : CONFIG.SITE.title
       }
     </title>

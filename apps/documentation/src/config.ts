@@ -1,5 +1,5 @@
 export const SITE = {
-  title: "Documentation",
+  title: "Jongleur",
   description: "Your website description.",
   defaultLanguage: "en_US",
   url: "...",
@@ -18,6 +18,7 @@ export const SITE = {
 // This is the type of the frontmatter you put in the docs markdown files.
 export type Frontmatter = {
   title: string;
+  icon?: string;
   description: string;
   folder: string;
   // ordering for the pages (ordering for the folders is currently hardcoded in left.astro)

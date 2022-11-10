@@ -28,7 +28,14 @@ const folders = ["Getting Started", "Advanced"];
                   href={post.url}
                   class="flex items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
                 >
-                  {post.frontmatter.title}
+                  {post.frontmatter.icon ? (
+                    <>
+                      {post.frontmatter.icon}
+                      <span class="ml-2">{post.frontmatter.title}</span>
+                    </>
+                  ) : (
+                    post.frontmatter.title
+                  )}
                 </a>
               </li>
             ))}

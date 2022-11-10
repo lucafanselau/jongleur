@@ -133,6 +133,7 @@ importers:
       react: ^18.1.0
       react-dom: ^18.1.0
       remark-shiki-twoslash: ^3.1.0
+      sass: ^1.56.1
       tailwindcss: ^3.0.24
     dependencies:
       '@algolia/client-search': 4.14.2
@@ -146,7 +147,7 @@ importers:
       '@types/node': 18.11.9
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
-      astro: 1.6.4_@types+node@18.11.9
+      astro: 1.6.4_ajklay5k626t46b6fyghkbup3i
       clsx: 1.2.1
       flowbite: 1.5.3
       preact: 10.11.2
@@ -158,6 +159,7 @@ importers:
       '@tailwindcss/typography': 0.5.8_tailwindcss@3.1.8
       prettier: 2.7.1
       prettier-plugin-astro: 0.7.0
+      sass: 1.56.1
 
 packages:
 
@@ -2184,7 +2186,7 @@ packages:
     hasBin: true
     dev: false
 
-  /astro/1.6.4_@types+node@18.11.9:
+  /astro/1.6.4_ajklay5k626t46b6fyghkbup3i:
     resolution: {integrity: sha512-4Yi6fonZK/t8I1BdZ2YaTtSKUSeB8RoikDDssqkiO6j2BAfK4HOhRk70PrrkKyY5gK6VCe/Nao8ABq3GZfxm9g==}
     engines: {node: ^14.18.0 || >=16.12.0, npm: '>=6.14.0'}
     hasBin: true
@@ -2247,7 +2249,7 @@ packages:
       typescript: 4.8.4
       unist-util-visit: 4.1.1
       vfile: 5.3.5
-      vite: 3.2.3_@types+node@18.11.9
+      vite: 3.2.3_ajklay5k626t46b6fyghkbup3i
       vitefu: 0.1.1_vite@3.2.3
       yargs-parser: 21.1.1
       zod: 3.19.1
@@ -4537,6 +4539,9 @@ packages:
   /immer/9.0.15:
     resolution: {integrity: sha512-2eB/sswms9AEUSkOm4SbV5Y7Vmt/bKRwByd52jfLkW4OLYeaTP3EEiJ9agqU0O/tq6Dk62Zfj+TJSqfm1rLVGQ==}
     dev: false
+
+  /immutable/4.1.0:
+    resolution: {integrity: sha512-oNkuqVTA8jqG1Q6c+UglTOD1xhC1BtjKI7XkCXRkZHrN5m18/XsnUp8Q89GkQO/z+0WjonSvl0FLhDYftp46nQ==}
 
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
@@ -6899,6 +6904,15 @@ packages:
     dependencies:
       suf-log: 2.5.3
 
+  /sass/1.56.1:
+    resolution: {integrity: sha512-VpEyKpyBPCxE7qGDtOcdJ6fFbcpOM+Emu7uZLxVrkX8KVU/Dp5UF7WLvzqRuUhB6mqqQt1xffLoG+AndxTZrCQ==}
+    engines: {node: '>=12.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.3
+      immutable: 4.1.0
+      source-map-js: 1.0.2
+
   /saxes/6.0.0:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
@@ -7870,7 +7884,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vite/3.2.3_@types+node@18.11.9:
+  /vite/3.2.3_ajklay5k626t46b6fyghkbup3i:
     resolution: {integrity: sha512-h8jl1TZ76eGs3o2dIBSsvXDLb1m/Ec1iej8ZMdz+PsaFUsftZeWe2CZOI3qogEsMNaywc17gu0q6cQDzh/weCQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -7900,6 +7914,7 @@ packages:
       postcss: 8.4.18
       resolve: 1.22.1
       rollup: 2.79.1
+      sass: 1.56.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: false
@@ -7912,7 +7927,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 3.2.3_@types+node@18.11.9
+      vite: 3.2.3_ajklay5k626t46b6fyghkbup3i
     dev: false
 
   /vitest/0.24.3_jsdom@20.0.2:
