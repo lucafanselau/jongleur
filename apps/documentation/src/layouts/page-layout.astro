@@ -18,12 +18,12 @@ import Footer from "../components/footer.astro";
 
 <BaseLayout {...Astro.props}>
   <div class="md:row-span-3">
-    <h1 class="text-5xl font-black mb-2">{frontmatter.title}</h1>
-    <p class="font-light text-slate-600 dark:text-slate-300">
-      {frontmatter.description}
-    </p>
-    <hr class="border-0 my-4 bg-slate-400 dark:bg-slate-500 h-px" />
-    <article class="prose prose-slate dark:prose-invert">
+    <article class="prose prose-slate dark:prose-invert prose-hr:my-4">
+      <h1 class="text-5xl font-black mb-2">{frontmatter.title}</h1>
+      <p class="font-light text-slate-600 dark:text-slate-300">
+        {frontmatter.description}
+      </p>
+      <hr />
       <slot />
     </article>
   </div>

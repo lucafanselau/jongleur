@@ -2,27 +2,35 @@
 folder: Getting Started
 layout: ../../layouts/page-layout.astro
 title: Introduction
-icon: 
+icon: ❔ 
 index: 0
 description: What is Jongleur and how can it help me!
 ---
 
+<div align="center">
+German /Jon·g·leur/ ~ Juggler
+</div>
 
-import Tabs from "@components/utils/tabs.astro"
+---
+
+*Jongleur* is an animation and orchestration library for [three.js](https://threejs.org/) scenes as well as ordinary DOM objects. Helping you to *juggle* even highly complex animations. It is designed to work particularly well with React and the *fantastic* [react-three-fiber](https://github.com/pmndrs/react-three-fiber) library. The library can be used to create complex scroll based animations for beautiful landing pages.
+
+At the core of the library is the [ `orchestrate` ](./keyframes) function that defines how every (animated) element in the scene should behave. The input to the orchestration function is inspired by keyframe animation, as commonly used in other animation software. The resulting pre-processed animations are then [bound](./register) to React components as well as external objects. In contrast to typical animation software, the animations in *jongleur* are not only driven by time but can also be advanced by other forms of [progress](./progress). Progressing the animation though scrolling is supported by a set of utility components. Building beautiful landing pages has never been this easy!
 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sit amet arcu nec erat rutrum pulvinar. Integer lectus lorem, semper non interdum vel, scelerisque eget nulla. Nulla eu blandit lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque tristique ornare tortor, non pharetra risus tempor at. Morbi eleifend ultricies mi vel lacinia. Nam nec pharetra nisi. Sed ac efficitur diam. Suspendisse non magna risus. Maecenas odio ligula, suscipit vitae orci vitae, tincidunt mollis lorem. Curabitur auctor dictum scelerisque. Duis in auctor turpis, eu tempor ipsum.
-```shell
-yarn add abc > ./file.txt
-```
 
-<Tabs>
-</Tabs>
+# Features
 
-Ut malesuada tincidunt purus vitae facilisis. Morbi sed pulvinar leo. Integer ultrices interdum commodo. Praesent eros magna, volutpat eu placerat ac, faucibus vel massa. Phasellus nisl dui, aliquet vitae felis vitae, dignissim pharetra purus. Sed ac urna ac augue volutpat mattis nec eu ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum interdum suscipit eros, sed scelerisque lorem aliquam vel. Donec lacus neque, faucibus vel risus sit amet, elementum scelerisque lectus. Aliquam vehicula ante eget luctus fermentum. Morbi nec lacinia turpis. Donec in nunc tincidunt, suscipit tortor sed, blandit tellus.
+Here are some of the main benefits of using *jongleur*: 
 
-Donec vulputate scelerisque nibh vel aliquam. Cras lacus mi, pulvinar eget tincidunt ut, iaculis et odio. Sed fermentum sem nunc, et porta dui tempus vitae. In quam odio, lacinia id mattis quis, sollicitudin vel libero. Mauris at vulputate leo. Sed eu fringilla sapien. Vivamus ac tellus eu lacus lobortis molestie ut vel eros. Vivamus metus purus, hendrerit vitae tortor id, fermentum congue enim. Nullam ac sodales ligula. Suspendisse orci diam, auctor id efficitur laoreet, condimentum id enim. Quisque mattis commodo nunc, id molestie est condimentum sit amet. Pellentesque dignissim ligula congue, laoreet lorem ut, pharetra turpis. Donec gravida, ex vel imperdiet ornare, nisl ante sollicitudin sem, sit amet venenatis sapien odio ac quam. Proin porta lectus sit amet scelerisque fermentum. Pellentesque nec hendrerit tellus, ut imperdiet leo.
+- 🔒 **Fully type safe**: Advanced typescript features ensure that animations are valid
+- 🏎 **Performance optimized**: Demand-based frameloop is fully supported
+- 📒 **Single source of truth**: Simple maintenance of large scenes
+- ➡  **Progress abstraction**: Animations can be driven by scroll, time or other forms of input
+- 🖱 **Scroll Utilities**: Create stunning scroll based interactive sites with a toolbox of React components
 
-Donec vitae convallis turpis. Praesent volutpat ipsum porttitor tortor accumsan, a auctor velit commodo. Maecenas lobortis, sapien sit amet suscipit tempus, urna felis dictum libero, pharetra dapibus risus neque at odio. Suspendisse vel erat in arcu auctor volutpat ultrices efficitur dolor. Quisque non libero sit amet magna volutpat egestas eu in sapien. Nam id lacus convallis sem commodo euismod. Vivamus iaculis lorem nec neque sagittis, ac mollis nunc tristique. Fusce commodo mi ipsum, eget varius diam posuere vitae. Integer egestas lacus ac felis tempus ornare. Integer id turpis fermentum, egestas felis nec, suscipit metus. Aenean elementum, tortor ut faucibus porta, urna lectus ullamcorper urna, non aliquet justo ex a dui. Pellentesque viverra tincidunt risus, in vehicula justo consequat sit amet. Aenean faucibus elit sed posuere efficitur. Proin accumsan tellus vitae imperdiet commodo. Maecenas a condimentum dui.
+# Okay, now what?
 
-Nullam vestibulum sagittis ex, eget luctus mauris sagittis in. Sed felis turpis, gravida at ante vel, dictum consequat ante. Nunc sed eros est. Donec quis finibus odio. Duis imperdiet velit sit amet hendrerit consequat. Nam semper eu ex in viverra. Donec vel elit lobortis, ullamcorper ligula ac, tempor odio.
+Did that sound interesting to you? Great! Then let's get started...
+
+If you are more of the learning by doing type checkout the [fast track](./fast-track) to get up and running as quickly as possible. Otherwise its best to start with the definition of keyframes and the usage of the `orchestrate` function [here](./keyframes) as that is the most important part of any *jongleur* animation.
