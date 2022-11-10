@@ -1,0 +1,52 @@
+---
+import * as CONFIG from "../config";
+import { MarkdownHeading } from "astro";
+
+type Props = {
+  frontmatter: CONFIG.Frontmatter;
+  headings: MarkdownHeading[];
+};
+
+const { frontmatter, headings } = Astro.props as Props;
+import Navigation from "../components/navbar/navbar.astro";
+import LeftSidebar from "../components/sidebars/left.astro";
+import RightSidebar from "../components/sidebars/right.astro";
+import Head from "../components/utils/head.astro";
+import Footer from "../components/footer.astro";
+
+import "@fontsource/roboto-flex";
+import "../styles/shiki.css";
+---
+
+<html lang={"en-us"} class="initial">
+  <head>
+    <title>
+      {
+        frontmatter?.title
+          ? `${frontmatter?.title} 🚀 ${CONFIG.SITE.title}`
+          : CONFIG.SITE.title
+      }
+    </title>
+    <Head />
+  </head>
+  <body>
+    <main
+      class="bg-white dark:bg-slate-900 text-dark-gray dark:text-white min-h-[100vh] flex flex-col lg:items-center"
+    >
+      <Navigation />
+      <div
+        class="gap-4 lg:gap-8 flex-1 grid grid-cols-1 md:grid-cols-md-layout lg:grid-cols-layout justify-items-stretch p-4"
+      >
+        <LeftSidebar />
+        <div class="md:hidden h-[1px] w-full bg-current"></div>
+        <slot />
+        <div class="lg:hidden h-[1px] w-full bg-current"></div>
+        <RightSidebar headings={headings} />
+      </div>
+      <Footer />
+    </main>
+  </body>
+  <script>
+    import "flowbite";
+  </script>
+</html>

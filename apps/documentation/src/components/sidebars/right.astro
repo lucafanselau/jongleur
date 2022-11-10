@@ -5,18 +5,20 @@ const { headings } = Astro.props;
 ---
 
 <aside class="w-full flex flex-col space-y-4" aria-label="Sidebar">
-  <div>
-    <h2 class="mb-2 text-2xl">On this page</h2>
-    <ul class="space-y-2 list-disc list-inside">
-      {
-        headings.map(({ depth, slug, text }) => (
-          <li class="items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
-            <a href={slug}>{text}</a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+  {
+    headings !== undefined && (
+      <div>
+        <h2 class="mb-2 text-2xl">On this page</h2>
+        <ul class="space-y-2 list-disc list-inside">
+          {headings.map(({ depth, slug, text }) => (
+            <li class="items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
+              <a href={slug}>{text}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
   <div>
     <h2 class="mb-2 text-2xl">More</h2>
     <ul class="space-y-2 list-outside">
