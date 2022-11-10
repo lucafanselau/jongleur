@@ -18,7 +18,7 @@ import "@fontsource/roboto-flex";
 import "../styles/shiki.css";
 ---
 
-<html lang={"en-us"} class="initial">
+<html lang={"en-us"} class="initial h-full">
   <head>
     <title>
       {
@@ -29,10 +29,10 @@ import "../styles/shiki.css";
     </title>
     <Head />
   </head>
-  <body>
-    <main
-      class="bg-white dark:bg-slate-900 text-dark-gray dark:text-white min-h-[100vh] flex flex-col lg:items-center"
-    >
+  <body
+    class="h-full bg-white dark:bg-slate-900 text-dark-gray dark:text-white"
+  >
+    <main class="h-full flex flex-col lg:items-center">
       <Navigation />
       <div
         class="gap-4 lg:gap-8 flex-1 grid grid-cols-1 md:grid-cols-md-layout lg:grid-cols-layout justify-items-stretch p-4"
