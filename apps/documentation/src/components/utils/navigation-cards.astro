@@ -1,0 +1,91 @@
+---
+import { MarkdownHeading, MDXInstance } from "astro";
+import { Frontmatter } from "../../config";
+
+const { prev, next } = Astro.props as {
+  prev?: MDXInstance<Frontmatter>;
+  next?: MDXInstance<Frontmatter>;
+};
+---
+
+<hr />
+<div class="flex justify-between not-prose">
+  {
+    prev !== undefined ? (
+      <a href={prev.url}>
+        <div class="py-2 px-6 bg-white rounded-lg border border-slate-200 shadow-md dark:bg-slate-800 dark:border-slate-700 flex items-center">
+          <svg
+            class="mr-4 w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          <div>
+            <h4 class="mb-0 text-xl font-bold text-slate-900 dark:text-white">
+              Previous
+            </h4>
+            <p class="font-normal text-slate-700 dark:text-slate-400">
+              {prev.frontmatter.icon ? (
+                <>
+                  {prev.frontmatter.icon}
+                  <span class="ml-2">{prev.frontmatter.title}</span>
+                </>
+              ) : (
+                prev.frontmatter.title
+              )}
+            </p>
+          </div>
+        </div>
+      </a>
+    ) : (
+      <div />
+    )
+  }
+  {
+    next !== undefined ? (
+      <a href={next.url}>
+        <div class="py-2 px-6 bg-white rounded-lg border border-slate-200 shadow-md dark:bg-slate-800 dark:border-slate-700 flex items-center">
+          <div>
+            <h4 class="mb-0 text-xl font-bold text-slate-900 dark:text-white">
+              Next
+            </h4>
+            <p class="font-normal text-slate-700 dark:text-slate-400">
+              {next.frontmatter.icon ? (
+                <>
+                  {next.frontmatter.icon}
+                  <span class="ml-2">{next.frontmatter.title}</span>
+                </>
+              ) : (
+                next.frontmatter.title
+              )}
+            </p>
+          </div>
+          <svg
+            class="ml-4 w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </div>
+      </a>
+    ) : (
+      <div />
+    )
+  }
+</div>
