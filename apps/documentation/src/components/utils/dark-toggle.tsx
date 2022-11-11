@@ -29,18 +29,28 @@ const icons = [
 ];
 
 const DarkToggle: FC = ({}) => {
-  const [theme, setTheme] = useState(() => {
-    if (import.meta.env.SSR) {
-      return undefined;
-    }
-    if (typeof localStorage !== undefined && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme");
-    }
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "light";
-  });
+  const [theme, setTheme] = useState(undefined);
+
+  // used to fix SSR mismatch
+  useEffect(
+    () =>
+      setTheme(() => {
+        if (import.meta.env.SSR) {
+          return undefined;
+        }
+        if (
+          typeof localStorage !== undefined &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      }),
+    []
+  );
 
   useEffect(() => {
     const root = document.documentElement;
@@ -58,7 +68,8 @@ const DarkToggle: FC = ({}) => {
         const checked = t === theme;
         return (
           <label
-            key={`dark-toggle-item-${t}`}
+            key={"toggle-" + t}
+            style={{ opacity: checked ? 1 : 0.5 }}
             className={clsx(
               { "text-blue-500": checked },
               checked ? "opacity-100" : "opacity-50",
