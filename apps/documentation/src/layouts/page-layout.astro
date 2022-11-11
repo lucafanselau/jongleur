@@ -8,18 +8,13 @@ type Props = {
   headings: MarkdownHeading[];
 };
 
-const { frontmatter, headings } = Astro.props as Props;
-import Navigation from "../components/navbar/navbar.astro";
-import LeftSidebar from "../components/sidebars/left.astro";
-import RightSidebar from "../components/sidebars/right.astro";
-import Head from "../components/utils/head.astro";
-import Footer from "../components/footer.astro";
+const { frontmatter } = Astro.props as Props;
 ---
 
 <BaseLayout {...Astro.props}>
   <div class="md:row-span-3">
     <article class="prose prose-slate dark:prose-invert prose-hr:my-4">
-      <h1 class="text-5xl font-black mb-2">{frontmatter.title}</h1>
+      <h1 class="text-5xl font-bold mb-2">{frontmatter.title}</h1>
       <p class="font-light text-slate-600 dark:text-slate-300">
         {frontmatter.description}
       </p>

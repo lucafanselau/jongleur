@@ -26,7 +26,13 @@ const folders = ["Getting Started", "Advanced"];
               <li>
                 <a
                   href={post.url}
-                  class="flex items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
+                  class:list={[
+                    "flex items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700",
+                    {
+                      "bg-slate-200 dark:bg-slate-600":
+                        post.url === Astro.url.pathname,
+                    },
+                  ]}
                 >
                   {post.frontmatter.icon ? (
                     <>

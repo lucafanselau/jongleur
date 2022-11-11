@@ -35,7 +35,7 @@ const { headings } = Astro.props;
     </ul>
   </div>
   <div class="flex justify-center">
-    <DarkToggle client:only="react" />
+    <!-- <DarkToggle client:only="react" /> -->
     <script is:inline>
       // to apply initial dark mode setting during page load
       const theme = () => {
@@ -52,9 +52,9 @@ const { headings } = Astro.props;
       };
       const root = document.documentElement;
       if (theme === "light") {
-        root.classList.remove("dark");
+        // root.classList.remove("dark");
       } else {
-        root.classList.add("dark");
+        // root.classList.add("dark");
       }
     </script>
   </div>

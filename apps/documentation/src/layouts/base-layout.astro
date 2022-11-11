@@ -14,15 +14,15 @@ import RightSidebar from "../components/sidebars/right.astro";
 import Head from "../components/utils/head.astro";
 import Footer from "../components/footer.astro";
 
-import "@fontsource/inter";
+import "@fontsource/inter/variable.css";
 import "../styles/shiki.css";
 ---
 
 <html lang={"en-us"} class="initial h-full">
   <head>
-    <style lang="sass">
-      @import "../styles/font.sass"
-    </style>
+    <!-- <style lang="sass">
+           @import "../styles/font.sass"
+           </style> -->
     <title>
       {
         frontmatter?.title
@@ -38,7 +38,7 @@ import "../styles/shiki.css";
     <main class="h-full flex flex-col lg:items-center">
       <Navigation />
       <div
-        class="gap-4 lg:gap-8 flex-1 grid grid-cols-1 md:grid-cols-md-layout lg:grid-cols-layout justify-items-stretch p-4"
+        class="gap-4 lg:gap-8 flex-1 grid grid-cols-1 md:grid-cols-md-layout lg:grid-cols-layout justify-items-stretch p-4 lg:p-8"
       >
         <LeftSidebar />
         <div class="md:hidden h-[1px] w-full bg-current"></div>
