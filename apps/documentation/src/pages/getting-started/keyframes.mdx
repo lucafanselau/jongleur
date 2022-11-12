@@ -6,6 +6,8 @@ index: 3
 description: bla bla bla
 ---
 
+import Alert from "@components/alerts.astro";
+
 ```ts twoslash 
 import { orchestrate, helpers, useRegister } from "jongleur";
 console.log("error")
@@ -28,3 +30,18 @@ const clips = orchestrate(
 const register = useRegister(clips); // highlighted
 //    ^?
 ```
+
+
+<Alert type="info">
+abcd
+</Alert>
+
+<Alert type="warn">
+abcd
+</Alert>
+<Alert type="danger">
+abcd
+</Alert>
+<Alert type="tip">
+abcd
+</Alert>
