@@ -4,5 +4,19 @@ title: Installation
 icon: ⚙ 
 layout: ../../layouts/page-layout.astro
 index: 2
-description: bla bla bla
+description: Install jongleur to get started
 ---
+
+import PackageManagerTabs from "@components/utils/pkg-tabs.astro"
+
+Jongleur is published as an npm package and can therefore be installed using your favorite package manager:
+
+<PackageManagerTabs cmd="jongleur"/>
+
+The library has peer dependencies on `react`, `react-dom`, `three.js` and `@react-three/fiber`, so make sure those are installed as well. If you are using r3f these should be installed already.
+
+<PackageManagerTabs cmd="react react-dom @react-three/fiber three"/>
+
+Now that everything is installed, you can get started with defining your scene in keyframes.
+
+

@@ -5,3 +5,26 @@ layout: ../../layouts/page-layout.astro
 index: 3
 description: bla bla bla
 ---
+
+```ts twoslash 
+import { orchestrate, helpers, useRegister } from "jongleur";
+console.log("error")
+console.log("error")
+
+// @errors: 2322
+const clips = orchestrate(
+    {
+        first: { opacity: 0 },
+        second: { opacity: 1 }
+    }, 
+    {
+       first: { 1: { opacity: helpers.state(1) } },
+       second: { 1: 
+       { ooopacity: helpers.state(0) }}
+    },
+    {}
+)
+
+const register = useRegister(clips); // highlighted
+//    ^?
+```

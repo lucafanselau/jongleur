@@ -17,9 +17,18 @@ export default defineConfig({
   integrations: [
     // Enable React for the Algolia search component.
     react(),
-    tailwind(),
+    tailwind({
+      config: { applyBaseStyles: false },
+    }),
     mdx({
-      remarkPlugins: [[remarkTwoslash.default, { theme: "nord" }]],
+      remarkPlugins: [
+        [
+          remarkTwoslash.default,
+          {
+            theme: "nord",
+          },
+        ],
+      ],
     }),
   ],
   site: `http://jongleur-docs.vercel.app`,

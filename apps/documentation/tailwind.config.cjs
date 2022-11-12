@@ -17,12 +17,24 @@ module.exports = {
         layout: "16rem minmax(0, 65ch) 16rem",
       },
       colors: {
-        "light-blue": colors.sky[300],
-        "light-gray": colors.slate[300],
-        "mid-gray": colors.slate[500],
-        "dark-gray": colors.slate[800],
+        nord: {
+          100: "#95A0B2",
+          200: "#67768E",
+          300: "#565F76",
+          400: "#454D5F",
+          // this is the normal background
+          500: "#2e3440ff",
+          600: "#22272F",
+        },
+        "nord-text": {
+          500: "#D8DEE9",
+        },
       },
     },
   },
-  plugins: [require("@tailwindcss/typography"), require("flowbite/plugin")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("flowbite/plugin"),
+    require("@headlessui/tailwindcss"),
+  ],
 };

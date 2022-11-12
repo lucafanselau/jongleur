@@ -1,0 +1,18 @@
+---
+import Tabs from "./tabs";
+import { Code } from "astro/components";
+
+const { cmd } = Astro.props as { cmd: string };
+---
+
+<Tabs client:load sharedId={"pkg-manager"} tabs={["npm", "pnpm", "yarn"]}>
+  <Fragment slot="panel.npm">
+    <Code code={`npm install ${cmd}`} language={"bash"} theme="nord" />
+  </Fragment>
+  <Fragment slot="panel.pnpm">
+    <Code code={`pnpm add ${cmd}`} language={"bash"} theme="nord" />
+  </Fragment>
+  <Fragment slot="panel.yarn">
+    <Code code={`yarn add ${cmd}`} language={"bash"} theme="nord" />
+  </Fragment>
+</Tabs>

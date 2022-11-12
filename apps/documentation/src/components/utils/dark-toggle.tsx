@@ -62,7 +62,7 @@ const DarkToggle: FC = ({}) => {
   }, [theme]);
 
   return (
-    <div className="inline-flex items-center space-x-1 px-2 py-1 bg-light-gray dark:bg-mid-gray rounded-xl">
+    <div className="inline-flex items-center space-x-1 px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
       {themes.map((t, i) => {
         const icon = icons[i];
         const checked = t === theme;
@@ -71,7 +71,7 @@ const DarkToggle: FC = ({}) => {
             key={"toggle-" + t}
             style={{ opacity: checked ? 1 : 0.5 }}
             className={clsx(
-              { "text-blue-500": checked },
+              { "text-blue-600 dark:text-blue-400": checked },
               checked ? "opacity-100" : "opacity-50",
               "relative"
             )}

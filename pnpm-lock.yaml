@@ -120,6 +120,8 @@ importers:
       '@docsearch/css': ^3.1.0
       '@docsearch/react': ^3.1.0
       '@fontsource/inter': ^4.5.14
+      '@headlessui/react': ^1.7.4
+      '@headlessui/tailwindcss': ^0.1.1
       '@tailwindcss/typography': ^0.5.8
       '@types/node': ^18.0.0
       '@types/react': ^17.0.45
@@ -127,6 +129,9 @@ importers:
       astro: ^1.6.0
       clsx: ^1.2.1
       flowbite: ^1.5.3
+      jongleur: workspace:^0.0.2
+      nanostores: ^0.7.0
+      postcss-import: ^15.0.0
       preact: ^10.7.3
       prettier: ^2.7.1
       prettier-plugin-astro: ^0.7.0
@@ -144,12 +149,16 @@ importers:
       '@docsearch/css': 3.3.0
       '@docsearch/react': 3.3.0_w6dk4dwpgdxdglls4cxrxtpqg4
       '@fontsource/inter': 4.5.14
+      '@headlessui/react': 1.7.4_biqbaboplfbrettd7655fr4n2y
+      '@headlessui/tailwindcss': 0.1.1_tailwindcss@3.1.8
       '@types/node': 18.11.9
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
       astro: 1.6.4_ajklay5k626t46b6fyghkbup3i
       clsx: 1.2.1
       flowbite: 1.5.3
+      jongleur: link:../..
+      nanostores: 0.7.0
       preact: 10.11.2
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -157,6 +166,7 @@ importers:
       tailwindcss: 3.1.8_postcss@8.4.18
     devDependencies:
       '@tailwindcss/typography': 0.5.8_tailwindcss@3.1.8
+      postcss-import: 15.0.0_postcss@8.4.18
       prettier: 2.7.1
       prettier-plugin-astro: 0.7.0
       sass: 1.56.1
@@ -1060,6 +1070,27 @@ packages:
 
   /@fontsource/inter/4.5.14:
     resolution: {integrity: sha512-JDC9AocdPLuGsASkvWw9hS5gtHE7K9dOwL98XLrk5yjYqxy4uVnScG58NUvFMJDVJRl/7c8Wnap6PEs+7Zvj1Q==}
+    dev: false
+
+  /@headlessui/react/1.7.4_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-D8n5yGCF3WIkPsjEYeM8knn9jQ70bigGGb5aUvN6y4BGxcT3OcOQOKcM3zRGllRCZCFxCZyQvYJF6ZE7bQUOyQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      client-only: 0.0.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@headlessui/tailwindcss/0.1.1_tailwindcss@3.1.8:
+    resolution: {integrity: sha512-MJbc/MG1iVDow0IQYdsZNVY2xiTa2fDpXLF01xIAyNH6M+Ks0c6X0k3x6PqAvwvKWKEFhS0MlMzrDUVTU6cXDA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      tailwindcss: ^3.0
+    dependencies:
+      tailwindcss: 3.1.8_postcss@8.4.18
     dev: false
 
   /@humanwhocodes/config-array/0.10.7:
@@ -2580,6 +2611,10 @@ packages:
   /cli-spinners/2.7.0:
     resolution: {integrity: sha512-qu3pN8Y3qHNgE2AFweciB1IfMnmZ/fsNTEE+NOFjmGB2F/7rLhnhzppvpCnN4FovtP26k8lHyy9ptEbNwWFLzw==}
     engines: {node: '>=6'}
+    dev: false
+
+  /client-only/0.0.1:
+    resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
     dev: false
 
   /cliui/7.0.4:
@@ -5870,6 +5905,11 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  /nanostores/0.7.0:
+    resolution: {integrity: sha512-y+ma9MVXuPzXKEXaRYW/iL/xG/HtMwB8fmFcMfUqt5fCNR/na2kDubbZGV4furUMTgmxfySJs0cQjORWhaPDyA==}
+    engines: {node: ^14.0.0 || ^16.0.0 || >=18.0.0}
+    dev: false
+
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
@@ -6265,6 +6305,18 @@ packages:
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.1
+
+  /postcss-import/15.0.0_postcss@8.4.18:
+    resolution: {integrity: sha512-Y20shPQ07RitgBGv2zvkEAu9bqvrD77C9axhj/aA1BQj4czape2MdClCExvB27EwYEJdGgKZBpKanb0t1rK2Kg==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      postcss: ^8.0.0
+    dependencies:
+      postcss: 8.4.18
+      postcss-value-parser: 4.2.0
+      read-cache: 1.0.0
+      resolve: 1.22.1
+    dev: true
 
   /postcss-js/4.0.0_postcss@8.4.18:
     resolution: {integrity: sha512-77QESFBwgX4irogGVPgQ5s07vLvFqWr228qZY+w6lW599cRlK/HmnlivnnVUxkjHnCu4J16PDMHcH+e+2HbvTQ==}
