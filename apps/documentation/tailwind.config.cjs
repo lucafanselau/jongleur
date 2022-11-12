@@ -10,6 +10,9 @@ module.exports = {
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
       },
+      gridTemplateRows: {
+        "md-layout": "auto auto 1fr",
+      },
       gridTemplateColumns: {
         "md-layout": "16rem minmax(0, 1fr)",
         // The 65vh width comes from the max width of the tailwind typography plugin
