@@ -27,12 +27,14 @@ const ReusableTabs: FC<{ tabs: string[]; sharedId: string } & Panels> = ({
   return (
     <Tab.Group selectedIndex={index} onChange={handleChange}>
       <Tab.List
-        className={"border-b-2 border-blue-300 dark:border-blue-700  space-x-2"}
+        className={
+          "border-b-2 border-slate-300 dark:border-slate-600  space-x-2"
+        }
       >
         {tabs.map((t) => (
           <Tab
             className={
-              "ui-selected:!bg-blue-300 dark:ui-selected:!bg-blue-700 hover:bg-slate-200 hover:dark:bg-slate-700 rounded-t-lg !outline-none px-4 px-4"
+              "ui-selected:!bg-slate-300 dark:ui-selected:!bg-slate-600 hover:bg-slate-200 hover:dark:bg-slate-800 rounded-t-lg !outline-none px-4 px-4"
             }
             key={t}
           >
