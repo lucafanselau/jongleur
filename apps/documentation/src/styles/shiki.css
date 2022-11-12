@@ -35,6 +35,11 @@ pre.shiki {
   /* overflow-x: auto; */
   /* overflow-y: visible; */
 }
+
+pre .code-container {
+  overflow: auto visible;
+}
+
 pre.shiki:hover .dim {
   opacity: 1;
 }
@@ -78,9 +83,6 @@ pre.twoslash data-lsp:hover::before {
   @apply absolute translate-y-[1.5rem] bg-nord-600 font-mono text-nord-text-500 -translate-x-1/3 text-sm p-4 rounded-lg;
 }
 
-pre .code-container {
-  overflow: auto visible;
-}
 /* The try button */
 /* pre .code-container > a { */
 /*   position: absolute; */
@@ -154,10 +156,8 @@ pre .error .code {
   display: none;
 }
 pre .error-behind {
-  width: calc(100% + 2em + 4px);
   user-select: none;
-  visibility: transparent;
-  /* color: #fee; */
+  @apply px-2 border-l-2;
 }
 /* Queries */
 pre .arrow {
@@ -168,43 +168,43 @@ pre .popover {
 }
 /** NOTE: Also inline completion is not used currently */
 /* Completion */
-pre .inline-completions ul.dropdown {
-  display: inline-block;
-  position: absolute;
-  width: 240px;
-  background-color: gainsboro;
-  color: grey;
-  padding-top: 4px;
-  font-family: var(--code-font);
-  font-size: 0.8rem;
-  margin: 0;
-  padding: 0;
-  border-left: 4px solid #4b9edd;
-}
-pre .inline-completions ul.dropdown::before {
-  background-color: #4b9edd;
-  width: 2px;
-  position: absolute;
-  top: -1.2rem;
-  left: -3px;
-  content: " ";
-}
-pre .inline-completions ul.dropdown li {
-  overflow-x: hidden;
-  padding-left: 4px;
-  margin-bottom: 4px;
-}
-pre .inline-completions ul.dropdown li.deprecated {
-  text-decoration: line-through;
-}
-pre .inline-completions ul.dropdown li span.result-found {
-  color: #4b9edd;
-}
-pre .inline-completions ul.dropdown li span.result {
-  width: 100px;
-  color: black;
-  display: inline-block;
-}
+/* pre .inline-completions ul.dropdown { */
+/*   display: inline-block; */
+/*   position: absolute; */
+/*   width: 240px; */
+/*   background-color: gainsboro; */
+/*   color: grey; */
+/*   padding-top: 4px; */
+/*   font-family: var(--code-font); */
+/*   font-size: 0.8rem; */
+/*   margin: 0; */
+/*   padding: 0; */
+/*   border-left: 4px solid #4b9edd; */
+/* } */
+/* pre .inline-completions ul.dropdown::before { */
+/*   background-color: #4b9edd; */
+/*   width: 2px; */
+/*   position: absolute; */
+/*   top: -1.2rem; */
+/*   left: -3px; */
+/*   content: " "; */
+/* } */
+/* pre .inline-completions ul.dropdown li { */
+/*   overflow-x: hidden; */
+/*   padding-left: 4px; */
+/*   margin-bottom: 4px; */
+/* } */
+/* pre .inline-completions ul.dropdown li.deprecated { */
+/*   text-decoration: line-through; */
+/* } */
+/* pre .inline-completions ul.dropdown li span.result-found { */
+/*   color: #4b9edd; */
+/* } */
+/* pre .inline-completions ul.dropdown li span.result { */
+/*   width: 100px; */
+/*   color: black; */
+/*   display: inline-block; */
+/* } */
 /* .dark-theme .markdown pre { */
 /*   background-color: #d8d8d8; */
 /*   border-color: #ddd; */
