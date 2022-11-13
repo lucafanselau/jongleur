@@ -142,7 +142,7 @@ pre .error,
 pre .error-behind {
   white-space: pre-wrap;
   display: block;
-  @apply -mx-4 my-2 w-full px-6 py-4 pointer-events-none;
+  @apply -mx-4 my-2 w-full px-6 py-4;
 }
 
 pre .error {

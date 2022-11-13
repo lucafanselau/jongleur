@@ -8,15 +8,19 @@ description: Install jongleur to get started
 ---
 
 import PackageManagerTabs from "@components/utils/pkg-tabs.astro"
+import Alert from "@components/alerts.astro"
 
 Jongleur is published as an npm package and can therefore be installed using your favorite package manager:
 
 <PackageManagerTabs cmd="jongleur"/>
 
-The library has peer dependencies on `react`, `react-dom`, `three.js` and `@react-three/fiber`, so make sure those are installed as well. If you are using r3f these should be installed already.
+The library has peer dependencies on `react`, `react-dom`, `three.js` and `@react-three/fiber` (r3f), so make sure those are installed as well. If you are using r3f these should be installed already.
 
 <PackageManagerTabs cmd="react react-dom @react-three/fiber three"/>
 
-Now that everything is installed, you can get started with defining your scene in keyframes.
+Now that everything is installed, you can get started with defining your scene in keyframes. 
 
+<Alert type="info">
+The remainder of this tutorial expects you to have a basic r3f application setup and is only concerned with how jongleur can build on top of your existing scenes. Setting up an r3f application is quite simple, you can either check out the offical [documentation](https://docs.pmnd.rs/react-three-fiber/getting-started/introduction) or use a template (such as [this one](https://github.com/pmndrs/react-three-next) developed by the creators of r3f)
+</Alert>
 

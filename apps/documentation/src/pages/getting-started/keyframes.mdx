@@ -1,12 +1,27 @@
 ---
 folder: Getting Started
-title: Keyframes
+title: Keyframes & Orchestration
 layout: ../../layouts/page-layout.astro
 index: 3
-description: bla bla bla
+icon: 🎞 
+description: The first step of working with jongleur is to define the keyframes through the orchestrate function.
 ---
-
 import Alert from "@components/alerts.astro";
+
+*Jongleur* tries to simplify the process of orchestrating animations of multiple objects in a scene, by having a single source of truth for the keyframes of the whole scene. This approach has multiple benefits in contrast to defining the behavior on a per-component or file basis. The main ones are:
+
+- **Simplicity**: Easier maintenance of complex scenes
+- **Independence** from the progress source: time-based animations follow the same structure as scroll-based scenes
+- **Safety**: Catch bugs more easily and use typescript to enforce correct keyframes
+- **Performance**: Only rerender the screen if something changed (using a [demand frameloop](./progress)) and pre-process as much as possible to increase runtime performance
+
+# `orchestrate` function
+
+The key part of the API that is concerned with processing 
+
+
+Before 
+
 
 ```ts twoslash 
 import { orchestrate, helpers, useRegister } from "jongleur";
