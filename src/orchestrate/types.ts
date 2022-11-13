@@ -39,6 +39,21 @@ export type StateBase<Fields extends FieldsBase> = {
   [K: string]: { [F in keyof Fields]?: StoreFromFields<Fields, F> } & { config?: ObjectConfig };
 };
 
+/**
+ * Utility type to extract keys of a union
+ **/
+type Keys<T> = T extends { [key: string]: any } ? keyof T : never;
+
+/**
+ * Custom Base Guard, that verifies that the custom Base onlu uses known fields
+ * otherwise a template string is returned of the form `[unknown-fields: ]` + (wrong keys)
+ **/
+export type BaseGuard<Fields extends FieldsBase, Base extends StateBase<Fields>> = Keys<Base[keyof Base]> extends
+  | keyof Fields
+  | "config"
+  ? Base
+  : `[unknown-fields]: ${Exclude<Keys<Base[keyof Base]>, keyof Fields | "config">}`;
+
 export type FieldKeyframeState<T> = { value: T; config: ClipConfig };
 
 type ObjectKeyframe<T extends object> = {
