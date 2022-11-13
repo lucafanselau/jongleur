@@ -2,7 +2,15 @@
  * @file Parse keyframes into clips, this is achieved using an `orchestrate` function
  **/
 import { InheritSymbol } from "./utils";
-import type { Clip, FieldKeyframeState, FieldsBase, KeyframeDefinition, Keyframes, StateBase } from "./types";
+import type {
+  BaseGuard,
+  Clip,
+  FieldKeyframeState,
+  FieldsBase,
+  KeyframeDefinition,
+  Keyframes,
+  StateBase
+} from "./types";
 import type { ClipsConfig, ObjectConfig } from "./config";
 import { defaultObjectConfig } from "./config";
 import type { ClipStore } from "@/store";
@@ -102,10 +110,11 @@ export const parseKeyframes = <
 export const createOrchestrate =
   <Fields extends FieldsBase>(fields: Fields) =>
   <Base extends StateBase<Fields>>(
-    base: Base,
+    _base: Base & BaseGuard<Fields, Base>,
     definition: KeyframeDefinition<Fields, Base>,
     config: ClipsConfig
   ): ClipStore<Fields, Base> => {
+    const base = _base as Base;
     // Start by parsing the keyframes
     const [objects, keyframes, length] = parseKeyframes(base, definition, { ...defaultObjectConfig, ...config });
 
