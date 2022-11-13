@@ -52,9 +52,18 @@ pre.shiki div.highlight {
   padding: 0;
 }
 pre.shiki div.highlight {
-  opacity: 1;
-  background-color: #f1f8ff;
+  @apply opacity-100;
+  /* background-color: #f1f8ff; */
 }
+pre.shiki div.highlight::before {
+  @apply absolute left-0 w-full bg-nord-400 h-[24px] mix-blend-lighten;
+  content: "";
+}
+
+pre.shiki div.highlight > * {
+  @apply z-10;
+}
+
 pre.shiki div.line {
   min-height: 1rem;
 }

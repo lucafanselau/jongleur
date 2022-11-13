@@ -6,7 +6,35 @@ index: 3
 icon: 🎞 
 description: The first step of working with jongleur is to define the keyframes through the orchestrate function.
 ---
+import abc from "@assets/keyframes.ts?raw"
 import Alert from "@components/alerts.astro";
+
+```twoslash include main
+import { helpers, orchestrate } from "jongleur";
+import { Vector3 } from "three";
+
+const clips = orchestrate(
+  // The `Base`
+  {
+    one: { opacity: 0, rotation: new Vector3(1, 1, 1) },
+    two: { position: new Vector3(0, 0, 0) },
+  },
+  // - 1
+  // The `Keyframes`
+  {
+    one: {
+      1: { opacity: helpers.state(1) },
+    },
+    two: {
+      0.5: { position: helpers.inherit },
+      1: { position: helpers.state(new Vector3(1, 1, 1)) },
+    },
+  },
+  // - 2
+  // The `Config`
+  {}
+);
+```
 
 *Jongleur* tries to simplify the process of orchestrating animations of multiple objects in a scene, by having a single source of truth for the keyframes of the whole scene. This approach has multiple benefits in contrast to defining the behavior on a per-component or file basis. The main ones are:
 
@@ -17,7 +45,23 @@ import Alert from "@components/alerts.astro";
 
 # `orchestrate` function
 
-The key part of the API that is concerned with processing 
+The key part of the API that is concerned with processing a scene and the keyframes for that scene to the data struct that is used during runtime.
+
+<Alert type="tip">
+The inputs to the orchestration function are the `Base` definition of the scene, the `Keyframes` for the scene and a `Config`. The **result** is a store that contains the processed `Clips`. For the sake of this tutorial **clips** will always refer to the output of the orchestration function.
+</Alert>
+
+Let's first look at a complete example and then go over the three inputs to the function and their possible values.
+
+
+```ts twoslash {1, 2}
+// @include: main
+```
+
+
+
+## The `Base` and scene definition
+
 
 
 Before 

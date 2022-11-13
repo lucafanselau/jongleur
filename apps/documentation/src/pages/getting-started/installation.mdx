@@ -21,6 +21,9 @@ The library has peer dependencies on `react`, `react-dom`, `three.js` and `@reac
 Now that everything is installed, you can get started with defining your scene in keyframes. 
 
 <Alert type="info">
-The remainder of this tutorial expects you to have a basic r3f application setup and is only concerned with how jongleur can build on top of your existing scenes. Setting up an r3f application is quite simple, you can either check out the offical [documentation](https://docs.pmnd.rs/react-three-fiber/getting-started/introduction) or use a template (such as [this one](https://github.com/pmndrs/react-three-next) developed by the creators of r3f)
+The remainder of this tutorial expects you to have a basic r3f application setup and is only concerned with how jongleur can build on top of your existing scenes. Setting up an r3f application is quite simple, you can either check out the official [documentation](https://docs.pmnd.rs/react-three-fiber/getting-started/introduction) or use a template (such as [this one](https://github.com/pmndrs/react-three-next) developed by the creators of r3f)
 </Alert>
 
+It is highly advised to use *jongleur* with typescript as the [orchestration function](./keyframes) as well as the [register hook](./register) make heavy use of type inference. 
+
+<PackageManagerTabs cmd="--save-dev typescript @types/three"/>

@@ -13,7 +13,7 @@ const { prev, next } = Astro.props as {
   {
     prev !== undefined ? (
       <a href={prev.url}>
-        <div class="py-2 px-6 bg-white rounded-lg border border-slate-200 shadow-md dark:bg-slate-800 dark:border-slate-700 flex items-center">
+        <div class="py-2 px-6 bg-white dark:bg-slate-800 hover:bg-slate-200 hover:dark:bg-slate-700 rounded-lg border border-slate-200 shadow-md dark:border-slate-600 flex items-center">
           <svg
             class="mr-4 w-6 h-6"
             fill="none"
@@ -52,7 +52,7 @@ const { prev, next } = Astro.props as {
   {
     next !== undefined ? (
       <a href={next.url}>
-        <div class="py-2 px-6 bg-white rounded-lg border border-slate-200 shadow-md dark:bg-slate-800 dark:border-slate-700 flex items-center">
+        <div class="py-2 px-6 bg-white dark:bg-slate-800 hover:bg-slate-200 hover:dark:bg-slate-700 rounded-lg border border-slate-200 shadow-md dark:border-slate-600 flex items-center">
           <div>
             <h4 class="mb-0 text-xl font-bold text-slate-900 dark:text-white">
               Next

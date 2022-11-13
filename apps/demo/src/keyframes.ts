@@ -5,7 +5,7 @@ export const clips = orchestrate(
   {
     // DOM cards
     start: { opacity: 1, config: { interpolation: "linear" } },
-    second: { opacity: 0, some: "abc" },
+    second: { opacity: 0, abdasd: 2 },
     third: { opacity: 0 },
     fourth: { opacity: 0 },
     fifth: { opacity: 0 },

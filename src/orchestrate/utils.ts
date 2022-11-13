@@ -1,7 +1,7 @@
 import type { FieldKeyframeState } from "./types";
 import type { Interpolation } from "@/progress";
 
-export const InheritSymbol: unique symbol = Symbol("jongleur-inherit-symbol");
+export const InheritSymbol = "inherit-state" as const; // "jongleur-inherit-symbol"
 
 /**
  * Utilities to be used to create keyframe clips
