@@ -6,7 +6,6 @@ index: 3
 icon: 🎞 
 description: The first step of working with jongleur is to define the keyframes through the orchestrate function.
 ---
-import abc from "@assets/keyframes.ts?raw"
 import Alert from "@components/alerts.astro";
 
 ```twoslash include main
@@ -19,7 +18,6 @@ const clips = orchestrate(
     one: { opacity: 0, rotation: new Vector3(1, 1, 1) },
     two: { position: new Vector3(0, 0, 0) },
   },
-  // - 1
   // The `Keyframes`
   {
     one: {
@@ -30,7 +28,6 @@ const clips = orchestrate(
       1: { position: helpers.state(new Vector3(1, 1, 1)) },
     },
   },
-  // - 2
   // The `Config`
   {}
 );
@@ -48,7 +45,7 @@ const clips = orchestrate(
 The key part of the API that is concerned with processing a scene and the keyframes for that scene to the data struct that is used during runtime.
 
 <Alert type="tip">
-The inputs to the orchestration function are the `Base` definition of the scene, the `Keyframes` for the scene and a `Config`. The **result** is a store that contains the processed `Clips`. For the sake of this tutorial **clips** will always refer to the output of the orchestration function.
+On the terminology of the orchestrate function: The inputs to the orchestration function are the `Base` definition of the scene, the `Keyframes` for the scene and a `Config`. The **result** is a store that contains the processed `Clips`. For the sake of this tutorial **clips** will always refer to the output of the orchestration function.
 </Alert>
 
 Let's first look at a complete example and then go over the three inputs to the function and their possible values.
