@@ -19,7 +19,10 @@ const classes: Record<AlertType, string> = {
 ---
 
 <div
-  class:list={["flex p-4 mb-4 text-sm rounded-lg", classes[type]]}
+  class:list={[
+    "flex p-4 mb-4 text-sm rounded-lg prose-a:text-inherit w-full",
+    classes[type],
+  ]}
   role="alert"
 >
   <svg

@@ -1,0 +1,39 @@
+---
+import PageLayout from "./page-layout.astro";
+import * as CONFIG from "../config";
+import { MarkdownHeading } from "astro";
+import NavigationCards from "@components/utils/navigation-cards.astro";
+
+type Props = {
+  frontmatter: CONFIG.Frontmatter;
+  headings: MarkdownHeading[];
+};
+
+const { frontmatter } = Astro.props as Props;
+
+const { folder, index } = frontmatter;
+
+const posts = await Astro.glob<CONFIG.Frontmatter>("../pages/**/*.mdx");
+
+// figure out the next/prev posts
+const prev = posts.find(
+  (p) => p.frontmatter.folder === folder && p.frontmatter.index === index - 1
+);
+const next = posts.find(
+  (p) => p.frontmatter.folder === folder && p.frontmatter.index === index + 1
+);
+---
+
+<PageLayout {...Astro.props}>
+  <div class="md:row-span-3">
+    <article class="prose prose-slate dark:prose-invert prose-hr:my-4">
+      <h1 class="text-5xl font-bold mb-2">{frontmatter.title}</h1>
+      <p class="font-light text-slate-600 dark:text-slate-300">
+        {frontmatter.description}
+      </p>
+      <hr />
+      <slot />
+      {prev || next ? <NavigationCards prev={prev} next={next} /> : null}
+    </article>
+  </div>
+</PageLayout>

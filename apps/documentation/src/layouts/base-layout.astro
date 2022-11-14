@@ -9,8 +9,6 @@ type Props = {
 
 const { frontmatter, headings } = Astro.props as Props;
 import Navigation from "../components/navbar/navbar.astro";
-import LeftSidebar from "../components/sidebars/left.astro";
-import RightSidebar from "../components/sidebars/right.astro";
 import Head from "../components/utils/head.astro";
 import Footer from "../components/footer.astro";
 
@@ -33,14 +31,8 @@ import "../styles/base.css";
   >
     <main class="h-full flex flex-col lg:items-center">
       <Navigation />
-      <div
-        class="gap-4 lg:gap-8 flex-1 grid grid-cols-1 md:grid-cols-md-layout lg:grid-cols-layout md:grid-rows-md-layout justify-items-stretch p-4 lg:p-8"
-      >
-        <LeftSidebar />
-        <div class="md:hidden h-[1px] w-full bg-current"></div>
+      <div class="p-4 lg:p-8 flex-1">
         <slot />
-        <div class="lg:hidden h-[1px] w-full bg-current"></div>
-        <RightSidebar headings={headings} />
       </div>
       <Footer />
     </main>
