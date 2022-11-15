@@ -7,31 +7,9 @@ icon: 🎞
 description: The first step of working with jongleur is to define the keyframes through the orchestrate function.
 ---
 import Alert from "@components/alerts.astro";
+import Code from "@components/code.astro";
+import test from "@examples/keyframes.ts?raw";
 
-```twoslash include main
-import { helpers, orchestrate } from "jongleur";
-import { Vector3 } from "three";
-
-const clips = orchestrate(
-  // The `Base`
-  {
-    one: { opacity: 0, rotation: new Vector3(1, 1, 1) },
-    two: { position: new Vector3(0, 0, 0) },
-  },
-  // The `Keyframes`
-  {
-    one: {
-      1: { opacity: helpers.state(1) },
-    },
-    two: {
-      0.5: { position: helpers.inherit },
-      1: { position: helpers.state(new Vector3(1, 1, 1)) },
-    },
-  },
-  // The `Config`
-  {}
-);
-```
 
 *Jongleur* tries to simplify the process of orchestrating animations of multiple objects in a scene, by having a single source of truth for the keyframes of the whole scene. This approach has multiple benefits in contrast to defining the behavior on a per-component or file basis. The main ones are:
 
@@ -48,21 +26,76 @@ The key part of the API that is concerned with processing a scene and the keyfra
 On the terminology of the orchestrate function: The inputs to the orchestration function are the `Base` definition of the scene, the `Keyframes` for the scene and a `Config`. The **result** is a store that contains the processed `Clips`. For the sake of this tutorial **clips** will always refer to the output of the orchestration function.
 </Alert>
 
-Let's first look at a complete example and then go over the three inputs to the function and their possible values.
+Let's first look at a complete example and then go over the three inputs to the function and their possible values. During the discussion, we will also discover which errors the library catches and how those should be handled.
 
+<Alert type="info">
+All of the code examples here are powered by [shiki-twoslash](https://github.com/shikijs/twoslash). You can hover the *identifiers* and get a type description, similar to the tooltips you get in your IDE.
+</Alert>
 
-```ts twoslash {1, 2}
-// @include: main
+<Code code={test} theme={"nord"} />
+
+Overall, this example animation sequence has two objects `one` and `two`. The object `one` starts being invisible (`opacity: 0`) and is transitioned to being fully visible at *progress* `1`. The object `two` is moved around during the animation. Starting at position `[0, 0, 0]`, at which the object remains until *progress* `0.5`. After that it is moved to `[1, 1, 1]`, finishing its transition at the same time the first object is fully visible.
+
+<Alert type="info">
+The term *progress* is used since progress can represent various sources of progress. During the keyframe definition, it is sufficient to think of the progress as a time stamp. For more information, you can advance to the dedicated documentation page [here](./progress)
+</Alert>
+
+# The `Base` & scene definition
+
+The first parameter to the `orchestrate` function. The `Base` defines what objects are animated in your scene and what fields these objects use. In the example from above, we define two objects, animating the `opacity` and the `position` fields respectively. The property `config` is a special case, that will be covered in greater detail [below](#config).
+
+<Code code={test} theme={"nord"} range={[5, 12]} />
+
+Objects can be identified by any valid property key. Such as `one` and `two` as in the example, but even arbitrary strings like `"Scene Object 123"`. It is however advised to use concise identifiers.
+
+The fields that are used in each object come from a common set of fields that should cover most of the use cases for 3D & DOM animations. A list can be found [here](./fields). For more advanced use cases you can also extend the list of fields as outlined in [Custom Fields](../advanced/fields). Any modern IDE should also provide autocompletion for the available fields. 
+
+Every field also specifies which type is expected for that field. The `opacity` field requires a `number` value. Passing another type leads to a typescript error:
+
+```ts twoslash
+import { orchestrate } from "jongleur";
+
+// @errors: 2322
+orchestrate({
+// ---cut---
+  one: {
+    opacity: "definitely not an opacity"
+  }
+// ---cut-after---
+}, {}, {})
 ```
 
+Type typing of the functions also enforces that the base state does not use any unknown fields:
+
+```ts twoslash
+import { orchestrate } from "jongleur";
+import { Vector3 } from "three";
+
+// @errors: 2345
+// ---cut---
+orchestrate(
+  {
+    one: {
+      position: new Vector3(0, 0, 0),
+      ooooopacity: 0,
+    },
+  },
+  // ---cut-after---
+  {},
+  {}
+);
+```
+
+<Alert type="warn">
+Since the `orchestrate` function is generic over the `Base` such that the keyframe definition can enforce the concrete structure of the scene, the error message is a bit *ugly*. Always look for the `[unknown-fields]` template string in the error message. It will tell you which field exactly is mispelled.
+</Alert>
+
+# Keyframe definition
+
+After defining the base 
 
 
-## The `Base` and scene definition
-
-
-
-Before 
-
+# Config
 
 ```ts twoslash 
 import { orchestrate, helpers, useRegister } from "jongleur";

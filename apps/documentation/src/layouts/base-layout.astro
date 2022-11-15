@@ -26,12 +26,12 @@ import "../styles/base.css";
     </title>
     <Head />
   </head>
-  <body
-    class="h-full bg-white dark:bg-slate-900 text-slate-800 dark:text-white"
-  >
-    <main class="h-full flex flex-col lg:items-center">
+  <body class="h-full">
+    <main
+      class="min-h-full flex flex-col items-center bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-white justify-between"
+    >
       <Navigation />
-      <div class="p-4 lg:p-8 flex-1">
+      <div class="flex-1 basis-0 w-full">
         <slot />
       </div>
       <Footer />
@@ -39,5 +39,23 @@ import "../styles/base.css";
   </body>
   <script>
     import "flowbite";
+  </script>
+  <script is:inline>
+    // to apply initial dark mode setting during page load
+    const theme = () => {
+      if (typeof localStorage !== undefined && localStorage.getItem("theme")) {
+        return localStorage.getItem("theme");
+      }
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return "dark";
+      }
+      return "light";
+    };
+    const root = document.documentElement;
+    if (theme() === "light") {
+      root.classList.remove("dark");
+    } else {
+      root.classList.add("dark");
+    }
   </script>
 </html>

@@ -40,6 +40,21 @@ pre .code-container {
   overflow: auto visible;
 }
 
+/* Chrome, Edge, and Safari */
+pre .code-container::-webkit-scrollbar {
+  height: 8px;
+  background-color: transparent;
+}
+
+pre .code-container::-webkit-scrollbar-track {
+  /* border-radius: 5px; */
+}
+
+pre .code-container::-webkit-scrollbar-thumb {
+  @apply bg-nord-text-500 rounded-full;
+  /* border: 3px solid #fff; */
+}
+
 pre.shiki:hover .dim {
   opacity: 1;
 }

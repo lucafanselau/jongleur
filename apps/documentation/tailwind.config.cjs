@@ -35,9 +35,24 @@ module.exports = {
       },
     },
   },
+  daisyui: {
+    themes: [
+      {
+        spline: {
+          primary: "#4A4485", // the orange
+          secondary: "#BB7553", // the chair tone
+          accent: "#9A8DF0",
+          neutral: "#020202", //"#FFFFFF",
+          "base-100": colors.slate[100], // "#F3F6F6", // "#663D26"
+          "base-200": colors.slate[200], // "#E5EBEA",
+          "base-300": colors.slate[300], // "#D0DCDC",
+        },
+      },
+    ],
+  },
   plugins: [
     require("@tailwindcss/typography"),
-    require("flowbite/plugin"),
+    // require("flowbite/plugin"),
     require("@headlessui/tailwindcss"),
   ],
 };

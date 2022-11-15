@@ -36,26 +36,5 @@ const { headings } = Astro.props;
   </div>
   <div class="flex justify-center">
     <DarkToggle client:idle />
-    <script is:inline>
-      // to apply initial dark mode setting during page load
-      const theme = () => {
-        if (
-          typeof localStorage !== undefined &&
-          localStorage.getItem("theme")
-        ) {
-          return localStorage.getItem("theme");
-        }
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "dark";
-        }
-        return "light";
-      };
-      const root = document.documentElement;
-      if (theme() === "light") {
-        root.classList.remove("dark");
-      } else {
-        root.classList.add("dark");
-      }
-    </script>
   </div>
 </aside>

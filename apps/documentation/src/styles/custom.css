@@ -1,0 +1,7 @@
+/* background of the scrollbar except button or resizer */
+
+/* Firefox */
+* {
+  /* scrollbar-width: thin; */
+  /* scrollbar-color: var(--secondary) var(--primary); */
+}
