@@ -1,14 +1,28 @@
 export const fullscreenStyle = {
   width: "100%",
   height: "100%",
-  top: "0",
-  left: "0"
+  top: "0px",
+  left: "0px"
 };
 
 export const containerStyle = {
   ...fullscreenStyle,
   position: "absolute",
   overflowY: "auto"
+};
+
+export const stickyStyle = {
+  ...fullscreenStyle,
+  position: "sticky",
+  zIndex: "1",
+  overflow: "hidden",
+  pointerEvents: "none"
+};
+
+export const scrollStyle = {
+  pointerEvents: "none",
+  width: "100%",
+  position: "relative"
 };
 
 export const applyStyle = (style: Record<string, string>, element: HTMLElement) => {

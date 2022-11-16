@@ -5,9 +5,8 @@ import type { RootState } from "@react-three/fiber";
 import { useThree } from "@react-three/fiber";
 import type { DomEvent } from "@react-three/fiber/dist/declarations/src/core/events";
 import { isNone } from "../utils";
-import type { ScrollStoreContext } from "./context";
-import { createScrollStore, scrollContext } from "./context";
-import { applyStyle, containerStyle } from "./styles";
+import { createScrollStore, scrollContext, ScrollStoreContext } from "./context";
+import { applyStyle, containerStyle, scrollStyle, stickyStyle } from "./styles";
 import type { FieldsBase, StateBase } from "@/orchestrate";
 import type { ClipStore } from "@/store";
 import { useProgress } from "@/progress";
@@ -95,25 +94,27 @@ const ScrollPane: FC = () => {
   useEffect(() => {
     // create the new element
     const container = document.createElement("div");
-    applyStyle({ ...containerStyle }, container);
+    applyStyle(containerStyle, container);
+
+    const stickyPane = document.createElement("div");
+    applyStyle(stickyStyle, stickyPane);
 
     // this is the container that will enable the scrolling
     const scrollPane = document.createElement("div");
     applyStyle(
       {
-        pointerEvents: "none",
-        height: `${100 * (length + 1)}%`,
-        width: "100%",
-        position: "relative"
+        ...scrollStyle,
+        height: `${100 * length}%`
       },
       scrollPane
     );
 
+    container.appendChild(stickyPane);
     container.appendChild(scrollPane);
     target?.appendChild(container);
 
     // update the scroll store
-    store.setState({ layout: { container, scrollPane } });
+    store.setState({ layout: { container, scrollPane, stickyPane } });
 
     return () => {
       scrollPane.remove();

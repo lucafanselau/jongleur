@@ -3,7 +3,7 @@ import type { FC, ReactNode } from "react";
 import { useContext, useLayoutEffect, useMemo, useState } from "react";
 import { useStore } from "zustand";
 import { isNone } from "../utils";
-import { scrollContext } from "./context";
+import { createScrollStore, scrollContext } from "./context";
 import { applyStyle, fullscreenStyle } from "./styles";
 
 const createEl = () => {
@@ -17,8 +17,9 @@ const createEl = () => {
  *
  * Can either be on a fixed screen (todo) or on the whole pane
  **/
-export const Html: FC<{ children: ReactNode }> = ({ children }) => {
+export const Html: FC<{ children: ReactNode; fixed?: boolean }> = ({ children, fixed = false }) => {
   const store = useContext(scrollContext);
+  const derived = useStore(store, s => createScrollStore(s, fixed ? "fixed" : "scroll"));
   const layout = useStore(store, s => s.layout);
 
   const [el] = useState(() => createEl());
@@ -27,13 +28,13 @@ export const Html: FC<{ children: ReactNode }> = ({ children }) => {
 
   useLayoutEffect(() => {
     if (isNone(layout)) return;
-    const parent = layout.scrollPane;
+    const parent = fixed ? layout.stickyPane : layout.scrollPane;
     parent.appendChild(el);
     return () => void parent.removeChild(el);
-  }, [el, layout]);
+  }, [el, layout, fixed]);
 
   // forward the scrollContext
-  root.render(<scrollContext.Provider value={store}>{children}</scrollContext.Provider>);
+  root.render(<scrollContext.Provider value={derived}>{children}</scrollContext.Provider>);
   return null;
 };
 
@@ -60,14 +61,27 @@ type AtProps = {
    * Second alignment controls the alignment orthogonal to the scroll axis
    */
   placement?: [Align, Align];
+
+  container?: JSX.IntrinsicElements["div"];
 };
 
-export const At: FC<AtProps> = ({ at, children, align = "center", placement = ["center", "center"] }) => {
+export const At: FC<AtProps> = ({
+  at,
+  children,
+  align = "center",
+  placement = ["center", "center"],
+  container = {}
+}) => {
   const store = useContext(scrollContext);
+
+  const context = useStore(store, s => s.context);
+
+  if (context === "r3f") throw new Error("[jongleur] Cannot use `Scroll.At` Utility inside of a r3f context");
 
   const clips = useStore(store, s => s.orchestrate);
   const length = useStore(clips, s => s.length);
-  const top = at / (length + 1);
+  // This calculation is based on the layout from ./controls.tsx
+  const top = context === "fixed" ? at : (at - 1) / length;
 
   const left = useMemo(() => alignToPercent(align as Align) ?? align, [align]);
 
@@ -82,7 +96,9 @@ export const At: FC<AtProps> = ({ at, children, align = "center", placement = ["
 
   return (
     <div
+      {...container}
       style={{
+        ...container.style,
         pointerEvents: "auto",
         position: "absolute",
         left,

@@ -8,7 +8,9 @@ export type ScrollStore<Fields extends FieldsBase, Base extends StateBase<Fields
   layout?: {
     container: HTMLDivElement;
     scrollPane: HTMLDivElement;
+    stickyPane: HTMLDivElement;
   };
+  context: "r3f" | "scroll" | "fixed";
   damping?: number;
 };
 
@@ -19,12 +21,14 @@ export type ScrollStore<Fields extends FieldsBase, Base extends StateBase<Fields
 // The context just enables exposing the zustand store of the orchestrate function to a r3f sub tree
 
 export const createScrollStore = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
-  initial: Pick<ScrollStore<Fields, Base>, "orchestrate" | "damping">
+  initial: Pick<ScrollStore<Fields, Base>, "orchestrate" | "damping" | "layout">,
+  context: ScrollStore<Fields, Base>["context"] = "r3f"
 ) =>
   createStore<ScrollStore<Fields, Base>>((_set, _get) => ({
-    ...initial
+    ...initial,
+    context
   }));
 
-export type ScrollStoreContext = ReturnType<typeof createScrollStore<FieldsBase, StateBase<FieldsBase>>>;
+export type ScrollStoreContext = ReturnType<typeof createScrollStore<any, { [K: string]: any }>>;
 
 export const scrollContext = createContext<ScrollStoreContext>(null!);

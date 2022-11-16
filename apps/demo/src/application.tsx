@@ -179,6 +179,13 @@ function App() {
                 </div>
               </Scroll.At>
             </Scroll.Html>
+            <Scroll.Html fixed>
+              <Scroll.At at={0} align="center" placement={["start", "center"]}>
+                <div className="mt-2 bg-base-200 px-4 py-2 rounded-lg">
+                  <h1>This content will stay here!</h1>
+                </div>
+              </Scroll.At>
+            </Scroll.Html>
             <Scene />
           </Scroll.Controls>
         </Suspense>
