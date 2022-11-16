@@ -147,25 +147,22 @@ function Keyframes() {
         ),
       },
       {
-        at: 5.5,
+        at: 5.6,
         align: "center" as const,
         placement: ["start", "center"] as ["start", "center"],
         heading: "And thats it!",
         content: (
-          <p>
-            At least for now... There is a lot more to this library! Check out
-            the documentation on{" "}
-            <a
-              href={"https://github.com/lucafanselau/jongleur"}
-              target={"_blank"}
-              rel={"noreferrer"}
-              className={"link"}
-            >
-              Github
-            </a>
-            . If you want to get involved, don't hesitate extending upon the
-            library, opening issues or discussions!
-          </p>
+          <>
+            <p>
+              At least for now... There is a lot more to this library! Check out
+              the documentation. If you want to get involved, don't hesitate
+              extending upon the library, opening issues or discussions!
+            </p>
+            <div className="flex justify-center items-center space-x-2">
+              <DocumentationButton />
+              <GithubButton />
+            </div>
+          </>
         ),
       },
     ],
