@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from "react";
-import { useContext, useLayoutEffect, useMemo } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { useStore } from "zustand";
 import { isNone, isSome } from "../utils";
 import { scrollContext } from "./context";
