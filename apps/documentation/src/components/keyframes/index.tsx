@@ -7,6 +7,7 @@ import { range } from "jongleur";
 import { GithubButton, Loader, Code, DocumentationButton } from "./utils";
 import ReactSlider from "react-slider";
 import DarkToggle from "@components/utils/dark-toggle";
+import clsx from "clsx";
 
 function Keyframes() {
   const register = useRegister(clips);
@@ -40,6 +41,7 @@ function Keyframes() {
       },
       {
         at: 1.5,
+        key: "second" as const,
         heading: (
           <>
             This library helps to{" "}
@@ -69,6 +71,7 @@ function Keyframes() {
       },
       {
         at: 2.5,
+        key: "third" as const,
         heading: "There, that's ✨ better ✨",
         content: (
           <>
@@ -113,6 +116,7 @@ function Keyframes() {
       },
       {
         at: 3.5,
+        key: "fourth" as const,
         heading: "Did you see the chair? 😮",
         content: (
           <>
@@ -130,6 +134,7 @@ function Keyframes() {
       },
       {
         at: 4.5,
+        key: "fifth" as const,
         heading: "Animating lights and other object",
         content: (
           <>
@@ -148,9 +153,9 @@ function Keyframes() {
         ),
       },
       {
-        at: 5.6,
+        at: 6,
         align: "center" as const,
-        placement: ["start", "center"] as ["start", "center"],
+        placement: ["end", "center"] as ["end", "center"],
         heading: "And thats it!",
         content: (
           <>
@@ -165,6 +170,7 @@ function Keyframes() {
             </div>
           </>
         ),
+        className: "mb-8",
       },
     ],
     [setDamping, damping]
@@ -188,22 +194,36 @@ function Keyframes() {
               )}
             />
             <Scroll.Html>
-              {Cards.map(({ at, heading, content, align, placement }) => {
-                return (
-                  <Scroll.At
-                    at={at}
-                    align={align ?? "end"}
-                    placement={placement ?? ["center", "end"]}
-                  >
-                    <div className="block p-8 mr-4 min-w-[400px] rounded-lg border border-slate-300 dark:border-slate-700 shadow-md glass">
-                      <div className="flex flex-col space-y-2">
-                        <h2 className="text-2xl font-bold">{heading}</h2>
-                        {content}
+              {Cards.map(
+                ({
+                  at,
+                  heading,
+                  content,
+                  align,
+                  placement,
+                  className,
+                  key,
+                }) => {
+                  const pl = placement ?? ["center", "end"];
+                  return (
+                    <Scroll.At at={at} align={align ?? "end"} placement={pl}>
+                      <div
+                        ref={key !== undefined ? register(key) : undefined}
+                        className={clsx(
+                          "block p-8 min-w-[400px] rounded-lg border border-slate-300 dark:border-slate-700 shadow-md glass",
+                          pl[1] === "end" && "mr-8",
+                          className
+                        )}
+                      >
+                        <div className="flex flex-col space-y-2">
+                          <h2 className="text-2xl font-bold">{heading}</h2>
+                          {content}
+                        </div>
                       </div>
-                    </div>
-                  </Scroll.At>
-                );
-              })}
+                    </Scroll.At>
+                  );
+                }
+              )}
               <Scroll.At at={1} align={"center"} placement={["end", "center"]}>
                 <div
                   className={"flex flex-col items-center mb-2 gap-[4px]"}
