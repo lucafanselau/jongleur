@@ -67,7 +67,6 @@
     "vitest": "^0.24.3"
   },
   "dependencies": {
-    "docusaurus-preset-shiki-twoslash": "^1.1.38",
     "immer": "^9.0.15",
     "zustand": "^4.1.1"
   }

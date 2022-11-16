@@ -54,3 +54,6 @@ export const createClipStore = <Fields extends FieldsBase, Base extends StateBas
       setLastProgress: progress => set(s => void (s.last = progress))
     }))
   );
+
+export type GetStateBase<Store> = Store extends ClipStore<any, infer Base> ? Base : unknown;
+export type GetFields<Store> = Store extends ClipStore<infer Fields, any> ? Fields : unknown;

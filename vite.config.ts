@@ -12,6 +12,7 @@ export default defineConfig({
     tsconfigPaths(),
     react(),
     dts({
+      rollupTypes: true,
       insertTypesEntry: true
     })
   ],

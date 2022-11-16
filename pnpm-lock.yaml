@@ -15,7 +15,6 @@ importers:
       '@vitejs/plugin-react': ^2.1.0
       '@vitest/coverage-c8': ^0.24.3
       bumpp: ^8.2.1
-      docusaurus-preset-shiki-twoslash: ^1.1.38
       eslint: ^8.23.1
       eslint-plugin-react: ^7.31.10
       eslint-plugin-react-hooks: ^4.6.0
@@ -33,7 +32,6 @@ importers:
       vitest: ^0.24.3
       zustand: ^4.1.1
     dependencies:
-      docusaurus-preset-shiki-twoslash: 1.1.38
       immer: 9.0.15
       zustand: 4.1.1_immer@9.0.15+react@18.2.0
     devDependencies:
@@ -143,6 +141,7 @@ importers:
       prettier-plugin-astro: ^0.7.0
       react: ^18.1.0
       react-dom: ^18.1.0
+      react-slider: ^2.0.4
       remark-shiki-twoslash: ^3.1.0
       sass: ^1.56.1
       shiki: ^0.11.1
@@ -165,6 +164,7 @@ importers:
       '@types/node': 18.11.9
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
+      '@types/react-slider': 1.3.1
       astro: 1.6.4_ajklay5k626t46b6fyghkbup3i
       autoprefixer: 10.4.12_postcss@8.4.18
       clsx: 1.2.1
@@ -175,13 +175,13 @@ importers:
       preact: 10.11.2
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-slider: 2.0.4_react@18.2.0
       remark-shiki-twoslash: 3.1.0
       shiki: 0.11.1
       shiki-twoslash: 3.1.0
       tailwindcss: 3.1.8_postcss@8.4.18
     devDependencies:
       '@tailwindcss/typography': 0.5.8_tailwindcss@3.1.8
-      '@types/react-slider': 1.3.1
       postcss-import: 15.0.0_postcss@8.4.18
       prettier: 2.7.1
       prettier-plugin-astro: 0.7.0
@@ -1745,7 +1745,6 @@ packages:
     resolution: {integrity: sha512-4X2yK7RyCIy643YCFL+bc6XNmcnBtt8n88uuyihvcn5G7Lut23eNQU3q3KmwF7MWIfKfsW5NxCjw0SeDZRtgaA==}
     dependencies:
       '@types/react': 18.0.21
-    dev: true
 
   /@types/react/18.0.21:
     resolution: {integrity: sha512-7QUCOxvFgnD5Jk8ZKlUAhVcRj7GuJRjnjjiY/IUBWKgOlnvDvTMLD4RTF7NPyVmbRhNrbomZiOepg7M/2Kj1mA==}
@@ -2726,11 +2725,6 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /copy-text-to-clipboard/3.0.1:
-    resolution: {integrity: sha512-rvVsHrpFcL4F2P8ihsoLdFHmd404+CMg71S756oRSeQgqk51U3kicGdnvfkrxva0xXH92SjGS62B0XIJsbh+9Q==}
-    engines: {node: '>=12'}
-    dev: false
-
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
@@ -2966,16 +2960,6 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
-
-  /docusaurus-preset-shiki-twoslash/1.1.38:
-    resolution: {integrity: sha512-v8bp6Q6gUNLuWmf4x19Tk2VvjEc8Luuy6o7fpTg7fTFUwo7ZBVWPTrxJe/aN4OmjkVBmuDfBc/muUGEAJTVm2g==}
-    dependencies:
-      copy-text-to-clipboard: 3.0.1
-      remark-shiki-twoslash: 3.1.0
-      typescript: 4.8.4
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
 
   /dom-accessibility-api/0.5.14:
     resolution: {integrity: sha512-NMt+m9zFMPZe0JcY9gN224Qvk6qLIdqex29clBvc/y75ZBX9YA9wNK3frsYvu2DI1xcCIwxwnX+TlsJ2DSOADg==}

@@ -18,7 +18,7 @@ import test from "@examples/keyframes.ts?raw";
 - **Safety**: Catch bugs more easily and use typescript to enforce correct keyframes
 - **Performance**: Only rerender the screen if something changed (using a [demand frameloop](./progress)) and pre-process as much as possible to increase runtime performance
 
-# `orchestrate` function
+## The `orchestrate` function
 
 The key part of the API that is concerned with processing a scene and the keyframes for that scene to the data struct that is used during runtime.
 
@@ -40,7 +40,7 @@ Overall, this example animation sequence has two objects `one` and `two`. The ob
 The term *progress* is used since progress can represent various sources of progress. During the keyframe definition, it is sufficient to think of the progress as a time stamp. For more information, you can advance to the dedicated documentation page [here](./progress)
 </Alert>
 
-# The `Base` & scene definition
+## The `Base` & scene definition
 
 The first parameter to the `orchestrate` function. The `Base` defines what objects are animated in your scene and what fields these objects use. In the example from above, we define two objects, animating the `opacity` and the `position` fields respectively. The property `config` is a special case, that will be covered in greater detail [below](#config).
 
@@ -90,12 +90,92 @@ orchestrate(
 Since the `orchestrate` function is generic over the `Base` such that the keyframe definition can enforce the concrete structure of the scene, the error message is a bit *ugly*. Always look for the `[unknown-fields]` template string in the error message. It will tell you which field exactly is mispelled.
 </Alert>
 
-# Keyframe definition
+## Keyframe definition
 
-After defining the base 
+After defining the base, the next step is to define the keyframes. Keyframes define certain points in the "progress" where you want to scene and its objects to be in a specific state. *Jongleur* uses this information and transitions automatically between states. 
 
+<Alert type="info">
+You can freely decide in which domains the keyframes are. You can have every keyframe between `0` and `1`, or have every important state of the scene at an absolute number `0, 1, 2, ...`. If you plan to work with [scroll utilities](./progress#scroll), it is beneficial to have important scene states at absolute numbers.
+</Alert>
 
-# Config
+Let's look at the definition of the keyframes in the example again:
+
+<Code code={test} theme={"nord"} range={[13, 24]} />
+
+<Alert type="important">
+**Every** object has an *implicit* keyframe at progress `0` with the state defined in the `Base`!
+</Alert>
+
+The keyframe definition expects one property for every object that was defined in the scene so in our case `one` and `two`. Every object can contain an arbitrary amount of keyframes. The key indicates the **progress** and the value is an object that can, but does not have to, contain any of the fields that were registered in the `Base` object. 
+
+Per default, every object is transitioned from the last keyframe to the current one. This behavior can be overridden using the `inherit` helper. The default behavior for the `second` object with the keyframe at `1` would lead to an interpolation from **progress** `0` to `1`. This might be undesirable. Technically the `inherit` flag copies the last state of the field into the current keyframe. In the library we use the term "clip" for a complete transition between states.
+
+Every state can optionally be annotated with a config. The configuration system is explained in greater detail [below](#config).
+
+The keyframe definition is also strictly typed to ensure correct usage of the `orchestrate` function. Let's look at some common errors...
+
+Starting with misspelled fields or using fields that are not registered in the `Base`:
+
+```ts twoslash
+import { orchestrate, helpers } from "jongleur";
+import { Vector3 } from "three";
+
+// @errors: 2322
+orchestrate(
+  {
+    one: {
+      opacity: 0,
+    },
+  },
+// ---cut---
+  {
+    one: {
+      1: { 
+        oooopacity: helpers.state(1),
+      }
+    }
+  },
+  // ---cut-after---
+  {}
+);
+
+```
+
+And also mismatching types for the fields:
+
+```ts twoslash
+import { orchestrate, helpers } from "jongleur";
+import { Vector3 } from "three";
+
+// @errors: 2322
+orchestrate(
+  {
+    one: {
+      opacity: 0,
+    },
+  },
+// ---cut---
+  {
+    one: {
+      1: { 
+        opacity: helpers.state("also not an opacity"),
+      }
+    }
+  },
+  // ---cut-after---
+  {}
+);
+
+```
+
+<Alert type="info">
+The `helpers.state` function is not needed here, it just makes the tree structure a bit less verbose. You can also provide an object with keys `value` and `config`.
+</Alert>
+
+## Config
+
+As already described above a transition between keyframes is called a `Clip`. Every clip has a config attached to it. This config can be overridden at any level. As a fallback, every clip has the global config applied (eg. the third argument to the `orchestrate` function). Single fields of this config can be overridden at the *object* level (in the `Base`) or at the clip level (in the `Keyframes`)
+
 
 ```ts twoslash 
 import { orchestrate, helpers, useRegister } from "jongleur";

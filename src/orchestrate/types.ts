@@ -61,7 +61,7 @@ type ObjectKeyframe<T extends object> = {
 };
 
 export type KeyframeDefinition<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
-  [O in keyof Base]: { [T: number]: ObjectKeyframe<Base[O]> };
+  [O in keyof Base]: { [T: number]: ObjectKeyframe<Omit<Base[O], "config">> };
 };
 
 /**

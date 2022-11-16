@@ -1,5 +1,5 @@
 ---
-type AlertType = "info" | "warn" | "danger" | "tip";
+type AlertType = "info" | "warn" | "important" | "tip";
 
 const { type } = Astro.props as { type: AlertType };
 
@@ -7,20 +7,20 @@ const labels: Record<AlertType, string> = {
   info: "INFO",
   tip: "NOTE",
   warn: "WARNING",
-  danger: "DANGER",
+  important: "IMPORTANT",
 };
 
 const classes: Record<AlertType, string> = {
   info: "text-blue-700 bg-blue-100 dark:bg-blue-200 dark:text-blue-800",
   tip: "text-slate-700 bg-slate-200 dark:bg-slate-700 dark:text-slate-300",
   warn: "text-yellow-700 bg-yellow-100 dark:bg-yellow-200 dark:text-yellow-800",
-  danger: "text-red-700 bg-red-100 dark:bg-red-200 dark:text-red-800",
+  important: "text-red-700 bg-red-100 dark:bg-red-200 dark:text-red-800",
 };
 ---
 
 <div
   class:list={[
-    "flex p-4 mb-4 text-sm rounded-lg prose-code:text-inherit prose-a:text-inherit w-full",
+    "flex p-4 mb-4 text-sm rounded-lg prose-code:text-inherit prose-strong:text-inherit prose-a:text-inherit w-full",
     classes[type],
   ]}
   role="alert"
