@@ -6,6 +6,7 @@ import { clips } from "./keyframes";
 import { range } from "jongleur";
 import { GithubButton, Loader, Code, DocumentationButton } from "./utils";
 import ReactSlider from "react-slider";
+import DarkToggle from "@components/utils/dark-toggle";
 
 function Keyframes() {
   const register = useRegister(clips);
@@ -95,7 +96,7 @@ function Keyframes() {
                 onChange={(value) => setDamping(value)}
               />
             </div>
-            <p className={"text-slate-500 dark:text-slate-300 text-xs"}>
+            <p className={"text-slate-600 dark:text-slate-300 text-sm"}>
               Note: 0.1 is extremely slow 🐌 and 10 is snappy 🚀
             </p>
             <p>
@@ -120,7 +121,7 @@ function Keyframes() {
               interleaved, such as the position, rotation and scale of a{" "}
               <Code>three.js</Code> object.
             </p>
-            <p className={"text-slate-500 dark:text-slate-300 text-xs"}>
+            <p className={"text-slate-600 dark:text-slate-300 text-sm"}>
               Hint: If that happened a bit to fast, try to go back and adjust
               the `damping` to a smaller value.
             </p>
@@ -223,6 +224,17 @@ function Keyframes() {
                       d="M19 14l-7 7m0 0l-7-7m7 7V3"
                     />
                   </svg>
+                </div>
+              </Scroll.At>
+            </Scroll.Html>
+            <Scroll.Html fixed>
+              <Scroll.At at={0} align={"start"} placement={["start", "start"]}>
+                <div
+                  className={
+                    "mt-4 ml-4 bg-slate-200 dark:bg-slate-800 rounded-lg p-2 shadow-md"
+                  }
+                >
+                  <DarkToggle />
                 </div>
               </Scroll.At>
             </Scroll.Html>

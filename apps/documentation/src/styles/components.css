@@ -12,7 +12,7 @@
       ),
       linear-gradient(
         var(--glass-reflex-degree, 100deg),
-        rgb(255 255 255 / var(--glass-reflex-opacity, 10%)) 25%,
+        rgb(255 255 255 / var(--glass-reflex-opacity, 20%)) 25%,
         rgb(0 0 0 / 0%) 25%
       );
     text-shadow: 0 1px rgb(0 0 0 / var(--glass-text-shadow-opacity, 5%));
