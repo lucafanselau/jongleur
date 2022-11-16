@@ -174,43 +174,26 @@ The `helpers.state` function is not needed here, it just makes the tree structur
 
 ## Config
 
-As already described above a transition between keyframes is called a `Clip`. Every clip has a config attached to it. This config can be overridden at any level. As a fallback, every clip has the global config applied (eg. the third argument to the `orchestrate` function). Single fields of this config can be overridden at the *object* level (in the `Base`) or at the clip level (in the `Keyframes`)
+As already described above a transition between keyframes is called a `Clip`. Every clip has a config attached to it. This config can be overridden at any level. As a fallback, every clip has the global config applied (eg. the third argument to the `orchestrate` function). Single fields of this config can be overridden at the *object* level (in the `Base`) or the clip level (in the `Keyframes`). 
+The Config has the following fields:
 
-
-```ts twoslash 
-import { orchestrate, helpers, useRegister } from "jongleur";
-console.log("error")
-console.log("error")
-
-// @errors: 2322
-const clips = orchestrate(
-    {
-        first: { opacity: 0 },
-        second: { opacity: 1 }
-    }, 
-    {
-       first: { 1: { opacity: helpers.state(1) } },
-       second: { 1: 
-       { ooopacity: helpers.state(0) }}
-    },
-    {}
-)
-
-const register = useRegister(clips); // highlighted
-//    ^?
-```
-
+| Key | Type | Description |
+| - | - | - |
+| `damping` | `boolean` | Controls whether the clip is affected by the progress damping, as explained [here](./progress) |
+| `interpolation` | [Interpolation](./progress#interpolation) | The applied interpolation for progressing **to** the state |
 
 <Alert type="info">
-abcd
+The config applied at the `Keyframe` level always refers to the clip transitioning **to** the state. In the example, the clip of object `two` from `0.5` to `1` will therefore have an `ease-in-out` interpolation.
 </Alert>
 
-<Alert type="warn">
-abcd
-</Alert>
-<Alert type="danger">
-abcd
-</Alert>
-<Alert type="tip">
-abcd
-</Alert>
+## Return type
+
+The orchestrate function returns a store object with everything necessary to apply the clips to a scene. The store is implemented as a [zustand](https://github.com/pmndrs/zustand) store. If you want you can use the store directly to extend the behavior of the library. 
+
+Zustand was chosen since it is already used by r3f itself. I highly encourage you to check out the library as I found it to be a fantastic state management library for both vanilla javascript and react. By the way `zustand` and [`immer`](https://github.com/immerjs/immer), the latter is used for the store updates, are the only dependencies of *jongleur*.
+
+As a convention, the return value of the orchestrate function is labeled `clips`. This convention is used throughout the later parts of the tutorials and in the source code of the library.
+
+## Conclusion
+
+With that, the hardest part of using *Jongleur* is out of the way. The API is designed to be minimal for applying the state and recording progress. We will cover these parts of the API in the next pages...
