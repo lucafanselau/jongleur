@@ -2,8 +2,101 @@
 folder: Getting Started
 title: Register
 layout: ../../layouts/markdown-layout.astro
+icon: 🔗
 index: 4
-description: bla bla bla
+description: Once the keyframes are transformed into clips, the actual scene has to be linked to the store
 ---
 
-# h1 here
+import Alert from "@components/alerts.astro";
+
+```twoslash include main
+import { helpers, orchestrate } from "jongleur";
+import { Vector3 } from "three";
+
+const clips = orchestrate(
+  // The `Base`
+  {
+    one: {
+      opacity: 0,
+      config: { damping: false },
+    },
+    two: { position: new Vector3(0, 0, 0) },
+    // NOTE: New object for the showcase
+    three: {
+      opacity: 0,
+      position: new Vector3(0, 0, 0)
+    }
+  },
+  // The `Keyframes`
+  {
+    one: {
+      1: { opacity: helpers.state(1) },
+    },
+    two: {
+      0.5: { position: helpers.inherit },
+      1: {
+        position: helpers.state(new Vector3(1, 1, 1), "ease-in-out"),
+      },
+    },
+    three: {}
+  },
+  // The `Config`
+  {
+    damping: true,
+    interpolation: "linear",
+  }
+);
+```
+
+Registering objects is done through a mechanism inspired by `React.RefCallback`. It is therefore compatible with the `ref` field of DOM Elements as well as r3f objects. On this page we will work with the same example as in the [keyframes explanation](./keyframes), for the sake of demonstrating the `useRegister` hook we added a third element that uses both fields:
+
+```tsx twoslash {12-16}
+// @include: main
+```
+
+<Alert type="info">
+`opacity` is a field for DOM Elements and `position` is used in a r3f context. Both \"worlds\" can be mixed when working with *jongleur*.
+</Alert>
+
+## Register hook 
+
+The most important hook for registering objects is the `useRegister` hook. As an input, it just requires our clips store that we received from the `orchestrate` function. So lets create an App Component that will contain our whole scene:
+
+```tsx twoslash {5}
+// @include: main
+
+// ---cut---
+import { FC } from "react";
+import { useRegister } from "jongleur";
+
+const App: FC = () => {
+    const register = useRegister(clips);
+    return null;
+}
+```
+
+As you can see when hovering the register constant the register hook reuses the types from the clip store. The types may be omitted because of the length, but they are there 😉. 
+
+The function returned by the register hook follows the type `(obj: keyof Base) => React.RefCallback<...>`. In the example `keyof Base = "one" | "two" | "three"` as that are the objects that we added to our scene.
+
+## Type of RefCallback
+
+In the previous section, the type of the RefCallback was ommited. This is because it is actually a more complex type dependent on the fields that this specific `obj` is using:
+
+```tsx twoslash {6-8}
+// @include: main
+
+// ---cut---
+import { FC } from "react";
+import { useRegister } from "jongleur";
+
+const App: FC = () => {
+    const register = useRegister(clips);
+    const refOne = register("one");
+    const refTwo = register("two");
+    const refThree = register("three");
+    return null;
+}
+```
+
+Normally you would use the register function in the ref attribute directly. But here you can hover over and see the inferred type for the seperate 

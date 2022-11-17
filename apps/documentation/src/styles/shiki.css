@@ -70,8 +70,8 @@ pre.shiki div.highlight {
   @apply opacity-100;
   /* background-color: #f1f8ff; */
 }
-pre.shiki div.highlight::before {
-  @apply absolute left-0 w-full bg-nord-400 h-[24px] mix-blend-lighten;
+pre.shiki div.highlight::after {
+  @apply absolute left-0 w-full bg-nord-400 h-[24px] mix-blend-lighten pointer-events-none;
   content: "";
 }
 
