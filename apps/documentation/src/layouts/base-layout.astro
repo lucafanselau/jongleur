@@ -28,10 +28,10 @@ import "../styles/base.css";
   </head>
   <body class="h-full">
     <main
-      class="min-h-full flex flex-col items-center bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-white justify-between"
+      class="min-h-full grid grid-rows-base grid-cols-1 items-center bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-white justify-between"
     >
       <Navigation />
-      <div class="flex-1 basis-0 w-full">
+      <div class="w-full h-full">
         <slot />
       </div>
       <Footer />
