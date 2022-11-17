@@ -1,8 +1,8 @@
 import { useCallback } from "react";
+import type { FieldsBase, Register, StateBase } from "../orchestrate";
+import type { ClipStore } from "../store";
+import { isNone, isSome } from "../utils";
 import { applyClip, findLastClip } from "./utils";
-import type { FieldsBase, Register, StateBase } from "@/orchestrate";
-import type { ClipStore } from "@/store";
-import { isNone, isSome } from "@/utils";
 
 export const useRegister = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
   store: ClipStore<Fields, Base>

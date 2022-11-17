@@ -4,7 +4,6 @@
 
 export * from "./types";
 export * from "./config";
-export { createOrchestrate } from "./parse";
-export { createField, defaultFields, defaultDOMFields, defaultThreeFields, orchestrate } from "./fields";
-export type { DefaultFields } from "./fields";
+export { createOrchestrate, orchestrate } from "./parse";
+export * from "./fields";
 export { helpers, InheritSymbol } from "./utils";

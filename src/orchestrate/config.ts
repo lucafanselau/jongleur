@@ -1,4 +1,4 @@
-import type { Interpolation } from "@/progress";
+import type { Interpolation } from "../progress";
 
 export type ClipConfig = {
   interpolation?: Interpolation;

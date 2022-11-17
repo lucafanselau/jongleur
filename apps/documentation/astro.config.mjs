@@ -26,6 +26,9 @@ export default defineConfig({
           remarkTwoslash.default,
           {
             theme: "nord",
+            defaultCompilerOptions: {
+              strict: true,
+            },
           },
         ],
       ],

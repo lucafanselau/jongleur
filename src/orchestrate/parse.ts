@@ -13,9 +13,11 @@ import type {
 } from "./types";
 import type { ClipsConfig, ObjectConfig } from "./config";
 import { defaultObjectConfig } from "./config";
-import type { ClipStore } from "@/store";
-import { createClipStore } from "@/store";
-import { isSome, omitUndefined } from "@/utils";
+import type { DefaultFields } from "./fields";
+import { defaultFields } from "./fields";
+import type { ClipStore } from "../store";
+import { createClipStore } from "../store";
+import { isSome, omitUndefined } from "../utils";
 
 /**
  * This converts the keyframe definitions into the usable keyframes
@@ -128,3 +130,19 @@ export const createOrchestrate =
     });
     return store;
   };
+
+/**
+ * The default orchestration function using the fields
+ *
+ * This is a specalization of the `createOrchestrate` function, tailored to be suitable in
+ * most r3f context
+ *
+ * @param base       - The base definition of the scene
+ * @param definition - The keyframes that define the timeline
+ * @param total      - The length of the timeline, if not provided its the key of the last frame
+ **/
+export const orchestrate: <Base extends StateBase<DefaultFields>>(
+  _base: Base & BaseGuard<DefaultFields, Base>,
+  definition: KeyframeDefinition<DefaultFields, Base>,
+  config: ClipsConfig
+) => ClipStore<DefaultFields, Base> = createOrchestrate<DefaultFields>(defaultFields);

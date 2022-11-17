@@ -27,8 +27,9 @@ export type TargetFromBase<
   Fields extends FieldsBase,
   Base extends StateBase<Fields>,
   Obj extends keyof Base
-  // @ts-ignore I know, I know, but try to convince typescript that `keyof Base[Obj]` extends `keyof Fields` (The inference works btw)
-> = ApplyFunctionForField<Fields, keyof Base[Obj]> extends (i: infer I, ...other: any[]) => void ? I : never;
+> = ApplyFunctionForField<Fields, Extract<keyof Base[Obj], keyof Fields>> extends (i: infer I, ...other: any[]) => void
+  ? I
+  : never;
 
 /**
  * Typing for the definition of the Base scene

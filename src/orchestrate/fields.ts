@@ -1,8 +1,7 @@
 import type { Light, Object3D } from "three";
 import { Vector3 } from "three";
-import { createOrchestrate } from "./parse";
 import type { FieldDefinition } from "./types";
-import { lerp } from "@/utils";
+import { lerp } from "../utils";
 
 export const createField = <Target, Store>(
   apply: (obj: Target, a: Store, b: Store, alpha: number) => void
@@ -65,15 +64,3 @@ export const defaultFields = {
 };
 
 export type DefaultFields = typeof defaultFields;
-
-/**
- * The default orchestration function using the fields
- *
- * This is a specalization of the `createOrchestrate` function, tailored to be suitable in
- * most r3f context
- *
- * @param base       - The base definition of the scene
- * @param definition - The keyframes that define the timeline
- * @param total      - The length of the timeline, if not provided its the key of the last frame
- **/
-export const orchestrate = createOrchestrate(defaultFields);

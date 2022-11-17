@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import { createStore } from "zustand";
-import type { ClipStore } from "@/store";
-import type { FieldsBase, StateBase } from "@/orchestrate";
+import type { ClipStore } from "../store";
+import type { FieldsBase, StateBase } from "../orchestrate";
 
 export type ScrollStore<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
   orchestrate: ClipStore<Fields, Base>;

@@ -5,12 +5,12 @@ import type { RootState } from "@react-three/fiber";
 import { useThree } from "@react-three/fiber";
 import type { DomEvent } from "@react-three/fiber/dist/declarations/src/core/events";
 import { isNone } from "../utils";
+import type { FieldsBase, StateBase } from "../orchestrate";
+import type { ClipStore } from "../store";
+import { useProgress } from "../progress";
 import type { ScrollStoreContext } from "./context";
 import { createScrollStore, scrollContext } from "./context";
 import { applyStyle, containerStyle, scrollStyle, stickyStyle } from "./styles";
-import type { FieldsBase, StateBase } from "@/orchestrate";
-import type { ClipStore } from "@/store";
-import { useProgress } from "@/progress";
 
 const ScrollEvents: FC = () => {
   // mount r3f specific events stuff based on the layout create by scroll pane

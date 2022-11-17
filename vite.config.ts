@@ -2,8 +2,9 @@
 import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import dts from "vite-plugin-dts";
 import tsconfigPaths from "vite-tsconfig-paths";
+
+import dts from "vite-plugin-dts";
 
 import * as pkg from "./package.json";
 
@@ -12,7 +13,7 @@ export default defineConfig({
     tsconfigPaths(),
     react(),
     dts({
-      rollupTypes: true,
+      // rollupTypes: true,
       insertTypesEntry: true
     })
   ],
@@ -25,6 +26,7 @@ export default defineConfig({
     },
     rollupOptions: {
       external: Object.keys(pkg.peerDependencies)
+      // plugins: [typescript({ tsconfig: path.resolve(__dirname, "tsconfig.build.json") })]
     }
   }
 });

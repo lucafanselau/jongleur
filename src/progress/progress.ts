@@ -1,10 +1,10 @@
 import { useCallback, useRef } from "react";
 import { invalidate, useFrame } from "@react-three/fiber";
 import { MathUtils } from "three";
+import type { Clip, FieldsBase, HandleProgress, StateBase } from "../orchestrate";
+import type { ClipStore } from "../store";
+import { isSome } from "../utils";
 import { applyClip, findActiveClip } from "./utils";
-import type { Clip, FieldsBase, HandleProgress, StateBase } from "@/orchestrate";
-import type { ClipStore } from "@/store";
-import { isSome } from "@/utils";
 
 export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
   store: ClipStore<Fields, Base>,

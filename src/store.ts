@@ -1,8 +1,9 @@
 import type { Draft } from "immer";
+import { produce } from "immer";
+import type { StoreApi, UseBoundStore } from "zustand";
 import create from "zustand";
-import { immer } from "zustand/middleware/immer";
 import { isNone, isSome } from "./utils";
-import type { FieldsBase, Keyframes, StateBase, TargetFromBase } from "@/orchestrate";
+import type { FieldsBase, Keyframes, StateBase, TargetFromBase } from "./orchestrate";
 
 export type Store<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
   slots: { [Obj in keyof Base]?: { [id: string]: TargetFromBase<Fields, Base, Obj> } };
@@ -24,23 +25,23 @@ export type Actions<Fields extends FieldsBase, Base extends StateBase<Fields>> =
   setLastProgress: (progress: number) => void;
 };
 
-export type ClipStore<Fields extends FieldsBase, Base extends StateBase<Fields>> = ReturnType<
-  typeof createClipStore<Fields, Base>
+export type ClipStore<Fields extends FieldsBase, Base extends StateBase<Fields>> = UseBoundStore<
+  StoreApi<Store<Fields, Base> & Actions<Fields, Base>>
 >;
 
 export const createClipStore = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
   initial: Omit<Store<Fields, Base>, "slots" | "last">
-) =>
-  create<Store<Fields, Base> & Actions<Fields, Base>>()(
-    immer((set, _get) => ({
-      // Initial store content
-      ...initial,
-      slots: {},
-      last: 0,
+): ClipStore<Fields, Base> =>
+  create<Store<Fields, Base> & Actions<Fields, Base>>()((set, _get) => ({
+    // Initial store content
+    ...initial,
+    slots: {},
+    last: 0,
 
-      // Action implementations
-      setSlot: <Obj extends keyof Base>(obj: Obj, target: TargetFromBase<Fields, Base, Obj> | null, id: string) => {
-        set(s => {
+    // Action implementations
+    setSlot: <Obj extends keyof Base>(obj: Obj, target: TargetFromBase<Fields, Base, Obj> | null, id: string) => {
+      set(state => {
+        return produce(state, s => {
           type Slots = Draft<Store<Fields, Base>["slots"]>;
           // The weird casting here is not my fault, this is a problem with 'Draft<T>[keyof T]' indexing in "immer".
           // They dont seem to give a friendly f*** about the error though (https://github.com/immerjs/immer/issues/918). I must admit though
@@ -50,10 +51,10 @@ export const createClipStore = <Fields extends FieldsBase, Base extends StateBas
           if (isSome(target)) objSlot[id] = target;
           else delete objSlot[id];
         });
-      },
-      setLastProgress: progress => set(s => void (s.last = progress))
-    }))
-  );
+      });
+    },
+    setLastProgress: progress => set({ last: progress })
+  }));
 
 export type GetStateBase<Store> = Store extends ClipStore<any, infer Base> ? Base : unknown;
 export type GetFields<Store> = Store extends ClipStore<infer Fields, any> ? Fields : unknown;
