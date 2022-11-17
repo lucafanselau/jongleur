@@ -4,11 +4,11 @@ import { Vector3 } from "three";
 export const clips = orchestrate(
   {
     // DOM cards
-    start: { opacity: 1, config: { interpolation: "linear" } },
-    second: { opacity: 0 },
-    third: { opacity: 0 },
-    fourth: { opacity: 0 },
-    fifth: { opacity: 0 },
+    start: { opacity: 1, config: { damping: false, interpolation: "linear" } },
+    second: { opacity: 0, config: { damping: false, interpolation: "linear" } },
+    third: { opacity: 0, config: { damping: false, interpolation: "linear" } },
+    fourth: { opacity: 0, config: { damping: false, interpolation: "linear" } },
+    fifth: { opacity: 0, config: { damping: false, interpolation: "linear" } },
     // wall elements
     wall: { scale: new Vector3(0, 0, 0) },
     table: { position: new Vector3(0, 0, 1000) },
