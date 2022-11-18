@@ -80,7 +80,7 @@ const DarkToggle: FC = ({}) => {
             <input
               type="radio"
               name="theme-toggle"
-              className="absolute opacity-0 inset-0"
+              className="absolute opacity-0 inset-0 cursor-pointer"
               checked={checked}
               value={t}
               title={`Use ${t} theme`}
