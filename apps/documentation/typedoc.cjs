@@ -12,4 +12,5 @@ module.exports = {
     base + "/src/orchestrate/index.ts",
     base + "/src/progress/index.ts",
   ],
+  cleanOutputDir: false,
 };
