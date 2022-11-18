@@ -2,9 +2,9 @@ name: Test & Lint
 
 on:
   push:
-    branches: [master]
+    branches: [master, docs]
   pull_request:
-    branches: [master]
+    branches: [master, docs]
 
 jobs:
   install:
