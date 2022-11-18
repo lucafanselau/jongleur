@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { Vector3 } from "three";
-import { parseKeyframes } from "@/orchestrate/parse";
-import { InheritSymbol, helpers } from "@/orchestrate";
+import { parseKeyframes } from "../src/orchestrate/parse";
+import { InheritSymbol, helpers } from "../src/orchestrate";
 
 // type TestScene = { test: { position: Vector3 } };
 

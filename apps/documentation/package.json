@@ -15,7 +15,6 @@
   "dependencies": {
     "@algolia/client-search": "^4.13.1",
     "@astrojs/mdx": "^0.11.5",
-    "@astrojs/preact": "^1.2.0",
     "@astrojs/react": "^1.2.1",
     "@astrojs/tailwind": "^2.1.2",
     "@docsearch/css": "^3.1.0",
@@ -34,10 +33,10 @@
     "autoprefixer": "^10.4.12",
     "clsx": "^1.2.1",
     "flowbite": "^1.5.3",
+    "globby": "^13.1.2",
     "jongleur": "workspace:^0.0.2",
     "nanostores": "^0.7.0",
     "postcss-nested": "^6.0.0",
-    "preact": "^10.7.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-slider": "^2.0.4",
@@ -51,6 +50,8 @@
     "postcss-import": "^15.0.0",
     "prettier": "^2.7.1",
     "prettier-plugin-astro": "^0.7.0",
-    "sass": "^1.56.1"
+    "typedoc": "^0.23.21",
+    "typedoc-plugin-markdown": "^3.13.6",
+    "yaml": "^2.1.3"
   }
 }

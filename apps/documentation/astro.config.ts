@@ -1,9 +1,9 @@
 import { defineConfig } from "astro/config";
-import preact from "@astrojs/preact";
 import react from "@astrojs/react";
 
 // https://astro.build/config
 import tailwind from "@astrojs/tailwind";
+import typedoc from "./integrations/typedoc";
 
 // https://astro.build/config
 import mdx from "@astrojs/mdx";
@@ -15,15 +15,21 @@ export default defineConfig({
     syntaxHighlight: false,
   },
   integrations: [
-    // Enable React for the Algolia search component.
     react(),
+    typedoc({
+      options: "./typedoc.cjs",
+      frontmatter: {
+        layout: "@layouts/markdown-layout.astro",
+        folder: "API",
+      },
+    }),
     tailwind({
       config: { applyBaseStyles: false },
     }),
     mdx({
       remarkPlugins: [
         [
-          remarkTwoslash.default,
+          remarkTwoslash,
           {
             theme: "nord",
             defaultCompilerOptions: {

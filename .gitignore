@@ -25,3 +25,5 @@ dist-ssr
 /coverage/
 /.cache/
 **/.temp.*
+/apps/documentation/src/pages/api/*.md
+/apps/documentation/src/pages/api/none

@@ -2,8 +2,8 @@
 import { describe, expect, it } from "vitest";
 import { Object3D, Vector3 } from "three";
 import { act, renderHook } from "@testing-library/react";
-import { helpers, orchestrate } from "@/orchestrate";
-import { useRegister, useUndampedProgress } from "@/progress";
+import { helpers, orchestrate } from "../src/orchestrate";
+import { useRegister, useUndampedProgress } from "../src/progress";
 
 describe("register", () => {
   // although this is in keyframe test, we use the predefined fields

@@ -5,6 +5,7 @@
     "baseUrl": ".",
     "strict": true,
     "skipLibCheck": true,
+    "experimentalDecorators": true,
     "paths": {
       "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"],

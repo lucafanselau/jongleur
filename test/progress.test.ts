@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import type { Interpolation } from "@/progress";
-import { alphaForClip, findActiveClip, findLastClip } from "@/progress/utils";
-import type { Clip } from "@/orchestrate";
+import type { Interpolation } from "../src/progress";
+import { alphaForClip, findActiveClip, findLastClip } from "../src/progress/utils";
+import type { Clip } from "../src/orchestrate";
 
 const dummy = (start: number, end: number, interpolation: Interpolation = "linear"): Clip => ({
   start: [start, null],

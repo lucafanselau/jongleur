@@ -1,7 +1,7 @@
 import type { Light, Object3D } from "three";
 import { Vector3 } from "three";
-import type { FieldDefinition } from "./types";
 import { lerp } from "../utils";
+import type { FieldDefinition } from "./types";
 
 export const createField = <Target, Store>(
   apply: (obj: Target, a: Store, b: Store, alpha: number) => void
