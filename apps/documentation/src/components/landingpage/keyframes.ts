@@ -60,7 +60,7 @@ export const clips = orchestrate(
       1.9: { scale: helpers.state(new Vector3(1, 1, 1), "ease-out") },
     },
     chair: {
-      2: { scale: InheritSymbol },
+      2: { scale: { value: new Vector3(0, 0, 0), config: { margin: 0.01 } } },
       2.2: {
         scale: helpers.state(new Vector3(1, 1, 1), "linear"),
         rotation: InheritSymbol,

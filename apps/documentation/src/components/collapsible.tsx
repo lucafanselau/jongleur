@@ -8,7 +8,7 @@ export const Collapsible: FC<{ title: string; children: ReactNode }> = ({
   return (
     <div
       className={
-        "w-full prose-pre:m-0 rounded-lg bg-slate-200 dark:bg-slate-600 border border-slate-500 dark:border-slate-400"
+        "w-full prose-pre:m-0 rounded-lg bg-slate-200 dark:bg-slate-600 border border-slate-600 dark:border-slate-400"
       }
     >
       <Disclosure>
@@ -49,15 +49,15 @@ export const Collapsible: FC<{ title: string; children: ReactNode }> = ({
               )}
             </Disclosure.Button>
             <Transition
-              enter="transition transition-[max-height] duration-600 ease-in"
-              enterFrom="transform max-h-0"
-              enterTo="transform max-h-screen"
-              leave="transition transition-[max-height] duration-400 ease-out"
-              leaveFrom="transform max-h-screen"
-              leaveTo="transform max-h-0"
+              enter="transition duration-100 ease-out"
+              enterFrom="transform scale-y-85 opacity-0"
+              enterTo="transform scale-y-100 opacity-100"
+              leave="transition duration-75 ease-out"
+              leaveFrom="transform scale-y-100 opacity-100"
+              leaveTo="transform scale-y-85 opacity-0"
             >
               <Disclosure.Panel>
-                <div className="h-[1px] bg-slate-500 dark:bg-slate-400" />
+                <div className="h-[1px] bg-slate-600 dark:bg-slate-400" />
                 <div className="p-3">{children}</div>
               </Disclosure.Panel>
             </Transition>

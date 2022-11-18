@@ -6,15 +6,97 @@ layout: ../../layouts/markdown-layout.astro
 index: 5
 description: The last step is to choose a form of progress, to make the scene (and the dream) work
 ---
+```twoslash include main
+import { FC } from "react";
+import { Canvas } from "@react-three/fiber";
+import { useRegister, helpers, orchestrate } from "jongleur";
+import { Vector3 } from "three";
+
+const clips = orchestrate(
+  // The `Base`
+  {
+    one: {
+      opacity: 0,
+      config: { damping: false },
+    },
+    two: { position: new Vector3(0, 0, 0) },
+    // NOTE: New object for the showcase
+    three: {
+      intensity: 0, 
+      position: new Vector3(0, 0, 0)
+    }
+  },
+  // The `Keyframes`
+  {
+    one: {
+      1: { opacity: helpers.state(1) },
+    },
+    two: {
+      0.5: { position: helpers.inherit },
+      1: {
+        position: helpers.state(
+            new Vector3(1, 1, 1),
+            "ease-in-out"
+        ),
+      },
+    },
+    three: {}
+  },
+  // The `Config`
+  {
+    damping: true,
+    interpolation: "linear",
+  }
+);
+
+const App: FC = () => {
+  const register = useRegister(clips);
+  
+  return (
+      <Canvas>
+        <mesh ref={register("two", "foo")}>
+          <boxGeometry args={[1, 1, 1]} />
+          <meshStandardMaterial color={"orange"} />
+        </mesh>
+        <group position={[1, 0, 1]}>
+          <mesh ref={register("two", "bar")}>
+            <boxGeometry args={[1, 1, 1]} />
+            <meshStandardMaterial color={"blue"} />
+          </mesh>
+        </group>
+        <pointLight ref={register("three")} />
+      </Canvas>
+  );
+};
+
+```
+
 import { Collapsible } from "@components/collapsible";
+import Alert from "@components/alerts.astro";
 
-Once you defined the scene and registered the moving parts, there is only one step left. Provide a form of progress. On this page, three forms of progress will be covered. First is the "very simple"  `useProgress` hook which you can use to provide a custom progress mechanism. Then we 
+Once you defined the scene and registered the moving parts, there is only one step left. Provide a form of progress. On this page, three forms of progress will be covered. First of all *time progress* and then *scroll progress*. In the end, we will also see how you can implement your own progress mechanism.
 
+<Alert type="info">
+The examples here are based on the same `clips` store, that was initialized in the [previous page](./progress). Be sure to check out that part of the guide first...
+</Alert>
 
-<Collapsible client:load title="Check out the starter">
+<Collapsible client:load title="This is the setup I am talking about">
 
-```ts twoslash
-const a = 0;
+```tsx twoslash
+// @include: main
 ```
 
 </Collapsible>
+
+
+## Time progress
+
+Perhaps the simplest form of progress, is time progress. This progress just continously updates the scene with looping or as a one shot playback:
+
+
+```tsx twoslash 
+// @include: main
+
+
+
+```
