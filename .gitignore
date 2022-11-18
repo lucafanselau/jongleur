@@ -27,3 +27,5 @@ dist-ssr
 **/.temp.*
 /apps/documentation/src/pages/api/*.md
 /apps/documentation/src/pages/api/none
+/apps/documentation/src/pages/api/.nojekyll
+/apps/documentation/src/pages/api/_modules
