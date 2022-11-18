@@ -20,9 +20,7 @@
         "name": "typescript-eslint-language-service"
       }
     ],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "paths": {}
   },
   "include": ["src", "test"],
   "references": [{ "path": "./tsconfig.node.json" }]

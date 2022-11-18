@@ -1,9 +1,11 @@
 import type { Camera } from "@react-three/fiber";
 import { useFrame, useThree } from "@react-three/fiber";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import type { ClipStore } from "../store";
 import type { FieldsBase, HandleProgress, ObjectsForTarget, StateBase, TargetFromBase } from "../orchestrate";
 import { useRegister } from "./register";
+import { useProgress } from "./progress";
+import { useStore } from "zustand";
 
 // Mostly utility hooks, that aim to make some of the library features easier to use
 export const useThreeCamera = <
@@ -25,9 +27,24 @@ export const useThreeCamera = <
   }, [camera, register, obj, id]);
 };
 
-export const useTimeProgress = (progress: HandleProgress, loop: number) => {
+export const useTimeProgress = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
+  store: ClipStore<Fields, Base>,
+  length?: number,
+  loop = false
+) => {
+  const progress = useProgress(store);
+  const len = useStore(store, s => length ?? s.length);
+
+  // get the start once, to prevent jumping at initial load around
+  const get = useThree(s => s.get);
+  const start = useMemo(() => get().clock.elapsedTime, [get]);
+
   useFrame(({ clock: { elapsedTime } }) => {
-    const total = (elapsedTime % loop) / loop;
-    progress(total);
+    const total = elapsedTime - start;
+    let norm = total / len;
+
+    if (loop) norm = norm % 1;
+    if (norm > 1) return;
+    progress(norm);
   });
 };
