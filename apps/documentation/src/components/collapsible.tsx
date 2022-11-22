@@ -18,7 +18,7 @@ export const Collapsible: FC<{ title: string; children: ReactNode }> = ({
               <span className="font-semibold text-lg">{title}</span>
               {open ? (
                 <svg
-                  className="w-4 h-4"
+                  className="w-4 h-4 "
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

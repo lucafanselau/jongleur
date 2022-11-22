@@ -1,7 +1,9 @@
 ---
 import type { Frontmatter } from "../../config";
 
-const posts = await Astro.glob<Frontmatter>("../../pages/**/*.{md,mdx}");
+const posts = await Astro.glob<{ url: string; frontmatter: Frontmatter }>(
+  "../../pages/**/*.{md,mdx}"
+);
 
 // only unique folders
 const folders = ["Getting Started", "Advanced", "API"];

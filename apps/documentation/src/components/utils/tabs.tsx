@@ -34,7 +34,7 @@ const ReusableTabs: FC<{ tabs: string[]; sharedId: string } & Panels> = ({
         {tabs.map((t) => (
           <Tab
             className={
-              "ui-selected:!bg-slate-300 dark:ui-selected:!bg-slate-600 hover:bg-slate-200 hover:dark:bg-slate-800 rounded-t-lg !outline-none px-4 px-4"
+              "ui-selected:!bg-slate-300 dark:ui-selected:!bg-slate-600 hover:bg-slate-200 hover:dark:bg-slate-800 rounded-t-lg !outline-none px-4"
             }
             key={t}
           >
