@@ -2,22 +2,31 @@
 import DarkToggle from "../utils/dark-toggle.tsx";
 
 const { headings } = Astro.props;
+console.log(headings);
 ---
 
-<aside class="w-full flex flex-col space-y-4" aria-label="Sidebar">
+<aside class="w-full flex flex-col space-y-4 sticky top-4" aria-label="Sidebar">
   {
     headings !== undefined && (
       <div>
         <h2 class="mb-2 text-2xl">On this page</h2>
-        <ul class="space-y-2 list-disc list-inside">
+        <ul class="space-y-1 list-disc list-inside">
           <li class="items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
             <a href={"#"}>Top of page</a>
           </li>
-          {headings.map(({ depth, slug, text }) => (
-            <li class="items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
-              <a href={`#${slug}`}>{text}</a>
-            </li>
-          ))}
+          {headings.map(({ depth, slug, text }) =>
+            depth <= 3 ? (
+              <li
+                class:list={[
+                  "items-center p-2 font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700",
+                  { "text-base": depth === 2, "text-sm": depth === 3 },
+                ]}
+                style={"margin-left: " + Math.max(depth - 2, 0) * 16 + "px"}
+              >
+                <a href={`#${slug}`}>{text}</a>
+              </li>
+            ) : null
+          )}
         </ul>
       </div>
     )
