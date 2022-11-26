@@ -48,6 +48,21 @@ const clips = orchestrate(
     interpolation: "linear",
   }
 );
+```
+
+import { Collapsible } from "@components/collapsible";
+import Alert from "@components/alerts.astro";
+
+Once you defined the scene and registered the moving parts, there is only one step left. Provide a form of progress. On this page, three forms of progress will be covered. First of all *time progress* and then *scroll progress*. In the end, we will also see how you can implement your own progress mechanism.
+
+<Alert type="info">
+The examples here are based on the same `clips` store, that was initialized in the [previous page](./progress). Be sure to check out that part of the guide first...
+</Alert>
+
+<Collapsible client:load title="This is the setup I am talking about">
+
+```tsx twoslash
+// @include: main
 
 const App: FC = () => {
   const register = useRegister(clips);
@@ -69,21 +84,7 @@ const App: FC = () => {
   );
 };
 
-```
 
-import { Collapsible } from "@components/collapsible";
-import Alert from "@components/alerts.astro";
-
-Once you defined the scene and registered the moving parts, there is only one step left. Provide a form of progress. On this page, three forms of progress will be covered. First of all *time progress* and then *scroll progress*. In the end, we will also see how you can implement your own progress mechanism.
-
-<Alert type="info">
-The examples here are based on the same `clips` store, that was initialized in the [previous page](./progress). Be sure to check out that part of the guide first...
-</Alert>
-
-<Collapsible client:load title="This is the setup I am talking about">
-
-```tsx twoslash
-// @include: main
 ```
 
 </Collapsible>
@@ -91,12 +92,54 @@ The examples here are based on the same `clips` store, that was initialized in t
 
 ## Time progress
 
-Perhaps the simplest form of progress, is time progress. This progress just continously updates the scene with looping or as a one shot playback:
+Perhaps the simplest form of progress, is time progress. This progress just continuously updates the scene, either with looping or else as a one-shot playback:
 
 
-```tsx twoslash 
+```tsx twoslash {1, 4-6, 16} 
 // @include: main
 
+// ---cut---
+import { useTimeProgress } from "jongleur";
 
+const TimeProgress = () => {
+  // Second parameter (5) is the length of playback in seconds
+  // Third parameters (true) controls scrolling behavior
+  useTimeProgress(clips, 5, true);
+  
+  return null;
+}
 
+const App: FC = () => {
+  const register = useRegister(clips);
+  
+  return (
+      <Canvas>
+        <TimeProgress />
+        {/* ... */}
+      </Canvas>
+  );
+};
 ```
+
+<Alert type="warn">
+The component that calls the `useTimeProgress` hook **must** be used inside of a `Canvas` Component since it uses the [useFrame](https://docs.pmnd.rs/react-three-fiber/api/hooks#useframe) hook from r3f.
+</Alert>
+
+## Scroll Progress
+
+The most prominent use case of *jongleur* is to connect the keyframe definitions to a scroll pane. This is similar to [`ScrollControls`](https://github.com/pmndrs/drei#scrollcontrols) of `@react-three/drei`. Additionally, a range of useful utility components is also exposed, to make building these scenes even more enjoyable. All Scroll related components are imported via a single Object `Scroll`:
+
+```twoslash include scroll
+import { Scroll } from "jongleur";
+```
+
+```ts twoslash
+// hover `Scroll` to see the objects
+// @include: scroll
+```
+
+### `Scroll.Controls`
+
+
+
+
