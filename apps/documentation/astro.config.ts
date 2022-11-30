@@ -21,6 +21,7 @@ export default defineConfig({
       frontmatter: {
         layout: "@layouts/markdown-layout.astro",
         folder: "API",
+        icon: "📦",
       },
     }),
     tailwind({

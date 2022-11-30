@@ -10,7 +10,7 @@ const folders = ["Getting Started", "Advanced", "API"];
 ---
 
 <aside
-  class="w-64 items-center md:items-start flex flex-col space-y-4"
+  class="items-center md:items-start flex flex-col space-y-4"
   aria-label="Sidebar"
 >
   {
@@ -21,7 +21,7 @@ const folders = ["Getting Started", "Advanced", "API"];
         .sort((a, b) => a.frontmatter.index - b.frontmatter.index);
 
       return (
-        <div class="w-64">
+        <div class="">
           <h2 class="mb-2 text-2xl">{f}</h2>
           <ul class="space-y-2">
             {folderPosts.map((post) => (

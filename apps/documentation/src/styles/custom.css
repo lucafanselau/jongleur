@@ -5,3 +5,21 @@
   /* scrollbar-width: thin; */
   /* scrollbar-color: var(--secondary) var(--primary); */
 }
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  height: 16px;
+  width: 16px;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-track {
+}
+
+*::-webkit-scrollbar-thumb {
+  border-width: 4px;
+  border-style: solid;
+
+  @apply bg-slate-300 border-slate-100 dark:border-slate-900 dark:bg-slate-600 rounded-full;
+  /* border: 3px solid #fff; */
+}

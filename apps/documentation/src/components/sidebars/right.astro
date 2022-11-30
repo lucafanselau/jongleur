@@ -2,14 +2,13 @@
 import DarkToggle from "../utils/dark-toggle.tsx";
 
 const { headings } = Astro.props;
-console.log(headings);
 ---
 
 <aside class="w-full flex flex-col space-y-4 sticky top-4" aria-label="Sidebar">
   {
     headings !== undefined && (
       <div>
-        <h2 class="mb-2 text-2xl">On this page</h2>
+        <h2 class="mb-2 text-2xl">Table of Contents</h2>
         <ul class="space-y-1 list-disc list-inside">
           <li class="items-center p-2 text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
             <a href={"#"}>Top of page</a>

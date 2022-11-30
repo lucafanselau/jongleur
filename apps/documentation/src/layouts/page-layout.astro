@@ -2,6 +2,7 @@
 import BaseLayout from "./base-layout.astro";
 import LeftSidebar from "../components/sidebars/left.astro";
 import RightSidebar from "../components/sidebars/right.astro";
+import { Drawer } from "@components/drawer";
 
 type Props = {
   frontmatter: CONFIG.Frontmatter;
@@ -17,7 +18,11 @@ const { headings } = props;
     <div
       class="w-full lg:w-auto gap-4 lg:gap-8 p-4 md:p-8 lg:justify-items-center grid grid-cols-1 md:grid-cols-md-layout lg:grid-cols-layout md:grid-rows-md-layout justify-items-stretch"
     >
-      <LeftSidebar />
+      <Drawer client:load>
+        <Fragment slot="content">
+          <LeftSidebar />
+        </Fragment>
+      </Drawer>
       <div class="md:hidden h-[1px] w-full bg-current"></div>
       <slot />
       <div class="lg:hidden h-[1px] w-full bg-current"></div>
