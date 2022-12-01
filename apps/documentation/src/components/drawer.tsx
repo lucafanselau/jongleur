@@ -26,7 +26,7 @@ export const Drawer: FC<{ content: ReactNode }> = ({ content }) => {
             d="M4 6h16M4 12h16M4 18h7"
           ></path>
         </svg>
-        <span className="hidden md:inline"> Show navigation</span>
+        <span className="hidden md:inline"> Menu</span>
       </button>
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -90,7 +90,7 @@ export const Drawer: FC<{ content: ReactNode }> = ({ content }) => {
                     </Transition.Child>
                     <div className="flex h-full flex-col overflow-y-scroll bg-white dark:bg-slate-900 py-6 shadow-xl">
                       <div className="px-4 sm:px-6">
-                        <Dialog.Title className="text-3xl font-medium text-slate-900">
+                        <Dialog.Title className="text-3xl font-medium">
                           Navigation
                         </Dialog.Title>
                       </div>

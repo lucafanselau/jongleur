@@ -1,19 +1,11 @@
 ---
-import { Drawer } from "@components/drawer";
-import Left from "@components/sidebars/left.astro";
 import * as CONFIG from "../../config.ts";
 ---
 
 <header class={"w-full"}>
   <nav class="px-4 md:px-8 py-2 rounded bg-white dark:bg-slate-800">
     <div class="grid grid-cols-3 items-center">
-      <div class="col-start-1 col-span-1">
-        <Drawer client:load>
-          <Fragment slot="content">
-            <Left />
-          </Fragment>
-        </Drawer>
-      </div>
+      <slot name="menu" />
       <div class="col-start-2 flex items-center justify-center">
         <a
           href={"/"}

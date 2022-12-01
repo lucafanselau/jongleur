@@ -62,7 +62,7 @@ const DarkToggle: FC = ({}) => {
   }, [theme]);
 
   return (
-    <div className="inline-flex items-center space-x-1 px-2 py-1 bg-slate-200 dark:bg-slate-800 rounded-xl">
+    <div className="inline-flex items-center space-x-1 px-2 py-1 bg-slate-200 dark:bg-slate-700 rounded-xl">
       {themes.map((t, i) => {
         const icon = icons[i];
         const checked = t === theme;

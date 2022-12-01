@@ -1,10 +1,8 @@
 ---
-import DarkToggle from "../utils/dark-toggle.tsx";
-
 const { headings } = Astro.props;
 ---
 
-<aside class="w-full flex flex-col space-y-4 sticky top-4" aria-label="Sidebar">
+<aside class="flex-col space-y-4" aria-label="Sidebar">
   {
     headings !== undefined && (
       <div>
@@ -41,8 +39,5 @@ const { headings } = Astro.props;
         </a>
       </li>
     </ul>
-  </div>
-  <div class="flex justify-center">
-    <DarkToggle client:idle />
   </div>
 </aside>

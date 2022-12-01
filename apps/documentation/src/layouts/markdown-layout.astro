@@ -25,8 +25,10 @@ const next = posts.find(
 ---
 
 <PageLayout {...Astro.props}>
-  <div class="md:row-span-3">
-    <article class="prose prose-slate dark:prose-invert prose-hr:my-4">
+  <div class="max-w-full">
+    <article
+      class="prose max-w-full md:max-w-[55ch] lg:max-w-[65ch] prose-slate dark:prose-invert prose-hr:my-4"
+    >
       <h1 class="text-5xl font-bold mb-2">{frontmatter.title}</h1>
       <p class="font-light text-slate-600 dark:text-slate-300">
         {frontmatter.description}

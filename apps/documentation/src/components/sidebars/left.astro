@@ -1,5 +1,6 @@
 ---
 import type { Frontmatter } from "../../config";
+import DarkToggle from "../utils/dark-toggle";
 
 const posts = await Astro.glob<{ url: string; frontmatter: Frontmatter }>(
   "../../pages/**/*.{md,mdx}"
@@ -9,10 +10,18 @@ const posts = await Astro.glob<{ url: string; frontmatter: Frontmatter }>(
 const folders = ["Getting Started", "Advanced", "API"];
 ---
 
-<aside
-  class="items-center md:items-start flex flex-col space-y-4"
-  aria-label="Sidebar"
->
+<aside class="items-start flex flex-col space-y-4" aria-label="Sidebar">
+  <a
+    href={"/"}
+    class:list={[
+      "flex items-center -mx-2 p-2 w-full text-base font-normal text-slate-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700",
+      {
+        "bg-slate-200 dark:bg-slate-600": "/" === Astro.url.pathname,
+      },
+    ]}
+  >
+    <h2 class="text-2xl">Landingpage</h2>
+  </a>
   {
     folders.map((f) => {
       // get pages for that folder and sort by index
@@ -21,7 +30,7 @@ const folders = ["Getting Started", "Advanced", "API"];
         .sort((a, b) => a.frontmatter.index - b.frontmatter.index);
 
       return (
-        <div class="">
+        <Fragment>
           <h2 class="mb-2 text-2xl">{f}</h2>
           <ul class="space-y-2">
             {folderPosts.map((post) => (
@@ -48,8 +57,12 @@ const folders = ["Getting Started", "Advanced", "API"];
               </li>
             ))}
           </ul>
-        </div>
+        </Fragment>
       );
     })
   }
+
+  <div class="flex justify-center w-full">
+    <DarkToggle client:idle />
+  </div>
 </aside>

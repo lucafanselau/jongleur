@@ -13,6 +13,9 @@ import Head from "../components/utils/head.astro";
 import Footer from "../components/footer.astro";
 
 import "../styles/base.css";
+
+import { Drawer } from "@components/drawer";
+import Left from "@components/sidebars/left.astro";
 ---
 
 <html lang={"en-us"} class="initial h-full">
@@ -29,11 +32,26 @@ import "../styles/base.css";
   <body class="h-full">
     <main
       id="headlessui-portal-root"
-      class="w-full min-h-full grid grid-rows-base grid-cols-1 items-center bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-white justify-between"
+      class="w-full max-w-full min-h-full grid grid-rows-base grid-cols-1 items-center bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-white justify-between"
     >
-      <Navigation />
-      <div class="w-full h-full">
-        <slot />
+      <Navigation>
+        <Fragment slot={"menu"}>
+          <div class="col-start-1 col-span-1 xl:hidden">
+            <Drawer client:load>
+              <Fragment slot="content">
+                <Left />
+              </Fragment>
+            </Drawer>
+          </div>
+        </Fragment>
+      </Navigation>
+      <div class="w-full h-full flex items-stretch max-w-full">
+        <div class="hidden xl:block bg-slate-50 p-8 dark:bg-slate-800">
+          <Left />
+        </div>
+        <div class="flex-grow max-w-full">
+          <slot />
+        </div>
       </div>
       <Footer />
     </main>
