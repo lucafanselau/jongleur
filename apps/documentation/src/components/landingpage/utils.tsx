@@ -1,14 +1,16 @@
 import { Html } from "@react-three/drei";
 import { FC, ReactNode } from "react";
 
-export const DocumentationButton = () => {
+export const DocumentationButton: FC<{ content?: ReactNode }> = ({
+  content,
+}) => {
   return (
     <a href={"/getting-started/introduction"}>
       <button
         type="button"
         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"
       >
-        Documentation
+        {content ?? "Documentation"}
       </button>
     </a>
   );

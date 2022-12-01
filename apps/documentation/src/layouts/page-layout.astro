@@ -13,11 +13,13 @@ const { headings } = props;
 
 <BaseLayout {...props}>
   <div
-    class="flex flex-col justify-center items-stretch p-4 w-full space-y-2 max-w-full md:flex-row-reverse md:p-8 md:space-x-4 md:space-x-reverse"
+    class="flex flex-col justify-center items-start p-4 w-full space-y-2 max-w-full md:flex-row-reverse md:p-8 md:space-x-4 md:space-x-reverse"
   >
     <div class="md:sticky md:top-4">
       <RightSidebar headings={headings} />
     </div>
-    <slot />
+    <div class="flex-grow max-w-full">
+      <slot />
+    </div>
   </div>
 </BaseLayout>
