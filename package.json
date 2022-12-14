@@ -10,17 +10,29 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/jongleur.umd.js",
-      "import": "./dist/jongleur.es.js"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "./orchestrate": {
+      "types": "./dist/orchestrate.d.ts",
+      "require": "./dist/orchestrate.cjs",
+      "import": "./dist/orchestrate.js"
+    },
+    "./progress": {
+      "types": "./dist/progress.d.ts",
+      "require": "./dist/progress.cjs",
+      "import": "./dist/progress.js"
+    },
+    "./scroll": {
+      "types": "./dist/scroll.d.ts",
+      "require": "./dist/scroll.cjs",
+      "import": "./dist/scroll.js"
     }
   },
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
-    "dev": "vite build --watch",
-    "build": "vite build",
+    "build": "rimraf dist && tsup",
     "build:example": "pnpm run --filter demo... build",
     "test": "vitest --run",
     "test:dev": "vitest",
@@ -41,15 +53,12 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.27.0",
-    "@antfu/ni": "^0.18.2",
     "@react-three/fiber": "^8.8.9",
-    "@rollup/plugin-typescript": "^9.0.2",
     "@testing-library/react": "^13.4.0",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@types/three": "^0.144.0",
     "@typescript-eslint/parser": "^5.40.0",
-    "@vitejs/plugin-react": "^2.1.0",
     "@vitest/coverage-c8": "^0.24.3",
     "bumpp": "^8.2.1",
     "eslint": "^8.23.1",
@@ -59,13 +68,11 @@
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rollup-plugin-typescript2": "^0.34.1",
     "three": "^0.145.0",
+    "tsup": "^6.5.0",
+    "rimraf": "^3.0.2",
     "typescript": "^4.6.4",
     "typescript-eslint-language-service": "^5.0.0",
-    "vite": "^3.1.0",
-    "vite-plugin-dts": "^1.6.4",
-    "vite-tsconfig-paths": "^3.5.1",
     "vitest": "^0.24.3"
   },
   "dependencies": {
