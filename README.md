@@ -11,7 +11,7 @@ German /Jon·g·leur/ ~ Juggler
 
 ## Description
 
-Jongleur is a library that aims to make orchestrating complex 3d animations on websites easier to maintain and scale. Animations of different objects are expressed in an object notation, that is inspired by keyframes, such as commonly found in many animation softwares. This allows having a single source of truth for the movement of objects in the scene.
+Jongleur is a library that aims to make orchestrating complex 3d animations on websites easier to maintain and scale. Animations of different objects are expressed in an object notation, that is inspired by keyframes, such as commonly found in many animation software. This allows having a single source of truth for the movement of objects in the scene.
 
 Here are some of the main benefits of using _jongleur_:
 
@@ -19,9 +19,12 @@ Here are some of the main benefits of using _jongleur_:
 - 🏎 **Performance optimized**: Demand-based frameloop is fully supported
 - 📒 **Single source of truth**: Simple maintenance of large scenes
 - ➡️ **Progress abstraction**: Animations can be driven by scroll, time or other forms of input
-- 🖱 **Scroll Utilities**: Create stunning scroll based interactive sites with a toolbox of React components
+- 🖱 **Scroll Utilities**: Create stunning scroll-based interactive sites with a toolbox of React components
 
-If you are interested, let's get started with the [documentation](https://jongleur-docs.vercel.app)
+If you are interested, let's get started with the [documentation](https://jongleur-docs.vercel.app).
+
+If you just want to see some code, there is a Stackblitz here that you can checkout (but I would still highly advice to checkout the documentation first):
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/jongleur-starter?file=src/App.css)
 
 ## TODO:
 
