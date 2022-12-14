@@ -126,7 +126,7 @@ importers:
       clsx: ^1.2.1
       flowbite: ^1.5.3
       globby: ^13.1.2
-      jongleur: workspace:^0.0.2
+      jongleur: workspace:*
       nanostores: ^0.7.0
       postcss-import: ^15.0.0
       postcss-nested: ^6.0.0
