@@ -2,7 +2,7 @@
   "name": "jongleur",
   "description": "An react-three-fiber orchestration library",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "packageManager": "pnpm@7.12.0",
   "author": "Luca Fanselau <https://github.com/lucafanselau>",
   "license": "MIT",
@@ -30,7 +30,9 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rimraf dist && tsup",
     "build:example": "pnpm run --filter demo... build",
@@ -39,7 +41,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "nr build",
+    "prepublishOnly": "pnpm run build",
     "release": "bumpp && npm publish",
     "start:demo": "pnpm run --filter demo dev",
     "start:docs": "pnpm run --filter documentation start",
