@@ -141,7 +141,7 @@ export const Controls = <Fields extends FieldsBase, Base extends StateBase<Field
   damping?: number;
   scale?: number;
 }): ReturnType<FC> => {
-  const store = useMemo(() => createScrollStore({ clips, settings: {} }), [clips]);
+  const store = useMemo(() => createScrollStore({ clips }), [clips]);
 
   useEffect(() => {
     store.setState({ settings: { damping, scale } });

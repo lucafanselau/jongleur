@@ -1,6 +1,6 @@
-import { createRoot } from "react-dom/client";
 import type { FC, ReactNode } from "react";
 import { useContext, useLayoutEffect, useMemo, useState } from "react";
+import { createRoot } from "react-dom/client";
 import { useStore } from "zustand";
 import { isNone } from "../utils";
 import { createScrollStore, scrollContext } from "./context";
@@ -76,10 +76,11 @@ export const At: FC<AtProps> = ({
 
   const context = useStore(store, s => s.context);
 
-  if (context === "r3f")
+  if (context === "r3f") {
     throw new Error(
       "[jongleur] Cannot use `Scroll.At` Utility inside of a r3f context. Please wrap component inside of a Scroll.Html pane"
     );
+  }
 
   const clips = useStore(store, s => s.clips);
   const scale = useStore(store, s => s.settings?.scale ?? 1);

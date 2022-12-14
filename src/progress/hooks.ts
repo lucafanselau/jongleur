@@ -1,11 +1,11 @@
 import type { Camera } from "@react-three/fiber";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo } from "react";
-import type { ClipStore } from "../store";
-import type { FieldsBase, HandleProgress, ObjectsForTarget, StateBase, TargetFromBase } from "../orchestrate";
-import { useRegister } from "./register";
-import { useProgress } from "./progress";
 import { useStore } from "zustand";
+import type { FieldsBase, ObjectsForTarget, StateBase, TargetFromBase } from "../orchestrate";
+import type { ClipStore } from "../store";
+import { useProgress } from "./progress";
+import { useRegister } from "./register";
 
 // Mostly utility hooks, that aim to make some of the library features easier to use
 export const useThreeCamera = <

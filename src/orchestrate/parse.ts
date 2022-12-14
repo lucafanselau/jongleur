@@ -1,7 +1,13 @@
 /**
  * @file Parse keyframes into clips, this is achieved using an `orchestrate` function
  **/
-import { InheritSymbol } from "./utils";
+import type { ClipStore } from "../store";
+import { createClipStore } from "../store";
+import { isSome, omitUndefined } from "../utils";
+import type { ClipsConfig, ObjectConfig } from "./config";
+import { defaultObjectConfig } from "./config";
+import type { DefaultFields } from "./fields";
+import { defaultFields } from "./fields";
 import type {
   BaseGuard,
   Clip,
@@ -11,13 +17,7 @@ import type {
   Keyframes,
   StateBase
 } from "./types";
-import type { ClipsConfig, ObjectConfig } from "./config";
-import { defaultObjectConfig } from "./config";
-import type { DefaultFields } from "./fields";
-import { defaultFields } from "./fields";
-import type { ClipStore } from "../store";
-import { createClipStore } from "../store";
-import { isSome, omitUndefined } from "../utils";
+import { InheritSymbol } from "./utils";
 
 /**
  * This converts the keyframe definitions into the usable keyframes
