@@ -50,8 +50,8 @@ const ScrollEvents: FC = () => {
     };
   }, [layout, domElement, get, setEvents, target]);
 
-  const clips = useStore(store, s => s.orchestrate);
-  const damping = useStore(store, s => s.damping);
+  const clips = useStore(store, s => s.clips);
+  const damping = useStore(store, s => s.settings?.damping);
   const progress = useProgress(clips, damping);
 
   const connected = useThree(s => s.events.connected);
@@ -84,7 +84,9 @@ const ScrollEvents: FC = () => {
 
 const ScrollPane: FC = () => {
   const store = useContext(scrollContext);
-  const length = useStore(store, s => s.orchestrate.getState().length);
+  const clips = useStore(store, s => s.clips);
+  const scale = useStore(store, s => s.settings?.scale);
+  const length = useStore(clips, c => c.length);
 
   const {
     gl: { domElement }
@@ -93,6 +95,7 @@ const ScrollPane: FC = () => {
   const target = domElement.parentNode;
 
   useEffect(() => {
+    if (isNone(scale) || isNone(length)) return;
     // create the new element
     const container = document.createElement("div");
     applyStyle(containerStyle, container);
@@ -102,6 +105,7 @@ const ScrollPane: FC = () => {
 
     // this is the container that will enable the scrolling
     const scrollPane = document.createElement("div");
+
     applyStyle(
       {
         ...scrollStyle,
@@ -121,25 +125,27 @@ const ScrollPane: FC = () => {
       scrollPane.remove();
       container.remove();
     };
-  }, [length, target, store]);
+  }, [length, target, store, scale]);
 
   return null;
 };
 
 export const Controls = <Fields extends FieldsBase, Base extends StateBase<Fields>>({
   children,
-  orchestrate,
-  damping = 2
+  clips,
+  damping = 2,
+  scale = 1
 }: {
   children: ReactNode;
-  orchestrate: ClipStore<Fields, Base>;
+  clips: ClipStore<Fields, Base>;
   damping?: number;
+  scale?: number;
 }): ReturnType<FC> => {
-  const store = useMemo(() => createScrollStore({ orchestrate }), [orchestrate]);
+  const store = useMemo(() => createScrollStore({ clips, settings: {} }), [clips]);
 
   useEffect(() => {
-    store.setState({ damping });
-  }, [damping, store]);
+    store.setState({ settings: { damping, scale } });
+  }, [damping, scale, store]);
 
   return (
     <scrollContext.Provider value={store as ScrollStoreContext}>

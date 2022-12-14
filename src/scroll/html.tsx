@@ -76,12 +76,16 @@ export const At: FC<AtProps> = ({
 
   const context = useStore(store, s => s.context);
 
-  if (context === "r3f") throw new Error("[jongleur] Cannot use `Scroll.At` Utility inside of a r3f context");
+  if (context === "r3f")
+    throw new Error(
+      "[jongleur] Cannot use `Scroll.At` Utility inside of a r3f context. Please wrap component inside of a Scroll.Html pane"
+    );
 
-  const clips = useStore(store, s => s.orchestrate);
+  const clips = useStore(store, s => s.clips);
+  const scale = useStore(store, s => s.settings?.scale ?? 1);
   const length = useStore(clips, s => s.length);
   // This calculation is based on the layout from ./controls.tsx
-  const top = context === "fixed" ? at : (at - 1) / length;
+  const top = context === "fixed" ? at : (at - 1) / (length * scale);
 
   const left = useMemo(() => alignToPercent(align as Align) ?? align, [align]);
 

@@ -145,7 +145,7 @@ import { Scroll } from "jongleur";
 
 The most important scroll component is `Scroll.Controls`. Similar to drei's ScrollControls these should ideally (although not completely necessary) wrap your whole scene. This will create scrollable divs in the DOM that overlay your canvas component. Additionally, it also setups the event listeners necessary to feedback the progress to *Jongleur*. 
 
-```tsx twoslash {1, 4-6, 16} 
+```tsx twoslash {1, 8, 10} 
 // @include: main
 
 // ---cut---
@@ -165,11 +165,26 @@ const App: FC = () => {
 ```
 
 
-The length of the scene (eg. the highest numbered keyframe in its definition) will control the length of the created scroll pane. For every whole number a new page will be added.
-<Alert type="info">
-In the example above, the last keyframe is at *progress* 1. When using the 
+The length of the scene (eg. the highest numbered keyframe in its definition) will control the length of the created scroll pane. For every whole number of progress in the keyframe, a new page will be added. This is chosen such that scrolling one times the height of the canvas the keyframes between 0 and 1 will be executed.
+<Alert type="tip">
+In the example above, the last keyframe is at *progress* "one". When using the `Scroll.Controls` a scrollable area of (1+1) = 2 times the height of the canvas is created. Therefore the whole animation will be completed after the user scrolls once the size of the container.
 </Alert>
 
+<Alert type="info">
+At the current moment, this behavior is fixed. I have planned to include a `scale` parameter, however, it is not trivial to decide how that should interact with the positioning utility `Scroll.At`. If you have an idea on how that should behave or just want to push the progress on that, check out the GitHub issue [here](https://github.com/lucafanselau/jongleur/issues/2).
+</Alert>
+
+### Positioning
+
+When working with the `Scroll.Controls` you will probably want to position some HTML content in front of the canvas. Similar to the cards on the landing page of this website. There are mainly two ways of positioning content: Fixed and scrollable.
+
+#### Scroll.At Utility
+
+The most important component for positioning elements on screen is the Scroll.At Utility. Using the  
+
+#### Fixed Contents
+
+Fixed contents are those that remain at the same place above the canvas during the scrolling. This is useful if you have something like an "action" button, that you always want to remain clickable. To have something like that start by defining 
 
 
 ## Custom progress
