@@ -1,6 +1,7 @@
 ---
 import type { Frontmatter } from "../../config";
 import DarkToggle from "../utils/dark-toggle";
+import { GithubButton } from "../landingpage/utils";
 
 const posts = await Astro.glob<{ url: string; frontmatter: Frontmatter }>(
   "../../pages/**/*.{md,mdx}"
@@ -62,7 +63,8 @@ const folders = ["Getting Started", "Advanced", "API"];
     })
   }
 
-  <div class="flex justify-center w-full">
+  <div class="flex justify-center w-full space-x-2">
     <DarkToggle client:idle />
+    <GithubButton />
   </div>
 </aside>
