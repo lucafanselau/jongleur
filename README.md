@@ -24,6 +24,7 @@ Here are some of the main benefits of using _jongleur_:
 If you are interested, let's get started with the [documentation](https://jongleur-docs.vercel.app).
 
 If you just want to see some code, there is a Stackblitz here that you can checkout (but I would still highly advice to checkout the documentation first):
+
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/jongleur-starter?file=src/App.css)
 
 ## TODO:
