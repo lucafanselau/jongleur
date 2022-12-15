@@ -37,7 +37,7 @@ const classes: Record<AlertType, string> = {
       clip-rule="evenodd"></path>
   </svg>
   <span class="sr-only">{labels[type]}</span>
-  <div>
+  <div class="min-w-[1px] break-words">
     <span class="font-medium">{labels[type]}</span>
     <slot />
   </div>
