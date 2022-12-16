@@ -46,7 +46,7 @@ export const createLandingpageContent = (
           Elements. The resulting clips can be applied and advanced by any form
           of progress, such as scroll or time.
         </p>
-        <p>
+        <p className={"hidden md:block"}>
           So far, you already saw these effects applied to this card and the
           "Start by scrolling" label on the first page.
         </p>
@@ -92,7 +92,7 @@ export const createLandingpageContent = (
         <p className={"text-slate-600 dark:text-slate-300 text-sm"}>
           Note: 0.1 is extremely slow 🐌 and 10 is snappy 🚀
         </p>
-        <p>
+        <p className={"hidden md:block"}>
           You can even disable damping for any object or even any single
           animation in the scene.
         </p>
