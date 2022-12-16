@@ -1,5 +1,5 @@
 import { Html } from "@react-three/drei";
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 
 export const DocumentationButton: FC<{ content?: ReactNode }> = ({
   content,

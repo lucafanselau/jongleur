@@ -6,6 +6,7 @@
     "strict": true,
     "skipLibCheck": true,
     "experimentalDecorators": true,
+    "allowJs": true,
     "paths": {
       "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"],

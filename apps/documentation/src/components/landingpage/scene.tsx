@@ -6,10 +6,16 @@ import useSpline from "@splinetool/r3f-spline";
 import { OrthographicCamera } from "@react-three/drei";
 import { clips } from "./keyframes";
 import { useRegister } from "jongleur";
+import { GroupProps } from "@react-three/fiber";
 
-export default function Scene({ ...props }) {
+export default function Scene({
+  isMd,
+  ...props
+}: { isMd: boolean } & GroupProps) {
   const register = useRegister(clips);
-  const { nodes, materials } = useSpline("https://prod.spline.design/Hmz1Escqe3w2cHBn/scene.splinecode");
+  const { nodes, materials } = useSpline(
+    "https://prod.spline.design/Hmz1Escqe3w2cHBn/scene.splinecode"
+  );
   return (
     <>
       {/* <color attach="background" args={["#a9866b"]} /> */}
@@ -43,7 +49,11 @@ export default function Scene({ ...props }) {
           color="#cde5fe"
           position={[-280.4, 372.28, 569.66]}
         />
-        <group name="Bed Table" position={[72.66, -41.86, -0.21]} ref={register("bed", "table")}>
+        <group
+          name="Bed Table"
+          position={[72.66, -41.86, -0.21]}
+          ref={register("bed", "table")}
+        >
           <mesh
             name="Sphere 2"
             geometry={nodes["Sphere 2"].geometry}
@@ -94,7 +104,11 @@ export default function Scene({ ...props }) {
             rotation={[0, -0.02, 0]}
           />
         </group>
-        <group name="Clock" position={[108.56, 89.16, -19.97]} ref={register("wall", "clocks")}>
+        <group
+          name="Clock"
+          position={[108.56, 89.16, -19.97]}
+          ref={register("wall", "clocks")}
+        >
           <mesh
             name="Cylinder 19"
             geometry={nodes["Cylinder 19"].geometry}
@@ -399,7 +413,11 @@ export default function Scene({ ...props }) {
             />
           </group>
         </group>
-        <group name="Bed" position={[143.08, -16.93, 58.06]} ref={register("bed", "real")}>
+        <group
+          name="Bed"
+          position={[143.08, -16.93, 58.06]}
+          ref={register("bed", "real")}
+        >
           <mesh
             name="Cube 17"
             geometry={nodes["Cube 17"].geometry}
@@ -504,7 +522,11 @@ export default function Scene({ ...props }) {
           />
         </group>
         <group name="Table" position={[-52.43, -37.39, 81.58]}>
-          <group name="Sticky Notes" position={[-27.24, 44.73, 38.41]} ref={register("tableStuff", "notes")}>
+          <group
+            name="Sticky Notes"
+            position={[-27.24, 44.73, 38.41]}
+            ref={register("tableStuff", "notes")}
+          >
             <mesh
               name="Cube 73"
               geometry={nodes["Cube 73"].geometry}
@@ -526,7 +548,11 @@ export default function Scene({ ...props }) {
               scale={[0.37, 0.03, 0.37]}
             />
           </group>
-          <group name=" Coffee Cup" position={[14.92, 34.47, -45.85]} ref={register("tableStuff", "coffee")}>
+          <group
+            name=" Coffee Cup"
+            position={[14.92, 34.47, -45.85]}
+            ref={register("tableStuff", "coffee")}
+          >
             <mesh
               name="Torus"
               geometry={nodes.Torus.geometry}
@@ -548,7 +574,11 @@ export default function Scene({ ...props }) {
               scale={[0.35, 0.63, 0.35]}
             />
           </group>
-          <group name="Computer" position={[-9.41, 45.59, -0.98]} ref={register("tableStuff", "keyboard")}>
+          <group
+            name="Computer"
+            position={[-9.41, 45.59, -0.98]}
+            ref={register("tableStuff", "keyboard")}
+          >
             <group name="Keyboard" position={[20.17, -17.38, 2.42]}>
               <mesh
                 name="Cube 46"
@@ -855,7 +885,11 @@ export default function Scene({ ...props }) {
             />
           </group>
         </group>
-        <group name="Books" position={[-0.09, 51.99, -15.98]} ref={register("wall", "books")}>
+        <group
+          name="Books"
+          position={[-0.09, 51.99, -15.98]}
+          ref={register("wall", "books")}
+        >
           <mesh
             name="Cube 23"
             geometry={nodes["Cube 23"].geometry}
@@ -1025,7 +1059,12 @@ export default function Scene({ ...props }) {
             rotation={[0, 1.55, 0]}
           />
         </group>
-        <group name="Window" position={[-58.08, 85.3, 99.95]} rotation={[1.54, 1.05, 0.03]} scale={[0.2, 0.12, 0.04]}>
+        <group
+          name="Window"
+          position={[-58.08, 85.3, 99.95]}
+          rotation={[1.54, 1.05, 0.03]}
+          scale={[0.2, 0.12, 0.04]}
+        >
           <mesh
             name="Rectangle 20"
             geometry={nodes["Rectangle 20"].geometry}
@@ -1046,7 +1085,11 @@ export default function Scene({ ...props }) {
             rotation={[0, 0, -Math.PI / 2]}
             scale={[0.78, 0.17, 0.34]}
           />
-          <group name="Empty Object1" position={[0, 0, 72.26]} scale={[1.63, 2.18, 0.2]}>
+          <group
+            name="Empty Object1"
+            position={[0, 0, 72.26]}
+            scale={[1.63, 2.18, 0.2]}
+          >
             <mesh
               name="Mar_Window"
               geometry={nodes.Mar_Window.geometry}
@@ -1104,10 +1147,10 @@ export default function Scene({ ...props }) {
         <OrthographicCamera
           name="Default Camera"
           makeDefault={true}
-          zoom={1.51}
+          zoom={isMd ? 1.51 : 0.61}
           far={100000}
           near={-50000}
-          position={[565.14, 375.08, 723.2]}
+          position={[565.14, isMd ? 375.08 : 150.08, 723.2]}
           rotation={[-0.52, 0.6, 0.31]}
           // lookAt={[0, 0, 0]}
           scale={1}

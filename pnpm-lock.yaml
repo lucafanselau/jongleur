@@ -134,6 +134,7 @@ importers:
       prettier-plugin-astro: ^0.7.0
       react: ^18.1.0
       react-dom: ^18.1.0
+      react-responsive: ^9.0.2
       react-slider: ^2.0.4
       remark-shiki-twoslash: ^3.1.0
       shiki: ^0.11.1
@@ -169,6 +170,7 @@ importers:
       postcss-nested: 6.0.0_postcss@8.4.18
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-responsive: 9.0.2_react@18.2.0
       react-slider: 2.0.4_react@18.2.0
       remark-shiki-twoslash: 3.1.0
       shiki: 0.11.1
@@ -2603,6 +2605,10 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
 
+  /css-mediaquery/0.1.2:
+    resolution: {integrity: sha512-COtn4EROW5dBGlE/4PiKnh6rZpAPxDeFLaEEwt4i10jpDMFt2EhQGS79QmmrO+iKCHv0PU/HrOWEhijFd1x99Q==}
+    dev: false
+
   /css-selector-tokenizer/0.8.0:
     resolution: {integrity: sha512-Jd6Ig3/pe62/qe5SBPTN8h8LeUg/pT4lLgtavPf7updwwHpvFzxvOQBHYj2LZDMjUnBzgvIUSjRcf6oT5HzHFg==}
     dependencies:
@@ -4448,6 +4454,10 @@ packages:
     engines: {node: '>=12.20.0'}
     dev: false
 
+  /hyphenate-style-name/1.0.4:
+    resolution: {integrity: sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==}
+    dev: false
+
   /iconv-lite/0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
@@ -5111,6 +5121,12 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       escape-string-regexp: 4.0.0
+    dev: false
+
+  /matchmediaquery/0.3.1:
+    resolution: {integrity: sha512-Hlk20WQHRIm9EE9luN1kjRjYXAQToHOIAHPJn9buxBwuhfTHoKUcX+lXBbxc85DVQfXYbEQ4HcwQdd128E3qHQ==}
+    dependencies:
+      css-mediaquery: 0.1.2
     dev: false
 
   /mdast-util-definitions/5.1.1:
@@ -6435,6 +6451,19 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /react-responsive/9.0.2_react@18.2.0:
+    resolution: {integrity: sha512-+4CCab7z8G8glgJoRjAwocsgsv6VA2w7JPxFWHRc7kvz8mec1/K5LutNC2MG28Mn8mu6+bu04XZxHv5gyfT7xQ==}
+    engines: {node: '>=0.10'}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      hyphenate-style-name: 1.0.4
+      matchmediaquery: 0.3.1
+      prop-types: 15.8.1
+      react: 18.2.0
+      shallow-equal: 1.2.1
+    dev: false
+
   /react-slider/2.0.4_react@18.2.0:
     resolution: {integrity: sha512-sWwQD01n6v+MbeLCYthJGZPc0kzOyhQHyd0bSo0edg+IAxTVQmj3Oy4SBK65eX6gNwS9meUn6Z5sIBUVmwAd9g==}
     peerDependencies:
@@ -6875,6 +6904,10 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       type-fest: 0.13.1
+    dev: false
+
+  /shallow-equal/1.2.1:
+    resolution: {integrity: sha512-S4vJDjHHMBaiZuT9NPb616CSmLf618jawtv3sufLl6ivK8WocjAo58cXwbRV1cgqxH0Qbv+iUt6m05eqEa2IRA==}
     dev: false
 
   /shebang-command/2.0.0:

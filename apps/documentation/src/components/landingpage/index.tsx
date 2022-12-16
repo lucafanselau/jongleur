@@ -1,14 +1,12 @@
-import Scene from "./scene";
 import { Canvas } from "@react-three/fiber";
-import { FC, ReactNode, Suspense, useMemo, useState } from "react";
-import { Scroll, useRegister } from "jongleur";
-import { clips } from "./keyframes";
-import { range } from "jongleur";
-import { GithubButton, Loader, Code, DocumentationButton } from "./utils";
-import ReactSlider from "react-slider";
-import DarkToggle from "@components/utils/dark-toggle";
 import clsx from "clsx";
+import { range, Scroll, useRegister } from "jongleur";
+import { Suspense, useMemo, useState } from "react";
 import { createLandingpageContent } from "./content";
+import { clips } from "./keyframes";
+import { useBreakpoint } from "./responsive";
+import Scene from "./scene";
+import { DocumentationButton, Loader } from "./utils";
 
 function Keyframes() {
   const register = useRegister(clips);
@@ -19,6 +17,8 @@ function Keyframes() {
     () => createLandingpageContent(damping, setDamping),
     [setDamping, damping]
   );
+
+  const isMd = useBreakpoint("md");
 
   return (
     <Canvas frameloop="demand">
@@ -38,15 +38,36 @@ function Keyframes() {
           />
           <Scroll.Html>
             {Cards.map(
-              ({ at, heading, content, align, placement, className, key }) => {
-                const pl = placement ?? ["center", "end"];
+              ({
+                at,
+                heading,
+                content,
+                align,
+                placement,
+                className,
+                key,
+                responsive,
+              }) => {
+                const pl =
+                  placement ?? (isMd ? ["center", "end"] : ["end", "center"]);
+                const mappedAt = responsive ? (isMd ? at : at + 0.5) : at;
+                const defaultAlign = responsive
+                  ? isMd
+                    ? "end"
+                    : "center"
+                  : "end";
                 return (
-                  <Scroll.At at={at} align={align ?? "end"} placement={pl}>
+                  <Scroll.At
+                    at={mappedAt}
+                    align={align ?? defaultAlign}
+                    placement={pl}
+                  >
                     <div
                       ref={key !== undefined ? register(key) : undefined}
                       className={clsx(
                         "block p-8 min-w-[400px] rounded-lg border border-slate-300 dark:border-slate-700 shadow-md glass lg:scale-100 scale-75 transform-gpu",
                         pl[1] === "end" && "mr-8",
+                        pl[1] === "center" && "mb-8",
                         pl[1] === "end" ? "origin-right" : "origin-bottom",
                         className
                       )}
@@ -62,10 +83,10 @@ function Keyframes() {
             )}
             <Scroll.At at={1} align={"center"} placement={["end", "center"]}>
               <div
-                className={"flex flex-col items-center mb-2 gap-[4px]"}
+                className={"flex flex-col items-center md:mb-2 gap-[4px]"}
                 ref={register("start")}
               >
-                <p>Start by scrolling</p>
+                <p className={"hidden md:block"}>Start by scrolling</p>
                 <svg
                   className="w-6 h-6 animate-bounce"
                   fill="none"
@@ -94,7 +115,7 @@ function Keyframes() {
               </div>
             </Scroll.At>
           </Scroll.Html>
-          <Scene />
+          <Scene isMd={isMd} />
         </Scroll.Controls>
       </Suspense>
     </Canvas>

@@ -7,6 +7,7 @@ export const createLandingpageContent = (
 ) => [
   {
     at: 0.5,
+    responsive: true,
     heading: "Welcome to `Jongleur` 🤹",
     content: (
       <>
@@ -29,6 +30,7 @@ export const createLandingpageContent = (
   },
   {
     at: 1.5,
+    responsive: true,
     key: "second" as const,
     heading: (
       <>
@@ -58,6 +60,7 @@ export const createLandingpageContent = (
   },
   {
     at: 2.5,
+    responsive: true,
     key: "third" as const,
     heading: "There, that's ✨ better ✨",
     content: (
@@ -103,6 +106,7 @@ export const createLandingpageContent = (
   },
   {
     at: 3.5,
+    responsive: true,
     key: "fourth" as const,
     heading: "Did you see the chair? 😮",
     content: (
@@ -121,6 +125,7 @@ export const createLandingpageContent = (
   },
   {
     at: 4.5,
+    responsive: true,
     key: "fifth" as const,
     heading: "Animating lights and other object",
     content: (

@@ -8,7 +8,8 @@ export const fullscreenStyle = {
 export const containerStyle = {
   ...fullscreenStyle,
   position: "absolute",
-  overflowY: "auto"
+  overflowY: "auto",
+  overflowX: "hidden"
 };
 
 export const stickyStyle = {
