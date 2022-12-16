@@ -21,7 +21,7 @@ Here are some of the main benefits of using _jongleur_:
 - ➡️ **Progress abstraction**: Animations can be driven by scroll, time or other forms of input
 - 🖱 **Scroll Utilities**: Create stunning scroll-based interactive sites with a toolbox of React components
 
-If you are interested, let's get started with the [documentation](https://jongleur-docs.vercel.app).
+If you are interested, let's get started with the [documentation](https://jongleur.guythat.codes).
 
 If you just want to see some code, there is a Stackblitz here that you can checkout (but I would still highly advice to checkout the documentation first):
 

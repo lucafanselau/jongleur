@@ -42,5 +42,5 @@ export default defineConfig({
       extendPlugins: "astroDefaults",
     }),
   ],
-  site: `http://jongleur-docs.vercel.app`,
+  site: `http://jongleur.guythat.codes`,
 });
