@@ -21,20 +21,29 @@ export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fi
       (_, delta) => {
         if (isSome(damping) && shouldUpdate.current.length > 0) {
           const { slots, fields, setLastProgress, last } = store.getState();
+
+          // applies `progress` to all objects in  shouldUpdate
+          const applyProgress = (progress: number) => {
+            // apply all the clips
+            shouldUpdate.current.forEach(({ considered, o, field }) => {
+              Object.values(slots[o] ?? {}).forEach(target => {
+                if (isSome(target)) applyClip(fields[field], target, considered, progress);
+              });
+            });
+          };
+
           // damp the scrolls if that is required
           const progress = MathUtils.damp(last, target.current, damping, Math.min(delta, 1 / 20));
           setLastProgress(progress);
-          // apply all the clips
-          shouldUpdate.current.forEach(({ considered, o, field }) => {
-            Object.values(slots[o] ?? {}).forEach(target => {
-              if (isSome(target)) applyClip(fields[field], target, considered, progress);
-            });
-          });
+
+          applyProgress(progress);
 
           // this is our stop condition, to enable demand based invalidating loops
           if (Math.abs(progress - target.current) < eps) {
             // means we reached our target (to a sufficient degree) and can stop the frames (if we are in frameloop: "demand" mode)
             // setLastProgress(target.current);
+            applyProgress(target.current);
+            setLastProgress(target.current);
             shouldUpdate.current = [];
           } else {
             // otherwise,  dispatch at least another frame

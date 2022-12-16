@@ -33,7 +33,7 @@ function App() {
       <Canvas frameloop="demand">
         {/* <Stats /> */}
         <Suspense fallback={<Loader />}>
-          <Scroll.Controls clips={clips} damping={damping} scale={0.5}>
+          <Scroll.Controls clips={clips} damping={damping}>
             <Scroll.Snaps
               points={[0, 1, 2, 3, 4, 5].map(v => v + 0.5)}
               align={"center"}
