@@ -76,7 +76,6 @@ export const Loader = () => {
           <span className="sr-only">Loading...</span>
         </div>
         <p className="text-lg">Loading</p>
-        {/* <progress className="bg-slate-200 w-56 shadow-md h-2 rounded-full"></progress> */}
       </div>
     </Html>
   );
