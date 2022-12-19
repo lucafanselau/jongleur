@@ -11,14 +11,14 @@ German /Jon·g·leur/ ~ Juggler
 
 ## Description
 
-Jongleur is a library that serves two purposes. First it introduces a keyframe-based (think of a timeline editor in blender or video editors) notation to write animations for objects (three.js objects or vanilla DOM object). Secondly, its provides a toolbox of utilities to bring the animations to life, either as a Scroll Animation or using different forms of progress.
+Jongleur is a library that serves two purposes. First it introduces a keyframe-based notation (think of a timeline editor in blender or video editors) to write animations for objects (three.js/r3f or vanilla DOM objects). Secondly, its provides a toolbox of utilities to bring the animations to life, either as a Scroll Animation or using different forms of progress.
 
 Using Jongleur, you can easily write engaging and interesting landingpages, that stand out, while also supporting a wide variety of devices and browsers as it is based on the fantastic [three.js](https://threejs.org/) and [react-three-fiber](https://github.com/pmndrs/react-three-fiber).
 
 Here are some of the main benefits of using _jongleur_:
 
 - 🔒 **Fully type safe**: Advanced typescript features ensure that animations are valid
-- 🏎 **Performance optimized**: Demand-based frameloop is fully supported
+- 🏎 **Performance optimized**: Demand-based frameloop is fully supported. Since Jongleur knows your whole animation, only render a new frame if it is really needed.
 - 📒 **Single source of truth**: Simple maintenance of large scenes
 - ➡️ **Progress abstraction**: Animations can be driven by scroll, time or other forms of input
 - 🖱 **Scroll Utilities**: Create stunning scroll-based interactive sites with a toolbox of React components
@@ -43,13 +43,13 @@ If you are using **typescript** (which is highly recommended), also install that
 npm install --save-dev typescript @types/three
 ```
 
-Next we will cover how to use the library. You can also checkout a live demo [here]()
+Next we will cover how to use the library. You can find the whole source of this mini tutorial as a CodeSandbox [here](https://codesandbox.io/s/jongleur-minimal-demo-fk4e2z).
 
 ## First create the animations
 
-First define how you want the scene to behave. This is the part that is inspired by keyframe editors. The first parameter is the base scene (eg. how do you want the scene to look at the beginning). The second parameter is basically a listing, for every object, at which stage you want to object to have which properties. _Jongleur_ is unopinionated in that you can freely decide on the scale of keyframes. The third argument is for configuring the scene.
+The first step is to define how you want the scene to behave. This is the part that is inspired by keyframe editors. The first parameter is the base scene (eg. how do you want the scene to look at the beginning). The second parameter is basically a listing, for every object, at which stage (or progress) you want to object to have which state. The stages are identified by positive numbers. The third argument is for configuring the scene.
 
-The resulting store, per convention called `clips`, contains every information necessary to make the scene run. _Jongleur_ figures out the best way to transition between those states.
+The resulting store, per convention called `clips`, contains every information necessary to make the scene run. _Jongleur_ figures out the best way to transition between the stages you provided.
 
 ```tsx
 import { orchestrate, helpers } from "jongleur";
@@ -94,6 +94,8 @@ const Scene = () => {
 };
 ```
 
+If you want to learn more about registering objects to your scene, look [here](https://jongleur.guythat.codes/getting-started/register).
+
 ## Choosing a form of progress
 
 The last step is to decide which source of progress should drive the animation. The most popular is `Scroll`, which works similar to drei's ScrollControls. `Scroll.Controls` is the component that makes your scene run. Along side `Scroll` also exposes a bunch of useful utilities, like a Scroll Snap feature or an equivilant to drei's `Html` utility together with positioning utilites.
@@ -119,6 +121,8 @@ const ScrollScene = () => {
 };
 ```
 
+For other form of progress and even more information to the Scroll utilties, look [here](https://jongleur.guythat.codes/getting-started/progress).
+
 You can also play with the live demo of this small example [here](https://codesandbox.io/s/jongleur-minimal-demo-fk4e2z).
 
 ## Further steps
@@ -132,4 +136,11 @@ And more are coming soon...
 
 ## Contributing
 
-If you are experienced with react-three-fiber and want to contribute, you are very welcome to do so. If have created some issues labled "enhancement".
+If you are experienced with react-three-fiber and want to contribute, you are very welcome to do so. If have created some issues labled "enhancement". To get started with the repository locally, you'll first have to clone the repo and then run the following commands:
+
+```sh
+pnpm install # we are using so pnpm's workspace feature, so make sure you have pnpm installed
+pnpm start:demo
+```
+
+After that you will have a live demo running. This application can be found under `apps/demo`. It is configured to compile the HMR the source code of the library, so that you see the changes that you make in real-time. Before opening an pr, please make sure that `pnpm check` still finishes with a 0 exit code.
