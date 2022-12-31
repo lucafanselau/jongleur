@@ -12,7 +12,7 @@ describe("parsing", () => {
       {
         test: {
           1: { position: helpers.state(new Vector3(0, 1, 0), "linear") },
-          2: { position: helpers.state(new Vector3(0, 2, 0), undefined, false) }
+          2: { position: helpers.state(new Vector3(0, 2, 0), undefined) }
         }
       },
       { interpolation: "ease-in-out", damping: true }
@@ -28,15 +28,16 @@ describe("parsing", () => {
             {
               start: [0, new Vector3(0, 0, 0)],
               end: [1, new Vector3(0, 1, 0)],
-              config: { interpolation: "linear", damping: true }
+              config: { interpolation: "linear" }
             },
             {
               start: [1, new Vector3(0, 1, 0)],
               end: [2, new Vector3(0, 2, 0)],
-              config: { interpolation: "ease-in-out", damping: false }
+              config: { interpolation: "ease-in-out" }
             }
           ]
-        }
+        },
+        config: { interpolation: "ease-in-out", damping: true }
       }
     });
   });
@@ -59,10 +60,11 @@ describe("parsing", () => {
             {
               start: [0.5, new Vector3(0, 0, 0)],
               end: [1, new Vector3(0, 1, 0)],
-              config: { interpolation: "ease-in-out", damping: true }
+              config: { interpolation: "ease-in-out" }
             }
           ]
-        }
+        },
+        config: { interpolation: "ease-in-out", damping: true }
       }
     });
   });
@@ -87,15 +89,16 @@ describe("parsing", () => {
             {
               start: [0.5, new Vector3(0, 0, 0)],
               end: [1, new Vector3(0, 1, 0)],
-              config: { interpolation: "linear", damping: true }
+              config: { interpolation: "linear" }
             },
             {
               start: [1.5, new Vector3(0, 1, 0)],
               end: [2, new Vector3(0, 2, 0)],
-              config: { interpolation: "ease-in", damping: true }
+              config: { interpolation: "ease-in" }
             }
           ]
-        }
+        },
+        config: { damping: true, interpolation: "ease-in-out" }
       }
     });
   });
@@ -107,7 +110,7 @@ describe("parsing", () => {
         test: {
           0.5: { position: InheritSymbol },
           0.7: { rotation: InheritSymbol },
-          1: { position: helpers.state(new Vector3(0, 1, 0), "linear", false) },
+          1: { position: helpers.state(new Vector3(0, 1, 0), "linear") },
           1.5: { position: InheritSymbol },
           2: { position: helpers.state(new Vector3(0, 2, 0), "ease-in") },
           2.3: { rotation: helpers.state(1, "start") }
@@ -123,22 +126,23 @@ describe("parsing", () => {
             {
               start: [0.5, new Vector3(0, 0, 0)],
               end: [1, new Vector3(0, 1, 0)],
-              config: { interpolation: "linear", damping: false }
+              config: { interpolation: "linear" }
             },
             {
               start: [1.5, new Vector3(0, 1, 0)],
               end: [2, new Vector3(0, 2, 0)],
-              config: { interpolation: "ease-in", damping: true }
+              config: { interpolation: "ease-in" }
             }
           ],
           rotation: [
             {
               start: [0.7, 0],
               end: [2.3, 1],
-              config: { interpolation: "start", damping: true }
+              config: { interpolation: "start" }
             }
           ]
-        }
+        },
+        config: { damping: true, interpolation: "ease-in-out" }
       }
     });
   });

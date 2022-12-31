@@ -17,9 +17,25 @@ export const clips = orchestrate(
     chair: { scale: new Vector3(0, 0, 0), rotation: new Vector3(0, 0, 0), position: new Vector3(0, 0, 0) },
     bed: { scale: new Vector3(0, 0, 0) },
     lamp: { visible: true as boolean, position: new Vector3(0, 800, 0) },
-    lampLights: { intensity: 0 }
+    lampLights: { intensity: 0 },
+    camera: { position: new Vector3(0, 0, 150), lookAt: new Vector3(0, 0, 0) } // a camera object (uses the lookAt field)
   },
   {
+    camera: {
+      2: {
+        position: helpers.state(new Vector3(150, 30, 0), "ease-in-out"),
+        lookAt: helpers.state(new Vector3(0, 0, 0), "ease-in-out")
+      },
+
+      3: {
+        position: helpers.state(new Vector3(-30, 90, -30), "ease-in-out"),
+        lookAt: helpers.state(new Vector3(0, 0, 0), "ease-in-out")
+      },
+      4: {
+        position: helpers.state(new Vector3(-60, 20, -30), "ease-in-out"),
+        lookAt: helpers.state(new Vector3(0, 0, 0), "ease-in-out")
+      }
+    },
     start: {
       // pretty early the start label has to vanish
       0.08: { opacity: helpers.state(0, undefined, false) }

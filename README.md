@@ -52,7 +52,7 @@ The first step is to define how you want the scene to behave. This is the part t
 The resulting store, per convention called `clips`, contains every information necessary to make the scene run. _Jongleur_ figures out the best way to transition between the stages you provided.
 
 ```tsx
-import { orchestrate, helpers } from "jongleur";
+import { helpers, orchestrate } from "jongleur";
 
 const clips = orchestrate(
   {

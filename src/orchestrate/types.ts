@@ -81,6 +81,7 @@ export type Keyframes<Fields extends FieldsBase, Base extends StateBase<Fields>>
   [O in keyof Base]: {
     clips: { [K in keyof Base[O]]: Clip<Base[O][K]>[] };
     fields: (keyof Base[O])[];
+    config: ObjectConfig;
   };
 };
 

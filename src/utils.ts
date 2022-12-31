@@ -16,3 +16,9 @@ export const range = (start: number, end: number): number[] => Array.from({ leng
 
 export const omitUndefined = <T extends Record<string, any>>(t: T): T =>
   Object.fromEntries(Object.entries(t).filter(([_, v]) => isSome(v))) as T;
+
+export const spreadWithUndefined = <T extends Record<string, any>>(t: (Partial<T> | undefined)[]) =>
+  t.reduce((prev, t) => ({ ...prev, ...omitUndefined(t ?? {}) } as T), {} as T) as T;
+
+export const pick = <T extends Record<string, any>, K extends keyof T>(t: T, keys: K[]): Pick<T, K> =>
+  Object.fromEntries(Object.entries(t).filter(([k, _]) => keys.includes(k as K))) as Pick<T, K>;

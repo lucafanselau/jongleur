@@ -3,8 +3,8 @@
  **/
 import type { ClipStore } from "../store";
 import { createClipStore } from "../store";
-import { isSome, omitUndefined } from "../utils";
-import type { ClipsConfig, ObjectConfig } from "./config";
+import { isSome, pick, spreadWithUndefined } from "../utils";
+import type { ClipConfig, ClipsConfig, ObjectConfig } from "./config";
 import { defaultObjectConfig } from "./config";
 import type { DefaultFields } from "./fields";
 import { defaultFields } from "./fields";
@@ -72,11 +72,10 @@ export const parseKeyframes = <
 
             // Config is created by falling back onto the higher level configs
             // this is a bit weirder then it should be, since this approach does not work with undefine's as object values
-            const clipConfig = {
-              ...omitUndefined(config),
-              ...omitUndefined(objectConfig ?? {}),
-              ...omitUndefined(fieldConfig)
-            };
+            const clipConfig = pick(
+              spreadWithUndefined<Required<ClipConfig>>([config, objectConfig, fieldConfig]) ?? config,
+              ["interpolation"]
+            );
             // insert the new clip
             clips[field].push({
               start: clipStack[field],
@@ -92,7 +91,11 @@ export const parseKeyframes = <
 
     return {
       ...acc,
-      [current]: { clips, fields }
+      [current]: {
+        clips,
+        fields,
+        config: spreadWithUndefined([config, objectConfig])
+      }
     };
   }, {} as Keyframes<Fields, Base>);
 

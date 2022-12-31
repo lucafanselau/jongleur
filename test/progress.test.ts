@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import type { Interpolation } from "../src/progress";
-import { alphaForClip, findActiveClip, findLastClip } from "../src/progress/utils";
 import type { Clip } from "../src/orchestrate";
+import type { Interpolation } from "../src/progress";
+import { alphaForClip, findLastClip } from "../src/progress/utils";
 
 const dummy = (start: number, end: number, interpolation: Interpolation = "linear"): Clip => ({
   start: [start, null],
   end: [end, null],
-  config: { interpolation, damping: false }
+  config: { interpolation }
 });
 
 describe("progress", () => {
@@ -39,14 +39,14 @@ describe("progress", () => {
     // TODO: maybe add more interpolation tests
   });
 
-  it("active clips", () => {
-    const clips: Clip[] = [dummy(0, 1), dummy(2, 3)];
+  // it("active clips", () => {
+  //   const clips: Clip[] = [dummy(0, 1), dummy(2, 3)];
 
-    expect(findActiveClip([0, 2.2], clips)).eql(dummy(2, 3));
-    expect(findActiveClip([2.2, 4], clips)).eql(dummy(2, 3));
-    expect(findActiveClip([0, 2], clips)).eql(dummy(0, 1));
+  //   expect(findActiveClip([0, 2.2], clips)).eql(dummy(2, 3));
+  //   expect(findActiveClip([2.2, 4], clips)).eql(dummy(2, 3));
+  //   expect(findActiveClip([0, 2], clips)).eql(dummy(0, 1));
 
-    expect(findActiveClip([4, 5], clips)).to.be.undefined;
-    expect(findActiveClip([1, 1.5], clips)).to.be.undefined;
-  });
+  //   expect(findActiveClip([4, 5], clips)).to.be.undefined;
+  //   expect(findActiveClip([1, 1.5], clips)).to.be.undefined;
+  // });
 });

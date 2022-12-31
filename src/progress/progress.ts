@@ -1,10 +1,10 @@
-import { useCallback, useRef } from "react";
 import { invalidate, useFrame } from "@react-three/fiber";
+import { useCallback, useRef } from "react";
 import { MathUtils } from "three";
 import type { Clip, FieldsBase, HandleProgress, StateBase } from "../orchestrate";
 import type { ClipStore } from "../store";
 import { isSome } from "../utils";
-import { applyClip, findActiveClip } from "./utils";
+import { applyClip, findActiveClip, findConsideredClips } from "./utils";
 
 export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
   store: ClipStore<Fields, Base>,
@@ -12,7 +12,7 @@ export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fi
   eps = 1e-2
 ): HandleProgress => {
   // a list of clips that were determined to have to be applied until during the next update
-  const shouldUpdate = useRef<{ considered: Clip; o: keyof Base; field: keyof Fields }[]>([]);
+  const shouldUpdate = useRef<{ considered: Clip[]; o: keyof Base; field: keyof Fields }[]>([]);
   const target = useRef<number>(0);
   // const last = useRef<number>(target.current);
 
@@ -26,8 +26,10 @@ export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fi
           const applyProgress = (progress: number) => {
             // apply all the clips
             shouldUpdate.current.forEach(({ considered, o, field }) => {
+              const clip = findActiveClip(progress, considered);
+              if (!clip) return;
               Object.values(slots[o] ?? {}).forEach(target => {
-                if (isSome(target)) applyClip(fields[field], target, considered, progress);
+                if (isSome(target)) applyClip(fields[field], target, clip, progress);
               });
             });
           };
@@ -73,17 +75,21 @@ export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fi
         keyframes[o].fields.forEach(f => {
           const field = f as keyof Fields;
           const clips = keyframes[o].clips[field];
-          const considered = findActiveClip(range, clips);
+          const config = keyframes[o].config;
+          const considered = findConsideredClips(range, clips);
           // console.log(considered, field, o);
-          if (isSome(considered)) {
-            if (isSome(damping) && considered.config.damping) {
+          if (considered.length !== 0) {
+            if (isSome(damping) && config.damping) {
               // store that, so that the damping is applied in the useFrame callback
               shouldUpdate.current.push({ considered, o, field });
             } else {
               // apply directissimy
-              Object.values(slots[o] ?? {}).forEach(target => {
-                if (isSome(target)) applyClip(fields[field], target, considered, progress);
-              });
+              const clip = findActiveClip(range[1], considered);
+              if (isSome(clip)) {
+                Object.values(slots[o] ?? {}).forEach(target => {
+                  if (isSome(target)) applyClip(fields[field], target, clip, progress);
+                });
+              }
             }
           }
         })
@@ -118,12 +124,13 @@ export const useUndampedProgress = <Fields extends FieldsBase, Base extends Stat
         keyframes[o].fields.forEach(f => {
           const field = f as keyof Fields;
           const clips = keyframes[o].clips[field];
-          const considered = findActiveClip(range, clips);
+          const considered = findConsideredClips(range, clips);
+          const clip = findActiveClip(range[1], considered);
           // console.log(considered, field, o);
-          if (isSome(considered)) {
+          if (isSome(clip)) {
             // apply directissimy
             Object.values(slots[o] ?? {}).forEach(target => {
-              if (isSome(target)) applyClip(fields[field], target, considered, progress);
+              if (isSome(target)) applyClip(fields[field], target, clip, progress);
             });
           }
         })

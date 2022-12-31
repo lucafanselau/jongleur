@@ -2,6 +2,10 @@ import type { Clip, FieldDefinition } from "../orchestrate";
 import { clamp, rangesOverlap } from "../utils";
 import { interpolate } from "./interpolation";
 
+export const isIn = (progress: number, range: [number, number]) => progress >= range[0] && progress < range[1];
+
+export const isInClip = (progress: number, clip: Clip) => isIn(progress, [clip.start[0], clip.end[0]]);
+
 export const findLastClip = (progress: number, clips: Clip[]): Clip | undefined => {
   // console.log(clips);
   // Since clips are non overlapping, we can just take the one, where the start of the clip is closest to the current progress
@@ -42,11 +46,10 @@ export const applyClip = <Target = any, Store = any>(
   field.apply(target, clip.start[1], clip.end[1], alpha);
 };
 
+export const findConsideredClips = (range: [number, number], clips: Clip[]) =>
+  clips.filter(({ start: [start], end: [end] }) => rangesOverlap(range, [start, end]));
+
 /**
  * Check if any of the clips are should be executed based on
  **/
-export const findActiveClip = (range: [number, number], clips: Clip[]) =>
-  findLastClip(
-    range[1],
-    clips.filter(({ start: [start], end: [end] }) => rangesOverlap(range, [start, end]))
-  );
+export const findActiveClip = (progress: number, considered: Clip[]) => findLastClip(progress, considered);

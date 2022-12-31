@@ -8,8 +8,8 @@ export const InheritSymbol = "inherit-state" as const; // "jongleur-inherit-symb
  **/
 export const helpers = {
   inherit: InheritSymbol,
-  state: <T>(value: T, interpolation?: Interpolation, damping?: boolean): FieldKeyframeState<T> => ({
+  state: <T>(value: T, interpolation?: Interpolation): FieldKeyframeState<T> => ({
     value,
-    config: { interpolation, damping }
+    config: { interpolation }
   })
 };

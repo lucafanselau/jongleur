@@ -5,11 +5,14 @@
 import useSpline from "@splinetool/r3f-spline";
 import { OrthographicCamera } from "@react-three/drei";
 import { clips } from "./keyframes";
-import { useRegister } from "jongleur";
+import { useRegister, useThreeCamera } from "jongleur";
 
 export default function Scene({ ...props }) {
   const register = useRegister(clips);
   const { nodes, materials } = useSpline("https://prod.spline.design/Hmz1Escqe3w2cHBn/scene.splinecode");
+
+  useThreeCamera(clips, "camera");
+
   return (
     <>
       {/* <color attach="background" args={["#a9866b"]} /> */}

@@ -2,11 +2,10 @@ import type { Interpolation } from "../progress";
 
 export type ClipConfig = {
   interpolation?: Interpolation;
-  damping?: boolean;
 };
 
 export type ObjectConfig = ClipConfig & {
-  // dont know yet
+  damping?: boolean;
 };
 
 export type ClipsConfig = ObjectConfig & {
