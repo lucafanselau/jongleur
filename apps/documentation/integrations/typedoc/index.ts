@@ -33,7 +33,6 @@ const typedoc = (
       //   });
       // } else {
       await app.generateDocs(project, outDir);
-      // await addFrontmatter(outDir, frontmatter);
     },
   },
 });
