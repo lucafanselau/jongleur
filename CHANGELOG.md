@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="0.2.3"></a>
+## 0.2.3 (2023-01-14)
+
+### Changed
+
+- 🔧 Update release routine to include all files in commit [[e2de83c](https://github.com/lucafanselau/jongleur/commit/e2de83c63625683abde6f8c1c980e2a5b94a0202)]
+
+
 <a name="0.2.2"></a>
 ## 0.2.2 (2023-01-14)
 
