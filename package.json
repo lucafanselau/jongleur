@@ -30,9 +30,7 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "rimraf dist && tsup",
     "build:example": "pnpm run --filter demo... build",
@@ -42,7 +40,7 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm run build",
-    "bump": "bumpp --execute gitmoji-changelog --commit \"🔖 Release %s\" ./package.json ./pnpm-lock.yaml ./CHANGELOG.md",
+    "bump": "bumpp --execute gitmoji-changelog --all --commit \"🔖 Release %s\" package.json pnpm-lock.yaml CHANGELOG.md",
     "release": "pnpm run bump && npm publish",
     "start:demo": "pnpm run --filter demo dev",
     "start:docs": "pnpm run --filter documentation start",

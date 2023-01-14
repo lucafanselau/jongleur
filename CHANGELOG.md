@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="0.2.2"></a>
+## 0.2.2 (2023-01-14)
+
+### Changed
+
+- 🔧 Create CHANGELOG workflow [[aae8a5c](https://github.com/lucafanselau/jongleur/commit/aae8a5ca46156067c6193ece171bc9e0df0b5795)]
+
+
+<a name="0.2.1"></a>
+## 0.2.1 (2023-01-14)
+
+### Miscellaneous
+
+-  chore: release v0.2.1 [[cb25c4d](https://github.com/lucafanselau/jongleur/commit/cb25c4d2b3c186779d696b51c41e7c5fcc8c6435)]
+
+
 <a name="0.2.0"></a>
 ## 0.2.0 (2022-12-31)
 
