@@ -34,7 +34,7 @@
     "clsx": "^1.2.1",
     "flowbite": "^1.6.2",
     "globby": "^13.1.3",
-    "jongleur": "workspace:0.2.3",
+    "jongleur": "workspace:*",
     "nanostores": "^0.7.1",
     "postcss-nested": "^6.0.0",
     "react": "^18.2.0",
