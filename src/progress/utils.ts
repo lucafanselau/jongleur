@@ -64,4 +64,3 @@ export const findActiveClip = (progress: number, considered: Clip[]) => {
   }, 0);
   return considered[minIndex];
 };
-//findLastClip(progress, considered);

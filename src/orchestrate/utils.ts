@@ -1,5 +1,5 @@
 import type { Interpolation } from "../progress";
-import type { FieldKeyframeState } from "./types";
+import type { CleanupKeyframeState, FieldKeyframeState } from "./types";
 
 export const InheritSymbol = "inherit-state" as const; // "jongleur-inherit-symbol"
 
@@ -8,7 +8,7 @@ export const InheritSymbol = "inherit-state" as const; // "jongleur-inherit-symb
  **/
 export const helpers = {
   inherit: InheritSymbol,
-  state: <T>(value: T, interpolation?: Interpolation): FieldKeyframeState<T> => ({
+  state: <T>(value: CleanupKeyframeState<T>, interpolation?: Interpolation): FieldKeyframeState<T> => ({
     value,
     config: { interpolation }
   })
