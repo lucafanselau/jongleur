@@ -1,6 +1,7 @@
 import type { RefCallback } from "react";
 import type { InheritSymbol } from "./utils";
 import type { ClipConfig, ObjectConfig } from "./config";
+import { LengthOrPercentage } from "./fields";
 
 // Field Definitions
 export type FieldDefinition<Target, Store> = {
@@ -55,10 +56,18 @@ export type BaseGuard<Fields extends FieldsBase, Base extends StateBase<Fields>>
   ? Base
   : `[unknown-fields]: ${Exclude<Keys<Base[keyof Base]>, keyof Fields | "config">}`;
 
-export type FieldKeyframeState<T> = { value: T; config: ClipConfig };
+type GeneralizeTuple<T, Target> = T extends [Target, ...infer Tail] ? [Target, ...GeneralizeTuple<Tail, Target>] : T;
+
+/**
+ * This is a small HACK that makes LengthOrPercentage tuples work
+ * when defining clips with the `orchestrate` function
+ */
+type CleanupKeyframeState<T> = GeneralizeTuple<T, LengthOrPercentage>;
+
+export type FieldKeyframeState<T> = { value: CleanupKeyframeState<T>; config: ClipConfig };
 
 type ObjectKeyframe<T extends object> = {
-  [K in keyof T]?: FieldKeyframeState<T[K]> | typeof InheritSymbol;
+  [K in keyof T]?: FieldKeyframeState<CleanupKeyframeState<T[K]>> | typeof InheritSymbol;
 };
 
 export type KeyframeDefinition<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
