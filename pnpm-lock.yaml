@@ -128,7 +128,7 @@ importers:
       clsx: ^1.2.1
       flowbite: ^1.6.2
       globby: ^13.1.3
-      jongleur: workspace:0.2.4
+      jongleur: workspace:0.2.5
       nanostores: ^0.7.1
       postcss-import: ^15.1.0
       postcss-nested: ^6.0.0
@@ -819,7 +819,7 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
 
-  /@bcoe/v8-coverage/0.2.4:
+  /@bcoe/v8-coverage/0.2.5:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
@@ -2409,7 +2409,7 @@ packages:
       esbuild: '>=0.13'
     dependencies:
       esbuild: 0.15.18
-      load-tsconfig: 0.2.4
+      load-tsconfig: 0.2.5
     dev: true
 
   /byline/5.0.0:
@@ -2422,7 +2422,7 @@ packages:
     engines: {node: '>=10.12.0'}
     hasBin: true
     dependencies:
-      '@bcoe/v8-coverage': 0.2.4
+      '@bcoe/v8-coverage': 0.2.5
       '@istanbuljs/schema': 0.1.3
       find-up: 5.0.0
       foreground-child: 2.0.0
@@ -5692,7 +5692,7 @@ packages:
       strip-bom: 3.0.0
     dev: true
 
-  /load-tsconfig/0.2.4:
+  /load-tsconfig/0.2.5:
     resolution: {integrity: sha512-iyT2MXws+dc2Wi6o3grCFtGXpeMvHmJqS27sMPGtV2eUu4PeFnG+33I8BlFK1t1NWMjOpcx9bridn5yxLDX2gQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: true

@@ -3,7 +3,6 @@ import { Vector3 } from "three";
 
 export const clips = orchestrate(
   {
-    // Scene
     sectionOne: {
       opacity: 1,
       translate: ["0%", "0%"],
@@ -18,10 +17,11 @@ export const clips = orchestrate(
       opacity: 0,
       translate: ["0%", "100%"],
       config: { damping: false }
-    }
+    },
+    camera: { position: new Vector3(0, 0, 150), lookAt: new Vector3(0, 0, 0) } // a camera object (uses the lookAt field)
   },
+
   {
-    // Reyframes
     sectionOne: {
       1: {
         // translate: helpers.state(["0px","1000px"], "ease-in-out", true),
@@ -56,10 +56,23 @@ export const clips = orchestrate(
         opacity: helpers.state(1, "ease-in-out"),
         translate: helpers.state(["0%", "20%"], "ease-in-out")
       }
-    }
+    },
+
+    camera: {
+      2: {
+        position: helpers.state(new Vector3(150, 30, 0), "ease-in-out"),
+        lookAt: helpers.state(new Vector3(0, 0, 0), "ease-in-out")
+      },
+
+      3: {
+        position: helpers.state(new Vector3(-30, 90, -30), "ease-in-out"),
+        lookAt: helpers.state(new Vector3(0, 0, 0), "ease-in-out")
+      },
+      4: {
+        position: helpers.state(new Vector3(-60, 20, -30), "ease-in-out"),
+        lookAt: helpers.state(new Vector3(0, 0, 0), "ease-in-out")
+      }
+    } // camera rotates up during the animation,
   },
-  {
-    interpolation: "ease-in-out",
-    length: 5
-  }
+  { interpolation: "ease-in-out", length: 4, damping: true }
 );

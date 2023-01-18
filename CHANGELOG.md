@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="0.2.5"></a>
+## 0.2.5 (2023-01-18)
+
+### Fixed
+
+- 🐛 Fix active clip selection [[bbcbaa2](https://github.com/lucafanselau/jongleur/commit/bbcbaa24a7aa92ff62e8025cb4e12a2bb9ef2bf3)]
+
+
 <a name="0.2.4"></a>
 ## 0.2.4 (2023-01-18)
 
