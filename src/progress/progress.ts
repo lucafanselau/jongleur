@@ -84,7 +84,7 @@ export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fi
               shouldUpdate.current.push({ considered, o, field });
             } else {
               // apply directissimy
-              const clip = findActiveClip(range[1], considered);
+              const clip = findActiveClip(progress, considered);
               if (isSome(clip)) {
                 Object.values(slots[o] ?? {}).forEach(target => {
                   if (isSome(target)) applyClip(fields[field], target, clip, progress);
