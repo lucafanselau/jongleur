@@ -1,5 +1,26 @@
 # Changelog
 
+<a name="0.2.4"></a>
+## 0.2.4 (2023-01-18)
+
+### Added
+
+- ➕ Add &quot;minimal&quot; project [[46a7d7e](https://github.com/lucafanselau/jongleur/commit/46a7d7e977b5e36961a77138ba3d21b6a4fcf7fa)]
+
+### Changed
+
+- 🚨 Fix eslint and typescript error [[a7a53ed](https://github.com/lucafanselau/jongleur/commit/a7a53ed647c441e2f899a5cbc0a01500c246b487)]
+- ⬆️ Fix resolution file of pnpm [[f84202b](https://github.com/lucafanselau/jongleur/commit/f84202bd1e849df35f10938e3b599103aea7a4e3)]
+
+### Fixed
+
+- 🐛 Fix clip lookup bug on scrolling back (brought up by issue [#13](https://github.com/lucafanselau/jongleur/issues/13)) [[1b0c55f](https://github.com/lucafanselau/jongleur/commit/1b0c55f34285dea95bb559ba3cc2cc8e9e99fb39)]
+
+### Miscellaneous
+
+- 🏷️ Fix keyframes type for translate definition [[c92de78](https://github.com/lucafanselau/jongleur/commit/c92de78601372c03ab65a05414f16c2b403177e4)]
+
+
 <a name="0.2.3"></a>
 ## 0.2.3 (2023-01-14)
 
