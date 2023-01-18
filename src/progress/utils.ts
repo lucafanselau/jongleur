@@ -57,7 +57,8 @@ export const findActiveClip = (progress: number, considered: Clip[]) => {
   // NOTE: this might be a bit to pricy to do all the time (same with the ranges overlap),
   // maybe we could investigate into a smarter look up solution
   const distances = considered.map(({ start: [start], end: [end] }) =>
-    Math.min(Math.abs(start - progress), Math.abs(end - progress))
+    // HACK: we should probably just handle start and end separate
+    Math.min(Math.abs(start + 0.0001 - progress), Math.abs(end - progress))
   );
   const minIndex = distances.reduce((lowest, next, index) => {
     return next < distances[lowest] ? index : lowest;
