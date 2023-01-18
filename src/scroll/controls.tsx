@@ -52,7 +52,8 @@ const ScrollEvents: FC = () => {
 
   const clips = useStore(store, s => s.clips);
   const damping = useStore(store, s => s.settings?.damping);
-  const progress = useProgress(clips, damping);
+  const eps = useStore(store, s => s.settings?.eps);
+  const progress = useProgress(clips, damping, eps);
 
   const connected = useThree(s => s.events.connected);
 
@@ -134,18 +135,20 @@ export const Controls = <Fields extends FieldsBase, Base extends StateBase<Field
   children,
   clips,
   damping = 2,
-  scale = 1
+  scale = 1,
+  eps
 }: {
   children: ReactNode;
   clips: ClipStore<Fields, Base>;
   damping?: number;
   scale?: number;
+  eps?: number;
 }): ReturnType<FC> => {
   const store = useMemo(() => createScrollStore({ clips }), [clips]);
 
   useEffect(() => {
-    store.setState({ settings: { damping, scale } });
-  }, [damping, scale, store]);
+    store.setState({ settings: { damping, scale, eps } });
+  }, [damping, scale, eps, store]);
 
   return (
     <scrollContext.Provider value={store as ScrollStoreContext}>

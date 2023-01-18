@@ -13,6 +13,7 @@ export type ScrollStore<Fields extends FieldsBase, Base extends StateBase<Fields
   settings?: {
     scale: number;
     damping: number;
+    eps?: number;
   };
   context: "r3f" | "scroll" | "fixed";
 };

@@ -9,7 +9,7 @@ import { applyClip, findActiveClip, findConsideredClips } from "./utils";
 export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
   store: ClipStore<Fields, Base>,
   damping?: number,
-  eps = 1e-2
+  eps = 1.5e-3
 ): HandleProgress => {
   // a list of clips that were determined to have to be applied until during the next update
   const shouldUpdate = useRef<{ considered: Clip[]; o: keyof Base; field: keyof Fields }[]>([]);
@@ -35,7 +35,7 @@ export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fi
           };
 
           // damp the scrolls if that is required
-          const progress = MathUtils.damp(last, target.current, damping, Math.min(delta, 1 / 20));
+          const progress = MathUtils.damp(last, target.current, damping, Math.min(delta, 1 / 60));
           setLastProgress(progress);
 
           applyProgress(progress);
