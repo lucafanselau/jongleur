@@ -42,7 +42,7 @@ export const createClipStore = <Fields extends FieldsBase, Base extends StateBas
     setSlot: <Obj extends keyof Base>(obj: Obj, target: TargetFromBase<Fields, Base, Obj> | null, id: string) => {
       set(state => {
         return produce(state, s => {
-          type Slots = Draft<Store<Fields, Base>["slots"]>;
+          type Slots = (typeof s)["slots"];
           // The weird casting here is not my fault, this is a problem with 'Draft<T>[keyof T]' indexing in "immer".
           // They dont seem to give a friendly f*** about the error though (https://github.com/immerjs/immer/issues/918). I must admit though
           // that this is a pretty niece use case
