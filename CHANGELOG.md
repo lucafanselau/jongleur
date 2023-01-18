@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="0.2.6"></a>
+## 0.2.6 (2023-01-18)
+
+### Miscellaneous
+
+-  Add eps prop to Scroll.Controls and saner default [[f79250b](https://github.com/lucafanselau/jongleur/commit/f79250b75ce2c14ba1e960c3fa284789a96f8b0f)]
+
+
 <a name="0.2.5"></a>
 ## 0.2.5 (2023-01-18)
 
