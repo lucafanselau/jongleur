@@ -1,7 +1,7 @@
 import type { Light, Object3D } from "three";
 import { Vector3 } from "three";
 import { lerp } from "../utils";
-import type { FieldDefinition } from "./types";
+import type { FieldDefinition, FieldStore } from "./types";
 
 export const createField = <Target, Store>(
   apply: (obj: Target, a: Store, b: Store, alpha: number) => void
@@ -30,7 +30,8 @@ export const defaultThreeFields = {
   ),
   lookAt: createField<Object3D, Vector3>((target, a, b, alpha) => target.lookAt(vec.lerpVectors(a, b, alpha))),
   visible: createField<Object3D, boolean>((target, a, b, alpha) => (target.visible = alpha > 0.5 ? b : a)),
-  intensity: createField<Light, number>((target, a, b, alpha) => (target.intensity = lerp(a, b, alpha)))
+  intensity: createField<Light, number>((target, a, b, alpha) => (target.intensity = lerp(a, b, alpha))),
+  animation: createField<Object3D, string>((target, a, b, alpha) => (target.name = a))
 };
 
 export type LengthOrPercentage = `${number}%` | `${number}px`;
@@ -39,6 +40,33 @@ const lerpLOP = (a: LengthOrPercentage, b: LengthOrPercentage, alpha: number): L
   else if (a.endsWith("px") && b.endsWith("px"))
     return `${lerp(Number(a.slice(0, -2)), Number(b.slice(0, -2)), alpha)}px`;
   throw new Error(`Cannot interpolate between ${a} and ${b} values`);
+};
+
+const vector3 = new Vector3();
+const Vector3Store: FieldStore<Vector3> = {
+  eq: (a, b) => a.equals(b),
+  interp: (a, b, alpha) => {
+    vector3.lerpVectors(a, b, alpha);
+    return vector3;
+  },
+  set: (object, value) => {
+    object.store.copy(value);
+  }
+};
+
+const NumberStore: FieldStore<number> = {
+  eq: (a, b) => a === b,
+  interp: lerp,
+  set: (object, value) => {
+    object.store = value;
+  }
+};
+
+const position = {
+  store: Vector3Store,
+  assign: (target: Object3D, value: Vector3) => {
+    target.position.copy(value);
+  }
 };
 
 /**

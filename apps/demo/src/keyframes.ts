@@ -5,7 +5,7 @@ export const clips = orchestrate(
   {
     // DOM cards
     start: { opacity: 1, config: { interpolation: "linear" } },
-    second: { opacity: 0 },
+    second: { opacity: 0, animation: "abc" as "abc" | "def" },
     third: { opacity: 0 },
     fourth: { opacity: 0 },
     fifth: { opacity: 0 },
@@ -42,7 +42,7 @@ export const clips = orchestrate(
     },
     second: {
       0.75: { opacity: InheritSymbol },
-      1: { opacity: helpers.state(1) },
+      1: { opacity: helpers.state(1), animation: helpers.state("b") },
       1.25: { opacity: helpers.state(0) }
     },
     third: {

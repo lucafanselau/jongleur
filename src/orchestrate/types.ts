@@ -2,9 +2,18 @@ import type { RefCallback } from "react";
 import type { InheritSymbol } from "./utils";
 import type { ClipConfig, ObjectConfig } from "./config";
 import type { LengthOrPercentage } from "./fields";
+import type { Draft } from "immer";
+
+export type FieldStore<Store> = {
+  eq: (a: Store, b: Store) => boolean;
+  interp: (a: Store, b: Store, alpha: number) => Store;
+  set: (object: Draft<{ store: Store }>, value: Store) => void;
+};
 
 // Field Definitions
 export type FieldDefinition<Target, Store> = {
+  store: FieldStore<Store>;
+  assign: (target: Target, value: Store) => void;
   apply: (target: Target, a: Store, b: Store, alpha: number) => void;
 };
 
