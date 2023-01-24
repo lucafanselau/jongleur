@@ -1,7 +1,6 @@
 import type { RefCallback } from "react";
 import type { InheritSymbol } from "./utils";
 import type { ClipConfig, ObjectConfig } from "./config";
-import type { LengthOrPercentage } from "./fields";
 import type { Draft } from "immer";
 
 export type FieldStore<Store> = {
@@ -13,8 +12,7 @@ export type FieldStore<Store> = {
 // Field Definitions
 export type FieldDefinition<Target, Store> = {
   store: FieldStore<Store>;
-  assign: (target: Target, value: Store) => void;
-  apply: (target: Target, a: Store, b: Store, alpha: number) => void;
+  assign: (target: Target, value: Store, last: Store) => void;
 };
 
 export type FieldsBase = { [K: string]: FieldDefinition<any, any> };
@@ -22,12 +20,12 @@ export type FieldsBase = { [K: string]: FieldDefinition<any, any> };
 /**
  * Utility type used to get the apply function for a specific field (K)
  **/
-type ApplyFunctionForField<Fields extends FieldsBase, K extends keyof Fields> = Fields[K]["apply"];
+type AssignFunctionForField<Fields extends FieldsBase, K extends keyof Fields> = Fields[K]["assign"];
 /**
  * Utility type used to get the Store type of a specific field (K)
  **/
 type StoreFromFields<Fields extends FieldsBase, K extends keyof Fields> = Parameters<
-  ApplyFunctionForField<Fields, K>
+  AssignFunctionForField<Fields, K>
 >[1];
 
 /**
@@ -37,7 +35,7 @@ export type TargetFromBase<
   Fields extends FieldsBase,
   Base extends StateBase<Fields>,
   Obj extends keyof Base
-> = ApplyFunctionForField<Fields, Extract<keyof Base[Obj], keyof Fields>> extends (i: infer I, ...other: any[]) => void
+> = AssignFunctionForField<Fields, Extract<keyof Base[Obj], keyof Fields>> extends (i: infer I, ...other: any[]) => void
   ? I
   : never;
 
@@ -65,13 +63,13 @@ export type BaseGuard<Fields extends FieldsBase, Base extends StateBase<Fields>>
   ? Base
   : `[unknown-fields]: ${Exclude<Keys<Base[keyof Base]>, keyof Fields | "config">}`;
 
-type GeneralizeTuple<T, Target> = T extends [Target, ...infer Tail] ? [Target, ...GeneralizeTuple<Tail, Target>] : T;
+// type GeneralizeTuple<T, Target> = T extends [Target, ...infer Tail] ? [Target, ...GeneralizeTuple<Tail, Target>] : T;
 
 /**
  * This is a small HACK that makes LengthOrPercentage tuples work
  * when defining clips with the `orchestrate` function
  */
-export type CleanupKeyframeState<T> = GeneralizeTuple<T, LengthOrPercentage>;
+export type CleanupKeyframeState<T> = T; // TODO: GeneralizeTuple<T, LengthOrPercentage>;
 
 export type FieldKeyframeState<T> = { value: CleanupKeyframeState<T>; config: ClipConfig };
 
