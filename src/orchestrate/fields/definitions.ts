@@ -1,7 +1,7 @@
-import { createField } from "./utils";
+import { Light, Object3D } from "three";
 import { FieldsBase } from "../types";
 import { FieldStores } from "./store";
-import { Light, Object3D } from "three";
+import { createField } from "./utils";
 
 export const defaults = {
   three: {
@@ -19,8 +19,12 @@ export const defaults = {
     opacity: createField(FieldStores.Number, (target: HTMLElement, value) => (target.style.opacity = value.toString())),
     // https://developer.mozilla.org/en-US/docs/Web/CSS/translate
     translate: createField(
-      FieldStores.Vector3,
-      (target: HTMLElement, value) => (target.style.transform = `translate(${value.x}px, ${value.y}px, ${value.z})`)
+      FieldStores.LengthOrPercentage2,
+      (target: HTMLElement, value) => (target.style.transform = `translate(${value[0]}, ${value[1]}, 0)`)
+    ),
+    translate3d: createField(
+      FieldStores.LengthOrPercentage3,
+      (target: HTMLElement, value) => (target.style.transform = `translate(${value[0]}, ${value[1]}, ${value[2]})`)
     )
   },
   animation: {}

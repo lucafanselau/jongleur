@@ -1,6 +1,7 @@
 import { Color, Euler, Quaternion, Vector3 } from "three";
 import { lerp } from "../../utils";
 import { FieldStore } from "../types";
+import { LengthOrPercentage, lerpLengthOrPercentage } from "./utils";
 
 const eqq = (a: any, b: any) => a === b;
 
@@ -58,11 +59,25 @@ const ColorStore: FieldStore<Color> = {
   }
 };
 
+const LOPStore: FieldStore<LengthOrPercentage[]> = {
+  eq: (a, b) => a.every((a, index) => eqq(a, b[index])),
+  interp: (a, b, alpha) => {
+    if (a.length !== b.length) {
+      const msg = `[jongleur] cannot lerp between length or percentage of difference dimensions: ${a.join()} and ${b.join()}`;
+      throw new Error(msg);
+    }
+    return a.map((a, index) => lerpLengthOrPercentage(a, b[index], alpha));
+  },
+  set: (object, value) => void (object.store = value)
+};
+
 export const FieldStores = {
   Vector3: Vector3Store,
   Number: NumberStore,
   String: StringStore,
   Color: ColorStore,
   Quaternion: QuaternionStore,
-  Boolean: BooleanStore
+  Boolean: BooleanStore,
+  LengthOrPercentage2: LOPStore as unknown as FieldStore<[LengthOrPercentage, LengthOrPercentage]>,
+  LengthOrPercentage3: LOPStore as unknown as FieldStore<[LengthOrPercentage, LengthOrPercentage, LengthOrPercentage]>
 };
