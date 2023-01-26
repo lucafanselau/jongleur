@@ -1,11 +1,20 @@
 import type { RefCallback } from "react";
+import type { Draft } from "immer";
 import type { InheritSymbol } from "./utils";
 import type { ClipConfig, ObjectConfig } from "./config";
-import type { LengthOrPercentage } from "./fields";
+import type { LengthOrPercentage } from "./fields/utils";
+
+export type FieldStore<Store> = {
+  eq: (a: Store, b: Store) => boolean;
+  interp: (a: Store, b: Store, alpha: number) => Store;
+  set: (object: Draft<{ store: Store }>, value: Store) => void;
+};
 
 // Field Definitions
 export type FieldDefinition<Target, Store> = {
-  apply: (target: Target, a: Store, b: Store, alpha: number) => void;
+  store: FieldStore<Store>;
+  assign: (target: Target, value: Store, last?: Store) => void;
+  config?: ClipConfig;
 };
 
 export type FieldsBase = { [K: string]: FieldDefinition<any, any> };
@@ -13,12 +22,12 @@ export type FieldsBase = { [K: string]: FieldDefinition<any, any> };
 /**
  * Utility type used to get the apply function for a specific field (K)
  **/
-type ApplyFunctionForField<Fields extends FieldsBase, K extends keyof Fields> = Fields[K]["apply"];
+type AssignFunctionForField<Fields extends FieldsBase, K extends keyof Fields> = Fields[K]["assign"];
 /**
  * Utility type used to get the Store type of a specific field (K)
  **/
-type StoreFromFields<Fields extends FieldsBase, K extends keyof Fields> = Parameters<
-  ApplyFunctionForField<Fields, K>
+export type StoreFromFields<Fields extends FieldsBase, K extends keyof Fields> = Parameters<
+  AssignFunctionForField<Fields, K>
 >[1];
 
 /**
@@ -28,7 +37,7 @@ export type TargetFromBase<
   Fields extends FieldsBase,
   Base extends StateBase<Fields>,
   Obj extends keyof Base
-> = ApplyFunctionForField<Fields, Extract<keyof Base[Obj], keyof Fields>> extends (i: infer I, ...other: any[]) => void
+> = AssignFunctionForField<Fields, Extract<keyof Base[Obj], keyof Fields>> extends (i: infer I, ...other: any[]) => void
   ? I
   : never;
 

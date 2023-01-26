@@ -30,14 +30,13 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "rimraf dist && tsup",
     "build:example": "pnpm run --filter demo... build",
     "test": "vitest --run",
     "test:dev": "vitest",
+    "test:ui": "vitest --ui",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
@@ -45,6 +44,7 @@
     "bump": "bumpp --execute gitmoji-changelog --all --commit \"🔖 Release %s\" package.json pnpm-lock.yaml CHANGELOG.md",
     "release": "pnpm run bump && npm publish",
     "start:demo": "pnpm run --filter demo dev",
+    "start:minimal": "pnpm run --filter minimal dev",
     "start:docs": "pnpm run --filter documentation start",
     "check": "pnpm run typecheck && pnpm run lint && pnpm run test"
   },
@@ -66,6 +66,7 @@
     "@types/three": "^0.144.0",
     "@typescript-eslint/parser": "^5.48.1",
     "@vitest/coverage-c8": "^0.24.5",
+    "@vitest/ui": "^0.28.2",
     "bumpp": "^8.2.1",
     "eslint": "^8.31.0",
     "eslint-plugin-react": "^7.32.0",
