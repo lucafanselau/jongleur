@@ -1,5 +1,5 @@
 import { lerp } from "../../utils";
-import { ClipConfig } from "../config";
+import type { ClipConfig } from "../config";
 import type { FieldDefinition, FieldStore } from "../types";
 
 export const createField = <Target, Store>(

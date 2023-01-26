@@ -1,13 +1,29 @@
-import { describe, expect, it } from "vitest";
 import { Vector3 } from "three";
+import { describe, expect, it } from "vitest";
+import { Interpolation } from "..";
+import { Clip, createField, FieldStores, helpers, InheritSymbol, ObjectConfig } from "../src/orchestrate";
 import { parseKeyframes } from "../src/orchestrate/parse";
-import { InheritSymbol, helpers } from "../src/orchestrate";
 
-// type TestScene = { test: { position: Vector3 } };
+const fields = {
+  position: createField(FieldStores.Vector3, () => {}, {}),
+  rotation: createField(FieldStores.Number, () => {}, {})
+};
+
+const defaultConfig: Required<ObjectConfig> = { interpolation: "ease-in-out", damping: true, checkEq: true };
 
 describe("parsing", () => {
+  const checkClip = (
+    a: Clip,
+    start: Clip["start"],
+    end: Clip["end"],
+    interpolation: Interpolation = defaultConfig.interpolation
+  ) => {
+    expect(a).to.eql({ start, end, config: { interpolation, checkEq: defaultConfig.checkEq } }, "Unexpected clip");
+  };
+
   it("clips & configs", () => {
     const [objects, keyframes, length] = parseKeyframes(
+      fields,
       { test: { position: new Vector3(0, 0, 0) } },
       {
         test: {
@@ -15,34 +31,19 @@ describe("parsing", () => {
           2: { position: helpers.state(new Vector3(0, 2, 0), undefined) }
         }
       },
-      { interpolation: "ease-in-out", damping: true }
+      defaultConfig
     );
 
     expect(length).to.eql(2);
     expect(objects).to.eql(["test"]);
-    expect(keyframes).to.eql({
-      test: {
-        fields: ["position"],
-        clips: {
-          position: [
-            {
-              start: [0, new Vector3(0, 0, 0)],
-              end: [1, new Vector3(0, 1, 0)],
-              config: { interpolation: "linear" }
-            },
-            {
-              start: [1, new Vector3(0, 1, 0)],
-              end: [2, new Vector3(0, 2, 0)],
-              config: { interpolation: "ease-in-out" }
-            }
-          ]
-        },
-        config: { interpolation: "ease-in-out", damping: true }
-      }
-    });
+    expect(keyframes.test.fields).to.eql(["position"]);
+
+    checkClip(keyframes.test.clips.position[0], [0, new Vector3(0, 0, 0)], [1, new Vector3(0, 1, 0)], "linear");
+    checkClip(keyframes.test.clips.position[1], [1, new Vector3(0, 1, 0)], [2, new Vector3(0, 2, 0)]);
   });
   it("clips & inherit symbol", () => {
     const [, keyframes] = parseKeyframes(
+      fields,
       { test: { position: new Vector3(0, 0, 0) } },
       {
         test: {
@@ -50,26 +51,15 @@ describe("parsing", () => {
           1: { position: helpers.state(new Vector3(0, 1, 0)) }
         }
       },
-      { interpolation: "ease-in-out", damping: true }
+      defaultConfig
     );
-    expect(keyframes).to.eql({
-      test: {
-        fields: ["position"],
-        clips: {
-          position: [
-            {
-              start: [0.5, new Vector3(0, 0, 0)],
-              end: [1, new Vector3(0, 1, 0)],
-              config: { interpolation: "ease-in-out" }
-            }
-          ]
-        },
-        config: { interpolation: "ease-in-out", damping: true }
-      }
-    });
+
+    expect(keyframes.test.fields).to.eql(["position"]);
+    checkClip(keyframes.test.clips.position[0], [0.5, new Vector3(0, 0, 0)], [1, new Vector3(0, 1, 0)]);
   });
   it("multiple clips with inherit", () => {
     const [, keyframes] = parseKeyframes(
+      fields,
       { test: { position: new Vector3(0, 0, 0) } },
       {
         test: {
@@ -79,32 +69,17 @@ describe("parsing", () => {
           2: { position: helpers.state(new Vector3(0, 2, 0), "ease-in") }
         }
       },
-      { interpolation: "ease-in-out", damping: true }
+      defaultConfig
     );
-    expect(keyframes).to.eql({
-      test: {
-        fields: ["position"],
-        clips: {
-          position: [
-            {
-              start: [0.5, new Vector3(0, 0, 0)],
-              end: [1, new Vector3(0, 1, 0)],
-              config: { interpolation: "linear" }
-            },
-            {
-              start: [1.5, new Vector3(0, 1, 0)],
-              end: [2, new Vector3(0, 2, 0)],
-              config: { interpolation: "ease-in" }
-            }
-          ]
-        },
-        config: { damping: true, interpolation: "ease-in-out" }
-      }
-    });
+
+    expect(keyframes.test.fields).to.eql(["position"]);
+    checkClip(keyframes.test.clips.position[0], [0.5, new Vector3(0, 0, 0)], [1, new Vector3(0, 1, 0)], "linear");
+    checkClip(keyframes.test.clips.position[1], [1.5, new Vector3(0, 1, 0)], [2, new Vector3(0, 2, 0)], "ease-in");
   });
 
   it("interleaved & unsorted clips", () => {
     const [, keyframes] = parseKeyframes(
+      fields,
       { test: { position: new Vector3(0, 0, 0), rotation: 0 } },
       {
         test: {
@@ -116,34 +91,12 @@ describe("parsing", () => {
           2.3: { rotation: helpers.state(1, "start") }
         }
       },
-      { interpolation: "ease-in-out", damping: true }
+      defaultConfig
     );
-    expect(keyframes).to.eql({
-      test: {
-        fields: ["position", "rotation"],
-        clips: {
-          position: [
-            {
-              start: [0.5, new Vector3(0, 0, 0)],
-              end: [1, new Vector3(0, 1, 0)],
-              config: { interpolation: "linear" }
-            },
-            {
-              start: [1.5, new Vector3(0, 1, 0)],
-              end: [2, new Vector3(0, 2, 0)],
-              config: { interpolation: "ease-in" }
-            }
-          ],
-          rotation: [
-            {
-              start: [0.7, 0],
-              end: [2.3, 1],
-              config: { interpolation: "start" }
-            }
-          ]
-        },
-        config: { damping: true, interpolation: "ease-in-out" }
-      }
-    });
+
+    expect(keyframes.test.fields).to.eql(["position", "rotation"]);
+    checkClip(keyframes.test.clips.position[0], [0.5, new Vector3(0, 0, 0)], [1, new Vector3(0, 1, 0)], "linear");
+    checkClip(keyframes.test.clips.position[1], [1.5, new Vector3(0, 1, 0)], [2, new Vector3(0, 2, 0)], "ease-in");
+    checkClip(keyframes.test.clips.rotation[0], [0.7, 0], [2.3, 1], "start");
   });
 });

@@ -6,7 +6,7 @@ import { alphaForClip, findLastClip } from "../src/progress/utils";
 const dummy = (start: number, end: number, interpolation: Interpolation = "linear"): Clip => ({
   start: [start, null],
   end: [end, null],
-  config: { interpolation }
+  config: { interpolation, checkEq: true }
 });
 
 describe("progress", () => {

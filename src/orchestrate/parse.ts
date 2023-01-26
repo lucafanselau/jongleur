@@ -4,8 +4,8 @@
 import type { ClipStore } from "../store";
 import { createClipStore } from "../store";
 import { isSome, pick, spreadWithUndefined } from "../utils";
-import { ClipConfig, ClipsConfig, defaultClipConfig, ObjectConfig } from "./config";
-import { defaultObjectConfig } from "./config";
+import type { ClipConfig, ClipsConfig, ObjectConfig } from "./config";
+import { defaultClipConfig, defaultObjectConfig } from "./config";
 import type { DefaultFields } from "./fields";
 import { defaultFields } from "./fields";
 import type {
@@ -155,7 +155,6 @@ export const createOrchestrate =
       length: config.length ?? length
     });
 
-    console.log(store.getState());
     return store;
   };
 
