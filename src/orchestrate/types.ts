@@ -14,6 +14,7 @@ export type FieldStore<Store> = {
 export type FieldDefinition<Target, Store> = {
   store: FieldStore<Store>;
   assign: (target: Target, value: Store, last?: Store) => void;
+  config?: ClipConfig;
 };
 
 export type FieldsBase = { [K: string]: FieldDefinition<any, any> };

@@ -1,12 +1,15 @@
-import { lerp } from "src/utils";
+import { lerp } from "../../utils";
+import { ClipConfig } from "../config";
 import type { FieldDefinition, FieldStore } from "../types";
 
 export const createField = <Target, Store>(
   store: FieldStore<Store>,
-  assign: (target: Target, value: Store, last?: Store) => void
+  assign: (target: Target, value: Store, last?: Store) => void,
+  config?: ClipConfig
 ): FieldDefinition<Target, Store> => ({
   store,
-  assign
+  assign,
+  config
 });
 
 // Some utils to work with CSS style values

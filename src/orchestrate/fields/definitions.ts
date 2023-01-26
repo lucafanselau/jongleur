@@ -9,7 +9,9 @@ export const defaults = {
     position: createField(FieldStores.Vector3, (t: Object3D, value) => t.position.copy(value)),
     scale: createField(FieldStores.Vector3, (t: Object3D, value) => t.scale.copy(value)),
     rotation: createField(FieldStores.Quaternion, (t: Object3D, value) => t.rotation.setFromQuaternion(value)),
-    lookAt: createField(FieldStores.Vector3, (t: Object3D, value) => t.lookAt(value)),
+    // this field is problematic because it is not a direct field, but rather a function that updates the rotation,
+    // we therefore have to opt out of the `checkEq` optimization
+    lookAt: createField(FieldStores.Vector3, (t: Object3D, value) => t.lookAt(value), { checkEq: false }),
     visible: createField(FieldStores.Boolean, (t: Object3D, value) => (t.visible = value)),
 
     // Light Fields

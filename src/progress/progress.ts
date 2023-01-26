@@ -42,7 +42,7 @@ export const applyProgressToObject = <
   const value = field.store.interp(start, end, alpha);
 
   // check if progress actually occured
-  if (!alwaysApply && isSome(last.store) && field.store.eq(value, last.store)) return true;
+  if (!alwaysApply && clip.config.checkEq && isSome(last.store) && field.store.eq(value, last.store)) return true;
 
   // If so apply to the target, call callbacks and store the stuff back
   const slot = slots[obj] ?? {};
