@@ -1,8 +1,8 @@
 import type { RefCallback } from "react";
+import type { Draft } from "immer";
 import type { InheritSymbol } from "./utils";
 import type { ClipConfig, ObjectConfig } from "./config";
-import type { Draft } from "immer";
-import { LengthOrPercentage } from "./fields/utils";
+import type { LengthOrPercentage } from "./fields/utils";
 
 export type FieldStore<Store> = {
   eq: (a: Store, b: Store) => boolean;
@@ -13,7 +13,7 @@ export type FieldStore<Store> = {
 // Field Definitions
 export type FieldDefinition<Target, Store> = {
   store: FieldStore<Store>;
-  assign: (target: Target, value: Store, last: Store) => void;
+  assign: (target: Target, value: Store, last?: Store) => void;
 };
 
 export type FieldsBase = { [K: string]: FieldDefinition<any, any> };
@@ -25,7 +25,7 @@ type AssignFunctionForField<Fields extends FieldsBase, K extends keyof Fields> =
 /**
  * Utility type used to get the Store type of a specific field (K)
  **/
-type StoreFromFields<Fields extends FieldsBase, K extends keyof Fields> = Parameters<
+export type StoreFromFields<Fields extends FieldsBase, K extends keyof Fields> = Parameters<
   AssignFunctionForField<Fields, K>
 >[1];
 

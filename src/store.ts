@@ -1,7 +1,7 @@
 import type { Draft } from "immer";
 import { produce } from "immer";
 import type { StoreApi, UseBoundStore } from "zustand";
-import create from "zustand";
+import { create } from "zustand";
 import { isNone, isSome } from "./utils";
 import type { FieldsBase, Keyframes, StateBase, TargetFromBase } from "./orchestrate";
 
@@ -15,6 +15,7 @@ export type Store<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
   objects: (keyof Base)[];
   keyframes: Keyframes<Fields, Base>;
   base: Base;
+  state: { [Obj in keyof Base]: { [Field in keyof Base[Obj]]: { store?: Field } } };
   length: number;
 
   last: number;
@@ -22,6 +23,11 @@ export type Store<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
 
 export type Actions<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
   setSlot: <Obj extends keyof Base>(obj: Obj, target: TargetFromBase<Fields, Base, Obj> | null, id: string) => void;
+  setLastState: <Obj extends keyof Base, Field extends keyof Base[Obj]>(
+    obj: Obj,
+    field: Field,
+    cb: (store: Draft<{ store: Base[Obj][Field] }>) => void
+  ) => void;
   setLastProgress: (progress: number) => void;
 };
 
@@ -52,6 +58,14 @@ export const createClipStore = <Fields extends FieldsBase, Base extends StateBas
           else delete objSlot[id];
         });
       });
+    },
+    setLastState: (obj, field, cb) => {
+      set(state =>
+        produce(state, s => {
+          // @ts-ignore It's the same thing as above with indexing immer's Draft but now two levels deep
+          cb(s.state[obj][field]);
+        })
+      );
     },
     setLastProgress: progress => set({ last: progress })
   }));

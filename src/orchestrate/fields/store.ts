@@ -1,7 +1,8 @@
-import { Color, Euler, Quaternion, Vector3 } from "three";
-import { lerp } from "../../utils";
-import { FieldStore } from "../types";
-import { LengthOrPercentage, lerpLengthOrPercentage } from "./utils";
+import { Color, Quaternion, Vector3 } from "three";
+import { isNone, lerp } from "../../utils";
+import type { FieldStore } from "../types";
+import type { LengthOrPercentage } from "./utils";
+import { lerpLengthOrPercentage } from "./utils";
 
 const eqq = (a: any, b: any) => a === b;
 
@@ -13,6 +14,7 @@ const Vector3Store: FieldStore<Vector3> = {
     return vector3;
   },
   set: (object, value) => {
+    if (isNone(object.store)) object.store = new Vector3();
     object.store.copy(value);
   }
 };
@@ -25,6 +27,7 @@ const QuaternionStore: FieldStore<Quaternion> = {
     return quaternion;
   },
   set: (object, value) => {
+    if (isNone(object.store)) object.store = new Quaternion();
     object.store.copy(value);
   }
 };
@@ -55,6 +58,7 @@ const ColorStore: FieldStore<Color> = {
     return color;
   },
   set: (object, value) => {
+    if (isNone(object.store)) object.store = new Color();
     object.store.copy(value);
   }
 };

@@ -128,6 +128,17 @@ export const createOrchestrate =
       fields,
       objects,
       keyframes,
+      // @ts-ignore Don't want to convince typescript right now that the type is not "{}". Why can't we have fancy builder patterns
+      state: objects.reduce(
+        (acc, curr) => ({
+          ...acc,
+          [curr]: Object.keys(base[curr]).reduce((acc, curr) => {
+            if (curr === "config") return acc;
+            return { ...acc, [curr]: { store: undefined } };
+          }, {})
+        }),
+        {}
+      ),
       base,
       length: config.length ?? length
     });

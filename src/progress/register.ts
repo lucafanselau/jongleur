@@ -1,8 +1,8 @@
 import { useCallback } from "react";
 import type { FieldsBase, Register, StateBase } from "../orchestrate";
 import type { ClipStore } from "../store";
-import { isNone, isSome } from "../utils";
-import { applyClip, findLastClip } from "./utils";
+import { isNone } from "../utils";
+import { applyProgressToObject } from "./progress";
 
 export const useRegister = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
   store: ClipStore<Fields, Base>
@@ -18,16 +18,16 @@ export const useRegister = <Fields extends FieldsBase, Base extends StateBase<Fi
         if (isNone(target)) return;
         const progress = last;
         // and apply the state at lastProgress
-        keyframes[obj].fields.forEach(field => {
+        keyframes[obj].fields.forEach(f => {
+          const field = <keyof Fields>f;
           // do all of the fields
           const clips = keyframes[obj].clips[field];
-          const clip = findLastClip(progress, clips);
-          if (isSome(clip)) {
-            applyClip(fields[field as keyof Fields], target, clip, progress);
-          } else {
+          const wasApplied = applyProgressToObject(store, progress, obj, field, clips, true);
+
+          if (!wasApplied) {
             // If we can't find the last clip, fallback to applying the base state
             const baseValue = base[obj][field];
-            fields[field as keyof Fields].apply(target, baseValue, baseValue, 0);
+            fields[field as keyof Fields].assign(target, baseValue);
           }
         });
       },

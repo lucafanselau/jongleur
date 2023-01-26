@@ -1,10 +1,59 @@
 import { invalidate, useFrame } from "@react-three/fiber";
 import { useCallback, useRef } from "react";
 import { MathUtils } from "three";
-import type { Clip, FieldsBase, HandleProgress, StateBase } from "../orchestrate";
+import type { Clip, FieldsBase, HandleProgress, StateBase, StoreFromFields } from "../orchestrate";
 import type { ClipStore } from "../store";
-import { isSome } from "../utils";
-import { applyClip, findActiveClip, findConsideredClips } from "./utils";
+import { isNone, isSome } from "../utils";
+import { alphaForClip, findActiveClip, findConsideredClips } from "./utils";
+
+/**
+ * Utility function to apply a specific field
+ *
+ * This should generally be prefered to interacting with the fields directly
+ */
+export const applyProgressToObject = <
+  Fields extends FieldsBase,
+  Base extends StateBase<Fields>,
+  Obj extends keyof Base,
+  Field extends keyof Base[Obj] & keyof Fields
+>(
+  store: ClipStore<Fields, Base>,
+  progress: number,
+  obj: Obj,
+  key: Field,
+  considered: Clip<StoreFromFields<Fields, Field>>[],
+  alwaysApply = false
+) => {
+  // get the objects that we need in order
+  const { state, slots, fields, setLastState } = store.getState();
+  const last = state[obj][key];
+  const field = fields[key];
+
+  const clip = findActiveClip(progress, considered);
+  if (isNone(clip)) return false;
+  // interpolation targets
+  const {
+    start: [_s, start],
+    end: [_e, end]
+  } = clip;
+
+  // now compute the interpolation, eg what happens via the store (orchestrate/fields/store)
+  const alpha = alphaForClip(clip, progress);
+  const value = field.store.interp(start, end, alpha);
+
+  // check if progress actually occured
+  if (!alwaysApply && isSome(last.store) && field.store.eq(value, last.store)) return true;
+
+  // If so apply to the target, call callbacks and store the stuff back
+  const slot = slots[obj] ?? {};
+  Object.values(slot).forEach(target => {
+    field.assign(target, value, last.store);
+  });
+
+  // in the end update the state
+  setLastState(obj, key, draft => field.store.set(draft, value));
+  return true;
+};
 
 export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
   store: ClipStore<Fields, Base>,
@@ -20,17 +69,13 @@ export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fi
     useCallback(
       (_, delta) => {
         if (isSome(damping) && shouldUpdate.current.length > 0) {
-          const { slots, fields, setLastProgress, last } = store.getState();
+          const { setLastProgress, last } = store.getState();
 
           // applies `progress` to all objects in  shouldUpdate
           const applyProgress = (progress: number) => {
             // apply all the clips
             shouldUpdate.current.forEach(({ considered, o, field }) => {
-              const clip = findActiveClip(progress, considered);
-              if (!clip) return;
-              Object.values(slots[o] ?? {}).forEach(target => {
-                if (isSome(target)) applyClip(fields[field], target, clip, progress);
-              });
+              applyProgressToObject(store, progress, o, field, considered);
             });
           };
 
@@ -59,7 +104,7 @@ export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fi
 
   return useCallback(
     p => {
-      const { length, objects, slots, keyframes, last, fields } = store.getState();
+      const { length, objects, keyframes, last } = store.getState();
       const progress = p * length;
       // apply the updates, applicable to range
       const range: [number, number] = [Math.min(last, progress), Math.max(last, progress)];
@@ -84,12 +129,7 @@ export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fi
               shouldUpdate.current.push({ considered, o, field });
             } else {
               // apply directissimy
-              const clip = findActiveClip(progress, considered);
-              if (isSome(clip)) {
-                Object.values(slots[o] ?? {}).forEach(target => {
-                  if (isSome(target)) applyClip(fields[field], target, clip, progress);
-                });
-              }
+              applyProgressToObject(store, progress, o, field, considered);
             }
           }
         })
@@ -115,7 +155,7 @@ export const useUndampedProgress = <Fields extends FieldsBase, Base extends Stat
 ): HandleProgress => {
   return useCallback(
     p => {
-      const { length, objects, slots, keyframes, last, fields } = store.getState();
+      const { length, objects, keyframes, last } = store.getState();
       const progress = p * length;
       // apply the updates, applicable to range
       const range: [number, number] = [Math.min(last, progress), Math.max(last, progress)];
@@ -129,9 +169,7 @@ export const useUndampedProgress = <Fields extends FieldsBase, Base extends Stat
           // console.log(considered, field, o);
           if (isSome(clip)) {
             // apply directissimy
-            Object.values(slots[o] ?? {}).forEach(target => {
-              if (isSome(target)) applyClip(fields[field], target, clip, progress);
-            });
+            applyProgressToObject(store, progress, o, field, considered);
           }
         })
       );

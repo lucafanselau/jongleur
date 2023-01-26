@@ -1,4 +1,4 @@
-import type { Clip, FieldDefinition } from "../orchestrate";
+import type { Clip } from "../orchestrate";
 import { clamp, rangesOverlap } from "../utils";
 import { interpolate } from "./interpolation";
 
@@ -31,21 +31,6 @@ export const alphaForClip = (clip: Clip, progress: number) => {
   return interpolate(interpolation, alpha);
 };
 
-/**
- * Apply a given field based on the progress
- *
- * IMPORTANT: `progress` is expected to be in `[0;length]` and *not* `[0, 1]`. This transformation is subject to the caller
- **/
-export const applyClip = <Target = any, Store = any>(
-  field: FieldDefinition<Target, Store>,
-  target: Target,
-  clip: Clip<Store>,
-  progress: number
-) => {
-  const alpha = alphaForClip(clip, progress);
-  field.apply(target, clip.start[1], clip.end[1], alpha);
-};
-
 export const findConsideredClips = (range: [number, number], clips: Clip[]) =>
   clips.filter(({ start: [start], end: [end] }) => rangesOverlap(range, [start, end]));
 
@@ -53,7 +38,7 @@ export const findConsideredClips = (range: [number, number], clips: Clip[]) =>
  * Check if any of the clips are should be executed based on
  *
  **/
-export const findActiveClip = (progress: number, considered: Clip[]) => {
+export const findActiveClip = <Store = any>(progress: number, considered: Clip<Store>[]) => {
   // NOTE: this might be a bit to pricy to do all the time (same with the ranges overlap),
   // maybe we could investigate into a smarter look up solution
   const distances = considered.map(({ start: [start], end: [end] }) =>
