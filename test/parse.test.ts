@@ -1,6 +1,6 @@
 import { Vector3 } from "three";
 import { describe, expect, it } from "vitest";
-import { Interpolation } from "..";
+import { Interpolation } from "../src";
 import { Clip, createField, FieldStores, helpers, InheritSymbol, ObjectConfig } from "../src/orchestrate";
 import { parseKeyframes } from "../src/orchestrate/parse";
 
