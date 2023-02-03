@@ -61,6 +61,7 @@ function Keyframes() {
                     at={mappedAt}
                     align={align ?? defaultAlign}
                     placement={pl}
+                    key={(key ?? at) + "card"}
                   >
                     <div
                       ref={key !== undefined ? register(key) : undefined}

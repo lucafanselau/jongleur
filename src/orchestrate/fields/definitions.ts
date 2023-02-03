@@ -1,5 +1,6 @@
 import type { Light, Object3D } from "three";
 import type { FieldsBase } from "../types";
+import { animationFields } from "./animation";
 import { FieldStores } from "./store";
 import { createField } from "./utils";
 
@@ -29,7 +30,7 @@ export const defaults = {
       (target: HTMLElement, value) => (target.style.transform = `translate(${value[0]}, ${value[1]}, ${value[2]})`)
     )
   },
-  animation: {}
+  animation: animationFields
 } satisfies Record<string, FieldsBase>;
 
 export const defaultFields = {

@@ -1,5 +1,5 @@
 import { helpers, InheritSymbol, orchestrate } from "jongleur";
-import { Vector3 } from "three";
+import { Euler, Quaternion, Vector3 } from "three";
 
 export const clips = orchestrate(
   {
@@ -16,7 +16,8 @@ export const clips = orchestrate(
 
     chair: {
       scale: new Vector3(0, 0, 0),
-      rotation: new Vector3(0, 0, 0),
+      rotation: new Quaternion(0, 0, 0),
+
       position: new Vector3(0, 0, 0),
     },
     bed: { scale: new Vector3(0, 0, 0) },
@@ -26,7 +27,7 @@ export const clips = orchestrate(
   {
     start: {
       // pretty early the start label has to vanish
-      0.08: { opacity: helpers.state(0, undefined, false) },
+      0.08: { opacity: helpers.state(0) },
     },
     second: {
       0.75: { opacity: InheritSymbol },
@@ -60,15 +61,20 @@ export const clips = orchestrate(
       1.9: { scale: helpers.state(new Vector3(1, 1, 1), "ease-out") },
     },
     chair: {
-      2: { scale: { value: new Vector3(0, 0, 0), config: { margin: 0.01 } } },
+      2: { scale: helpers.state(new Vector3(0, 0, 0)) },
       2.2: {
         scale: helpers.state(new Vector3(1, 1, 1), "linear"),
         rotation: InheritSymbol,
       },
       2.4: { position: InheritSymbol },
-      2.6: { rotation: helpers.state(new Vector3(0, -Math.PI / 2, 0)) },
+      2.6: {
+        rotation: helpers.state(
+          new Quaternion().setFromEuler(new Euler(0, -Math.PI / 2, 0))
+        ),
+      },
       2.9: { position: helpers.state(new Vector3(-50, 0, 0), "ease-out") },
     },
+
     bed: {
       3: { scale: InheritSymbol },
       3.5: { scale: helpers.state(new Vector3(1, 1, 1), "ease-out") },

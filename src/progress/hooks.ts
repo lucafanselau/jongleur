@@ -1,6 +1,7 @@
 import type { Camera } from "@react-three/fiber";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo } from "react";
+import type { AnimationApi } from "src/orchestrate/fields/animation";
 import { useStore } from "zustand";
 import type { FieldsBase, ObjectsForTarget, StateBase, TargetFromBase } from "../orchestrate";
 import type { ClipStore } from "../store";
@@ -47,4 +48,21 @@ export const useTimeProgress = <Fields extends FieldsBase, Base extends StateBas
     if (norm > 1) return;
     progress(norm);
   });
+};
+
+export const useClippedAnimations = <
+  Fields extends FieldsBase,
+  Base extends StateBase<Fields>,
+  Obj extends ObjectsForTarget<AnimationApi, Fields, Base>
+>(
+  store: ClipStore<Fields, Base>,
+  name: Obj | Obj[],
+  animations: AnimationApi
+) => {
+  const register = useRegister(store);
+  useEffect(() => {
+    const names = Array.isArray(name) ? name : [name];
+    names.forEach(name => register(name)(<TargetFromBase<Fields, Base, Obj>>animations));
+    return () => names.forEach(name => register(name)(null));
+  }, [register, animations, name]);
 };
