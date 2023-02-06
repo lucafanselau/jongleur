@@ -1,7 +1,7 @@
 import { invalidate, useFrame } from "@react-three/fiber";
 import { useCallback, useRef } from "react";
 import { MathUtils } from "three";
-import type { Clip, FieldsBase, HandleProgress, StateBase, StoreFromFields } from "../orchestrate";
+import type { Clip, FieldsBase, HandleProgress, StateBase, StoreFromFields } from "../timeline";
 import type { ClipStore } from "../store";
 import { isNone, isSome } from "../utils";
 import { alphaForClip, findActiveClip, findConsideredClips } from "./utils";

@@ -3,7 +3,7 @@ import { produce } from "immer";
 import type { StoreApi, UseBoundStore } from "zustand";
 import { create } from "zustand";
 import { isNone, isSome } from "./utils";
-import type { FieldsBase, Keyframes, StateBase, TargetFromBase } from "./orchestrate";
+import type { FieldsBase, Keyframes, StateBase, TargetFromBase } from "./timeline";
 
 export type Store<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
   slots: { [Obj in keyof Base]?: { [id: string]: TargetFromBase<Fields, Base, Obj> } };

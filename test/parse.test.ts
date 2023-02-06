@@ -1,8 +1,8 @@
 import { Vector3 } from "three";
 import { describe, expect, it } from "vitest";
 import { Interpolation } from "../src";
-import { Clip, createField, FieldStores, helpers, InheritSymbol, ObjectConfig } from "../src/orchestrate";
-import { parseKeyframes } from "../src/orchestrate/parse";
+import { Clip, createField, FieldStores, helpers, InheritSymbol, ObjectConfig } from "../src/timeline";
+import { parseKeyframes } from "../src/timeline/parse";
 
 const fields = {
   position: createField(FieldStores.Vector3, () => {}, {}),

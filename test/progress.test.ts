@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { Clip } from "../src/orchestrate";
+import type { Clip } from "../src/timeline";
 import type { Interpolation } from "../src/progress";
 import { alphaForClip, findLastClip } from "../src/progress/utils";
 

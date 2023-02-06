@@ -1,4 +1,4 @@
-import type { Clip } from "../orchestrate";
+import type { Clip } from "../timeline";
 import { clamp, rangesOverlap } from "../utils";
 import { interpolate } from "./interpolation";
 

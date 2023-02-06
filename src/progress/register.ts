@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import type { FieldsBase, Register, StateBase } from "../orchestrate";
+import type { FieldsBase, Register, StateBase } from "../timeline";
 import type { ClipStore } from "../store";
 import { isNone } from "../utils";
 import { applyProgressToObject } from "./progress";

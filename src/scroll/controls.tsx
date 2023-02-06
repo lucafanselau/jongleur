@@ -5,7 +5,7 @@ import type { RootState } from "@react-three/fiber";
 import { useThree } from "@react-three/fiber";
 import type { DomEvent } from "@react-three/fiber/dist/declarations/src/core/events";
 import { isNone } from "../utils";
-import type { FieldsBase, StateBase } from "../orchestrate";
+import type { FieldsBase, StateBase } from "../timeline";
 import type { ClipStore } from "../store";
 import { useProgress } from "../progress";
 import type { ScrollStoreContext } from "./context";
