@@ -1,5 +1,44 @@
 # Changelog
 
+<a name="0.3.0-beta.0"></a>
+## 0.3.0-beta.0 (2023-02-06)
+
+### Added
+
+- ✅ Update and modernize parsing test [[fb45fe3](https://github.com/lucafanselau/jongleur/commit/fb45fe316084027f78cf7e2c28646df2a7173a9d)]
+- ✨ Add field default config (and fix lookAt bug) [[994b667](https://github.com/lucafanselau/jongleur/commit/994b667c60a10e43390eed1226ac1148bb2c8403)]
+
+### Changed
+
+- 🚨 Fix all linter and test issues [[9066ebf](https://github.com/lucafanselau/jongleur/commit/9066ebfafd645b5481a37d821cd6c703f7ad17aa)]
+
+### Fixed
+
+- 🐛 Fix up documentation landingpage [[bf220b8](https://github.com/lucafanselau/jongleur/commit/bf220b8389b4ec8bdd14252be3cd8db433346df0)]
+- 🐛 Fix import in test [[b8c4c77](https://github.com/lucafanselau/jongleur/commit/b8c4c777266374b9dcb4a103beaf48fb7891031e)]
+
+### Security
+
+- 🔒 Update pnpm lock [[5d1e41c](https://github.com/lucafanselau/jongleur/commit/5d1e41cb6b6de16dfb7f970143012fa66692bafa)]
+
+### Miscellaneous
+
+-  Add refs and seek [[8137419](https://github.com/lucafanselau/jongleur/commit/81374193e8d6a87e80c724695e3a74655178aa90)]
+-  Fix all linting errors [[9c11a60](https://github.com/lucafanselau/jongleur/commit/9c11a60e6590c60ee9464ff8996f8ce2be9fdad4)]
+-  Make typing work again [[7281012](https://github.com/lucafanselau/jongleur/commit/72810129cb8e2e7079430047efbcb0a619d19808)]
+-  Migrate &quot;convert&quot; function for fields [[54138b3](https://github.com/lucafanselau/jongleur/commit/54138b3abe6ea6ef876f6bd967da07ebd61c0c68)]
+-  Update imports [[96bb877](https://github.com/lucafanselau/jongleur/commit/96bb87764440c17dcacef6a7b89f4586ef2a7c7d)]
+-  Rename to timeline [[1e26c7d](https://github.com/lucafanselau/jongleur/commit/1e26c7dd7e4e60029b2de72861e6728ced49bcc2)]
+-  Add convert function for fields [[8e27a5e](https://github.com/lucafanselau/jongleur/commit/8e27a5e76ad4465cfd79c90a43c20ede18a15aa0)]
+-  Add disclosure to documentation [[a0ca0d3](https://github.com/lucafanselau/jongleur/commit/a0ca0d351cc58163a4917efe6f4656783481a9a9)]
+- 💥 Update field definitions [[e16a26f](https://github.com/lucafanselau/jongleur/commit/e16a26fe21f3ea0d10b689607bfe2fc6110378a1)]
+- 🚧 Redo all of the old fields [[66a2762](https://github.com/lucafanselau/jongleur/commit/66a2762e8ae1698e47fe13b5fa7bdeb23bb7f04c)]
+- 💥 Add new field definition framework [[b6b2039](https://github.com/lucafanselau/jongleur/commit/b6b2039c7be826244dbbc2358d5e61f1babf749e)]
+-  Merge branch &#x27;master&#x27; into field-rework [[4eacfd4](https://github.com/lucafanselau/jongleur/commit/4eacfd45d5ac8d3dd1d60b5073e429aafa3f302d)]
+- 🏷️ Fix slots type [[e430d9c](https://github.com/lucafanselau/jongleur/commit/e430d9c32e3c44bdda7f1513a102be15142c7c61)]
+-  Initial changes to field definition [[8219a51](https://github.com/lucafanselau/jongleur/commit/8219a510e45a1f6b4611f69cb0bfb019d54b7e79)]
+
+
 <a name="0.2.6"></a>
 ## 0.2.6 (2023-01-18)
 
