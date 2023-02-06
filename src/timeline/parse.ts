@@ -3,7 +3,7 @@
  **/
 import type { ClipStore } from "../store";
 import { createClipStore } from "../store";
-import { isSome, pick, spreadWithUndefined } from "../utils";
+import { isNone, isSome, pick, spreadWithUndefined } from "../utils";
 import type { ClipConfig, ClipsConfig, ObjectConfig } from "./config";
 import { defaultClipConfig, defaultObjectConfig } from "./config";
 import type { DefaultFields } from "./fields";
@@ -17,12 +17,12 @@ import type {
   Keyframes,
   StateBase
 } from "./types";
-import { InheritSymbol } from "./utils";
+import { Inherit } from "./utils";
 
 /**
  * This converts the keyframe definitions into the usable keyframes
  **/
-export const parseKeyframes = <
+export const parseTimeline = <
   Fields extends FieldsBase,
   Base extends StateBase<Fields>,
   KeyframeDefintion extends KeyframeDefinition<Fields, Base>
@@ -33,6 +33,7 @@ export const parseKeyframes = <
   config: Required<ObjectConfig>
 ): [(keyof Base)[], Keyframes<Fields, Base>, number] => {
   // loop over all object
+  const fieldNames = Object.keys(fields) as (keyof Fields)[];
   const objects = Object.keys(base) as (keyof Base)[];
   let lastFrame = 0;
 
@@ -67,35 +68,51 @@ export const parseKeyframes = <
       .forEach(([time, frame]) => {
         if (time > lastFrame) lastFrame = time;
         // and go through all fields
-        (Object.entries(frame) as [keyof Fields, FieldKeyframeState<any> | typeof InheritSymbol][]).forEach(
-          ([field, value]) => {
-            if (value === InheritSymbol) {
+        (Object.entries(frame) as [keyof Fields, FieldKeyframeState<any> | typeof Inherit][])
+          // only consider the fields which are actually fields
+          .filter(([field]) => fieldNames.includes(field))
+          .forEach(([field, value]) => {
+            if (isNone(value)) return;
+            if (value === Inherit) {
               // Inherit symbol represents a reset of clipStack
               clipStack[field] = [time, clipStack[field][1]];
-            } else if (isSome(value) && typeof value === "object") {
-              const { value: end, config: frameConfig } = value;
-
-              const fieldConfig = fields[field].config;
-
-              // Config is created by falling back onto the higher level configs
-              // this is a bit weirder then it should be, since this approach does not work with undefine's as object values
-              const clipConfig = pick(
-                spreadWithUndefined<Required<ClipConfig>>([config, objectConfig, fieldConfig ?? {}, frameConfig]) ??
-                  config,
-                Object.keys(defaultClipConfig) as (keyof ClipConfig)[]
-              );
-              // insert the new clip
-              clips[field].push({
-                start: clipStack[field],
-                end: [time, end],
-                config: clipConfig
-              });
-              // and reset the clip stack
-              clipStack[field] = [time, end];
+              return;
             }
+            let state, frameConfig;
+            // NOTE: This is what test what kind of object we have, hopefully this is robust enough
+            if (typeof value === "object" && "value" in value) {
+              state = value.value;
+              frameConfig = value.config;
+            } else {
+              state = value;
+            }
+
+            const {
+              config: fieldConfig,
+              store: { convert }
+            } = fields[field];
+
+            // Config is created by falling back onto the higher level configs
+            // this is a bit weirder then it should be, since this approach does not work with undefine's as object values
+            const clipConfig = pick(
+              spreadWithUndefined<Required<ClipConfig>>([config, objectConfig, fieldConfig ?? {}, frameConfig ?? {}]) ??
+                config,
+              Object.keys(defaultClipConfig) as (keyof ClipConfig)[]
+            );
+
+            // convert the entry type to the store type (this is the part where the convert api is used)
+            const [startTime, startValue] = clipStack[field];
+
+            // insert the new clip
+            clips[field].push({
+              start: [startTime, convert(startValue)],
+              end: [time, convert(state)],
+              config: clipConfig
+            });
+            // and reset the clip stack
+            clipStack[field] = [time, state];
             // ...else, we don't really know what to do, but typescript should have yelled at them before hand, sooo
-          }
-        );
+          });
       });
 
     return {
@@ -121,7 +138,7 @@ export const parseKeyframes = <
  * examples
  *
  **/
-export const createOrchestrate =
+export const createTimeline =
   <Fields extends FieldsBase>(fields: Fields) =>
   <Base extends StateBase<Fields>>(
     _base: Base & BaseGuard<Fields, Base>,
@@ -130,7 +147,7 @@ export const createOrchestrate =
   ): ClipStore<Fields, Base> => {
     const base = _base as Base;
     // Start by parsing the keyframes
-    const [objects, keyframes, length] = parseKeyframes(fields, base, definition, {
+    const [objects, keyframes, length] = parseTimeline(fields, base, definition, {
       ...defaultObjectConfig,
       ...config
     });
@@ -168,8 +185,8 @@ export const createOrchestrate =
  * @param definition - The keyframes that define the timeline
  * @param total      - The length of the timeline, if not provided its the key of the last frame
  **/
-export const orchestrate: <Base extends StateBase<DefaultFields>>(
+export const timeline: <Base extends StateBase<DefaultFields>>(
   _base: Base & BaseGuard<DefaultFields, Base>,
   definition: KeyframeDefinition<DefaultFields, Base>,
   config: ClipsConfig
-) => ClipStore<DefaultFields, Base> = createOrchestrate<DefaultFields>(defaultFields);
+) => ClipStore<DefaultFields, Base> = createTimeline<DefaultFields>(defaultFields);

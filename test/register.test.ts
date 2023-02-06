@@ -2,22 +2,22 @@
 import { describe, expect, it } from "vitest";
 import { Object3D, Vector3 } from "three";
 import { act, renderHook } from "@testing-library/react";
-import { helpers, orchestrate } from "../src/timeline";
+import { helpers, timeline } from "../src/timeline";
 import { useRegister, useUndampedProgress } from "../src/progress";
 
 describe("register", () => {
   // although this is in keyframe test, we use the predefined fields
   const initialize = () => {
-    const clips = orchestrate(
+    const clips = timeline(
       {
         obj: {
-          position: new Vector3(4, 4, 4)
+          position: 0 // new Vector3(4, 4, 4)
         }
       },
       {
         obj: {
           1: {
-            position: helpers.state(new Vector3(3, 3, 3), "linear")
+            position: [0, 2, 0] // helpers.state(new Vector3(3, 3, 3), "linear")
           }
         }
       },

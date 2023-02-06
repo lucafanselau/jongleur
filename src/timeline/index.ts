@@ -4,6 +4,6 @@
 
 export * from "./types";
 export * from "./config";
-export { createOrchestrate, orchestrate } from "./parse";
+export { createTimeline, timeline } from "./parse";
 export * from "./fields";
-export { helpers, InheritSymbol } from "./utils";
+export { Inherit } from "./utils";

@@ -1,4 +1,5 @@
-import { Color, ColorRepresentation, Euler, Quaternion, Vector3 } from "three";
+import { Color, Euler, Quaternion, Vector3 } from "three";
+import type { ColorRepresentation } from "three";
 import { isNone, lerp } from "../../utils";
 import type { FieldStore } from "../types";
 import type { LengthOrPercentage } from "./utils";

@@ -51,13 +51,17 @@ export type TargetFromBase<
   ? I
   : never;
 
+type ObjectBase<Fields extends FieldsBase> = { [F in keyof Fields]?: EntryForField<Fields, F> } & {
+  config?: ObjectConfig;
+};
+
 /**
  * Typing for the definition of the Base scene
  *
  * This is generic over the specific Fields (which mostly should be `typeof defaultFields` from `./fields.ts`)
  **/
 export type StateBase<Fields extends FieldsBase> = {
-  [K: string]: { [F in keyof Fields]?: StoreFromFields<Fields, F> } & { config?: ObjectConfig };
+  [K: string]: ObjectBase<Fields>;
 };
 
 /**
@@ -75,22 +79,24 @@ export type BaseGuard<Fields extends FieldsBase, Base extends StateBase<Fields>>
   ? Base
   : `[unknown-fields]: ${Exclude<Keys<Base[keyof Base]>, keyof Fields | "config">}`;
 
-type GeneralizeTuple<T, Target> = T extends [Target, ...infer Tail] ? [Target, ...GeneralizeTuple<Tail, Target>] : T;
+// type GeneralizeTuple<T, Target> = T extends [Target, ...infer Tail] ? [Target, ...GeneralizeTuple<Tail, Target>] : T;
 
 /**
  * This is a small HACK that makes LengthOrPercentage tuples work
  * when defining clips with the `orchestrate` function
  */
-export type CleanupKeyframeState<T> = GeneralizeTuple<T, LengthOrPercentage>;
+// export type CleanupKeyframeState<T> = GeneralizeTuple<T, LengthOrPercentage>;
 
-export type FieldKeyframeState<T> = { value: CleanupKeyframeState<T>; config: ClipConfig };
+export type FieldKeyframeState<T> = T | { value: T; config: ClipConfig };
 
-type ObjectKeyframe<T extends object> = {
-  [K in keyof T]?: FieldKeyframeState<CleanupKeyframeState<T[K]>> | typeof InheritSymbol;
+type ObjectKeyframe<Fields extends FieldsBase, T extends { [K in keyof Fields]?: any }> = {
+  [K in keyof T]?: FieldKeyframeState<K extends keyof Fields ? EntryForField<Fields, K> : never> | typeof InheritSymbol;
 };
 
+// type PickFields<Fields extends FieldsBase, Obj extends ObjectBase<Fields>> = Pick<Obj, keyof Fields>;
+
 export type KeyframeDefinition<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
-  [O in keyof Base]: { [T: number]: ObjectKeyframe<Omit<Base[O], "config">> };
+  [O in keyof Base]: { [T: number]: ObjectKeyframe<Fields, Pick<Base[O], keyof Fields>> };
 };
 
 /**
@@ -107,7 +113,7 @@ export type Clip<Store = any> = {
  **/
 export type Keyframes<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
   [O in keyof Base]: {
-    clips: { [K in keyof Base[O]]: Clip<Base[O][K]>[] };
+    clips: { [K in keyof Pick<Base[O], keyof Fields>]: Clip<StoreFromFields<Fields, K>>[] };
     fields: (keyof Base[O])[];
     config: ObjectConfig;
   };
