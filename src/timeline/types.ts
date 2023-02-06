@@ -87,8 +87,8 @@ export type BaseGuard<Fields extends FieldsBase, Base extends StateBase<Fields>>
 
 // export type FieldKeyframeState<T> = T | { value: T; config: ClipConfig };
 
-type ObjectKeyframe<Fields extends FieldsBase, F extends keyof Fields> = {
-  [K in F]: EntryForField<Fields, K> | { value: EntryForField<Fields, K>; config: ClipConfig } | "inherit-state";
+export type ObjectKeyframe<Fields extends FieldsBase, F extends keyof Fields> = {
+  [K in F]?: EntryForField<Fields, K> | { value: EntryForField<Fields, K>; config: ClipConfig } | "inherit-state";
 };
 
 // type PickFields<Fields extends FieldsBase, Obj extends ObjectBase<Fields>> = Pick<Obj, keyof Fields>;

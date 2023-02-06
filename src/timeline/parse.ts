@@ -3,20 +3,12 @@
  **/
 import type { ClipStore } from "../store";
 import { createClipStore } from "../store";
-import { isNone, isSome, pick, spreadWithUndefined } from "../utils";
+import { isNone, pick, spreadWithUndefined } from "../utils";
 import type { ClipConfig, ClipsConfig, ObjectConfig } from "./config";
 import { defaultClipConfig, defaultObjectConfig } from "./config";
 import type { DefaultFields } from "./fields";
 import { defaultFields } from "./fields";
-import type {
-  BaseGuard,
-  Clip,
-  FieldKeyframeState,
-  FieldsBase,
-  KeyframeDefinition,
-  Keyframes,
-  StateBase
-} from "./types";
+import type { BaseGuard, Clip, FieldsBase, KeyframeDefinition, Keyframes, StateBase } from "./types";
 import { Inherit } from "./utils";
 
 /**
@@ -68,7 +60,7 @@ export const parseTimeline = <
       .forEach(([time, frame]) => {
         if (time > lastFrame) lastFrame = time;
         // and go through all fields
-        (Object.entries(frame) as [keyof Fields, FieldKeyframeState<any> | typeof Inherit][])
+        (Object.entries(frame) as [keyof Fields, any][])
           // only consider the fields which are actually fields
           .filter(([field]) => fieldNames.includes(field))
           .forEach(([field, value]) => {
