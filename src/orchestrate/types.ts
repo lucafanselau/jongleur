@@ -4,25 +4,35 @@ import type { InheritSymbol } from "./utils";
 import type { ClipConfig, ObjectConfig } from "./config";
 import type { LengthOrPercentage } from "./fields/utils";
 
-export type FieldStore<Store> = {
+// Entry is the type that can be given to the 'orchestrate' function
+export type FieldStore<Entry, Store> = {
+  convert: (e: Entry) => Store;
   eq: (a: Store, b: Store) => boolean;
   interp: (a: Store, b: Store, alpha: number) => Store;
   set: (object: Draft<{ store: Store }>, value: Store) => void;
 };
 
 // Field Definitions
-export type FieldDefinition<Target, Store> = {
-  store: FieldStore<Store>;
+export type FieldDefinition<Entry, Target, Store> = {
+  store: FieldStore<Entry, Store>;
   assign: (target: Target, value: Store, last?: Store) => void;
   config?: ClipConfig;
 };
 
-export type FieldsBase = { [K: string]: FieldDefinition<any, any> };
+export type FieldsBase = { [K: string]: FieldDefinition<any, any, any> };
 
 /**
  * Utility type used to get the apply function for a specific field (K)
  **/
 type AssignFunctionForField<Fields extends FieldsBase, K extends keyof Fields> = Fields[K]["assign"];
+
+/**
+ * Utility type used to get the Type for the timeline function
+ */
+export type EntryForField<Fields extends FieldsBase, K extends keyof Fields> = Parameters<
+  Fields[K]["store"]["convert"]
+>[0];
+
 /**
  * Utility type used to get the Store type of a specific field (K)
  **/

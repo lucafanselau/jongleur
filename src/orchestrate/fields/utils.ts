@@ -2,11 +2,11 @@ import { lerp } from "../../utils";
 import type { ClipConfig } from "../config";
 import type { FieldDefinition, FieldStore } from "../types";
 
-export const createField = <Target, Store>(
-  store: FieldStore<Store>,
+export const createField = <Entry, Target, Store>(
+  store: FieldStore<Entry, Store>,
   assign: (target: Target, value: Store, last?: Store) => void,
   config?: ClipConfig
-): FieldDefinition<Target, Store> => ({
+): FieldDefinition<Entry, Target, Store> => ({
   store,
   assign,
   config
