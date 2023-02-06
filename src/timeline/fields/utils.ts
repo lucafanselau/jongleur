@@ -6,7 +6,7 @@ export const createField = <Entry, Store, Target>(
   store: FieldStore<Entry, Store>,
   assign: (target: Target, value: Store, last?: Store) => void,
   config?: ClipConfig
-): FieldDefinition<Entry, Target, Store> => ({
+): FieldDefinition<Entry, Store, Target> => ({
   store,
   assign,
   config

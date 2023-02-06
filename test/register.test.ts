@@ -2,7 +2,7 @@
 import { describe, expect, it } from "vitest";
 import { Object3D, Vector3 } from "three";
 import { act, renderHook } from "@testing-library/react";
-import { helpers, timeline } from "../src/timeline";
+import { timeline } from "../src/timeline";
 import { useRegister, useUndampedProgress } from "../src/progress";
 
 describe("register", () => {
@@ -11,13 +11,13 @@ describe("register", () => {
     const clips = timeline(
       {
         obj: {
-          position: 0 // new Vector3(4, 4, 4)
+          position: 4
         }
       },
       {
         obj: {
           1: {
-            position: [0, 2, 0] // helpers.state(new Vector3(3, 3, 3), "linear")
+            position: 3
           }
         }
       },

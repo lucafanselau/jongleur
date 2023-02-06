@@ -1,5 +1,5 @@
 import type { Light, Object3D } from "three";
-import type { FieldsBase } from "../types";
+import type { EntryForField, FieldsBase } from "../types";
 import { animationFields } from "./animation";
 import { FieldStores } from "./store";
 import { createField } from "./utils";

@@ -1,8 +1,6 @@
 import type { RefCallback } from "react";
 import type { Draft } from "immer";
-import type { InheritSymbol } from "./utils";
 import type { ClipConfig, ObjectConfig } from "./config";
-import type { LengthOrPercentage } from "./fields/utils";
 
 // Entry is the type that can be given to the 'orchestrate' function
 export type FieldStore<Entry, Store> = {
@@ -13,7 +11,7 @@ export type FieldStore<Entry, Store> = {
 };
 
 // Field Definitions
-export type FieldDefinition<Entry, Target, Store> = {
+export type FieldDefinition<Entry, Store, Target> = {
   store: FieldStore<Entry, Store>;
   assign: (target: Target, value: Store, last?: Store) => void;
   config?: ClipConfig;
@@ -87,16 +85,16 @@ export type BaseGuard<Fields extends FieldsBase, Base extends StateBase<Fields>>
  */
 // export type CleanupKeyframeState<T> = GeneralizeTuple<T, LengthOrPercentage>;
 
-export type FieldKeyframeState<T> = T | { value: T; config: ClipConfig };
+// export type FieldKeyframeState<T> = T | { value: T; config: ClipConfig };
 
-type ObjectKeyframe<Fields extends FieldsBase, T extends { [K in keyof Fields]?: any }> = {
-  [K in keyof T]?: FieldKeyframeState<K extends keyof Fields ? EntryForField<Fields, K> : never> | typeof InheritSymbol;
+type ObjectKeyframe<Fields extends FieldsBase, F extends keyof Fields> = {
+  [K in F]: EntryForField<Fields, K> | { value: EntryForField<Fields, K>; config: ClipConfig } | "inherit-state";
 };
 
 // type PickFields<Fields extends FieldsBase, Obj extends ObjectBase<Fields>> = Pick<Obj, keyof Fields>;
 
 export type KeyframeDefinition<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
-  [O in keyof Base]: { [T: number]: ObjectKeyframe<Fields, Pick<Base[O], keyof Fields>> };
+  [O in keyof Base]: { [T: number]: ObjectKeyframe<Fields, Extract<keyof Base[O], keyof Fields>> };
 };
 
 /**
