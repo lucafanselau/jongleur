@@ -6,6 +6,7 @@ export type ClipConfig = {
 };
 
 export type ObjectConfig = ClipConfig & {
+  // DEPRECATED: Damping should be implemented in User land
   damping?: boolean;
 };
 

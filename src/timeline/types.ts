@@ -117,6 +117,10 @@ export type Keyframes<Fields extends FieldsBase, Base extends StateBase<Fields>>
   };
 };
 
+export type Refs<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
+  [Obj in keyof Base]: (id?: string) => RefCallback<TargetFromBase<Fields, Base, Obj>>;
+};
+
 /**
  * The type for the register callback .This is a function, that for every object (Obj) in the scene returns a RefCallback
  * of the required TargetType (inferred through the `TargetFromBase` utility). If the object specifies multiple fields to
@@ -127,7 +131,7 @@ export type Register<Fields extends FieldsBase, Base extends StateBase<Fields>> 
   id?: string
 ) => RefCallback<TargetFromBase<Fields, Base, Obj>>;
 
-export type HandleProgress = (progress: number) => void;
+export type Seek = (progress: number) => void;
 
 // Utility types
 

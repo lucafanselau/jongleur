@@ -1,7 +1,7 @@
 import { invalidate, useFrame } from "@react-three/fiber";
 import { useCallback, useRef } from "react";
 import { MathUtils } from "three";
-import type { Clip, FieldsBase, HandleProgress, StateBase, StoreFromFields } from "../timeline";
+import type { Clip, FieldsBase, Seek, StateBase, StoreFromFields } from "../timeline";
 import type { ClipStore } from "../store";
 import { isNone, isSome } from "../utils";
 import { alphaForClip, findActiveClip, findConsideredClips } from "./utils";
@@ -59,7 +59,7 @@ export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fi
   store: ClipStore<Fields, Base>,
   damping?: number,
   eps = 1.5e-3
-): HandleProgress => {
+): Seek => {
   // a list of clips that were determined to have to be applied until during the next update
   const shouldUpdate = useRef<{ considered: Clip[]; o: keyof Base; field: keyof Fields }[]>([]);
   const target = useRef<number>(0);
@@ -152,7 +152,7 @@ export const useProgress = <Fields extends FieldsBase, Base extends StateBase<Fi
  **/
 export const useUndampedProgress = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
   store: ClipStore<Fields, Base>
-): HandleProgress => {
+): Seek => {
   return useCallback(
     p => {
       const { length, objects, keyframes, last } = store.getState();

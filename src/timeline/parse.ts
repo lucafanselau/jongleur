@@ -8,7 +8,9 @@ import type { ClipConfig, ClipsConfig, ObjectConfig } from "./config";
 import { defaultClipConfig, defaultObjectConfig } from "./config";
 import type { DefaultFields } from "./fields";
 import { defaultFields } from "./fields";
-import type { BaseGuard, Clip, FieldsBase, KeyframeDefinition, Keyframes, StateBase } from "./types";
+import { createRefs } from "./refs";
+import { createSeek } from "./seek";
+import type { BaseGuard, Clip, FieldsBase, KeyframeDefinition, Keyframes, Refs, Seek, StateBase } from "./types";
 import { Inherit } from "./utils";
 
 /**
@@ -136,7 +138,7 @@ export const createTimeline =
     _base: Base & BaseGuard<Fields, Base>,
     definition: KeyframeDefinition<Fields, Base>,
     config: ClipsConfig
-  ): ClipStore<Fields, Base> => {
+  ): [Refs<Fields, Base>, Seek, ClipStore<Fields, Base>] => {
     const base = _base as Base;
     // Start by parsing the keyframes
     const [objects, keyframes, length] = parseTimeline(fields, base, definition, {
@@ -164,7 +166,11 @@ export const createTimeline =
       length: config.length ?? length
     });
 
-    return store;
+    // now create the refs callback and the seeking function
+    const seek = createSeek(store);
+    const refs = createRefs(store);
+
+    return [refs, seek, store];
   };
 
 /**
@@ -177,8 +183,4 @@ export const createTimeline =
  * @param definition - The keyframes that define the timeline
  * @param total      - The length of the timeline, if not provided its the key of the last frame
  **/
-export const timeline: <Base extends StateBase<DefaultFields>>(
-  _base: Base & BaseGuard<DefaultFields, Base>,
-  definition: KeyframeDefinition<DefaultFields, Base>,
-  config: ClipsConfig
-) => ClipStore<DefaultFields, Base> = createTimeline<DefaultFields>(defaultFields);
+export const timeline = createTimeline<DefaultFields>(defaultFields);
