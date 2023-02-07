@@ -1,5 +1,15 @@
 # Changelog
 
+<a name="0.3.0-beta.3"></a>
+## 0.3.0-beta.3 (2023-02-07)
+
+### Miscellaneous
+
+-  Update seek to call invalidate [[93c1df6](https://github.com/lucafanselau/jongleur/commit/93c1df6ff67972e07b700f607278fb7db2acc9e5)]
+-  Remove progress folder entirely [[5fbc9c2](https://github.com/lucafanselau/jongleur/commit/5fbc9c228421b91ad042e7dd0b21dd609a4aa76a)]
+-  Move everything under /timeline [[1a61c1c](https://github.com/lucafanselau/jongleur/commit/1a61c1c3a11a46003eca9d432218ad2f885457f2)]
+
+
 <a name="0.3.0-beta.0"></a>
 ## 0.3.0-beta.0 (2023-02-06)
 

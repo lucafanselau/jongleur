@@ -15,6 +15,8 @@
     "@splinetool/loader": "^0.9.186",
     "@splinetool/r3f-spline": "^1.0.2",
     "@types/three": "^0.144.0",
+    "leva": "^0.9.34",
+    "maath": "^0.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-slider": "^2.0.4",

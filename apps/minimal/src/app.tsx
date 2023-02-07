@@ -1,139 +1,142 @@
-import { Float, Sparkles } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import { Scroll, useRegister, useThreeCamera } from "jongleur";
-import { Suspense } from "react";
-import { clips } from "./clips";
+import { Float, Html, PerspectiveCamera, Sparkles } from "@react-three/drei";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Suspense, useEffect } from "react";
+import { clips, refs, seek } from "./clips";
+import { useControls } from "leva";
 import { Loader } from "./utils";
+import { damp } from "maath/easing";
 import useSpline from "@splinetool/r3f-spline";
 const Text = () => {
-  const register = useRegister(clips);
   return (
-    <div className="  ">
-      <div className=" text1 " ref={register("sectionOne")}>
+    <div className={"texts"}>
+      <p className={"text"} ref={refs.sectionOne()}>
         TEXT 1
-      </div>
-      <div className=" text2" ref={register("sectionTwo")}>
+      </p>
+      <p className={"text"} ref={refs.sectionTwo()}>
         TEXT 2
-      </div>
-      <div className="text3" ref={register("sectionThree")}>
+      </p>
+      <p className={"text"} ref={refs.sectionThree()}>
         TEXT 3
-      </div>
+      </p>
     </div>
   );
 };
 
 const Scene = () => {
-  const register = useRegister(clips);
-  useThreeCamera(clips, "camera");
-
   const { nodes, materials } = useSpline("https://prod.spline.design/z-06FhWRsu5yzGTC/scene.splinecode");
+
+  const { progress } = useControls({ progress: { value: 0, min: 0, max: 1 } });
+  useFrame((_, delta) => {
+    damp(seek, "current", progress, 2, delta);
+  });
+
+  /* useEffect(() => {
+   *   seek.current = progress;
+   * }, [progress]); */
+
   return (
     <>
-      <Scroll.Controls clips={clips} damping={1}>
-        <Scroll.Html fixed>
-          <Text />
-        </Scroll.Html>
-
-        <Scroll.Snaps points={[0, 0.5, 1, 2, 3].map(v => v + 0.5)} snapType={"mandatory"} />
-        <color attach="background" args={["#000000"]} />
-        {/* -------------------------3D Scene Start--------------- */}
-        <mesh
-          name="Rectangle"
-          geometry={nodes.Rectangle.geometry}
-          material={materials["Rectangle Material"]}
-          castShadow
-          position={[13.83, -31.18, -60.14]}
-          rotation={[-0.07, 0.09, 0]}
-          scale={1}
-        />
-        <group dispose={null}>
-          <group name="Group" position={[5.3, 25.35, 15.72]}>
-            <mesh
-              name="Torus"
-              geometry={nodes.Torus.geometry}
-              material={materials["Torus Material"]}
-              receiveShadow
-              position={[0, 5.79, -6.16]}
-              rotation={[-0.89, 0, 1.16]}
-              scale={1}
-            />
-          </group>
-          <group name="scene" />
-          <spotLight
-            //  ref={register('box')}
-            name="Spot Light 3"
-            castShadow
-            intensity={5}
-            angle={Math.PI / 6}
-            penumbra={1}
-            distance={200}
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-            shadow-camera-fov={119.99999999999999}
-            shadow-camera-near={100}
-            shadow-camera-far={100000}
-            color="#fecf00"
-            position={[0, -84.65, 22.5]}
-            rotation={[0, 0, Math.PI]}
-            scale={[1, 1, 1.6]}
-          />
-          <spotLight
-            name="Spot Light 2"
-            castShadow
-            intensity={10}
-            angle={1.4}
-            penumbra={1}
-            distance={10}
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-            shadow-camera-fov={119.99999999999999}
-            shadow-camera-near={100}
-            shadow-camera-far={100000}
-            color="#fecc00"
-            position={[18.14, 22.05, 21.48]}
-            rotation={[1.93, -0.3, -0.33]}
+      <color attach="background" args={["#000"]} />
+      {/* -------------------------3D Scene Start--------------- */}
+      <mesh
+        name="Rectangle"
+        geometry={nodes.Rectangle.geometry}
+        material={materials["Rectangle Material"]}
+        castShadow
+        position={[13.83, -31.18, -60.14]}
+        rotation={[-0.07, 0.09, 0]}
+        scale={1}
+      />
+      <group dispose={null}>
+        <group name="Group" position={[5.3, 25.35, 15.72]}>
+          <mesh
+            name="Torus"
+            geometry={nodes.Torus.geometry}
+            material={materials["Torus Material"]}
+            receiveShadow
+            position={[0, 5.79, -6.16]}
+            rotation={[-0.89, 0, 1.16]}
             scale={1}
           />
-          <spotLight
-            name="Spot Light"
-            castShadow
-            intensity={10}
-            angle={Math.PI / 2}
-            penumbra={1}
-            distance={10}
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-            shadow-camera-fov={119.99999999999999}
-            shadow-camera-near={100}
-            shadow-camera-far={100000}
-            color="#fecc00"
-            position={[7.43, 22, 25.9]}
-            rotation={[1.82, -0.26, -0.36]}
-          />
-          <mesh
-            name="untitled2"
-            geometry={nodes.untitled2.geometry}
-            material={nodes.untitled2.material}
-            castShadow
-            receiveShadow
-            position={[0, -49.72, 0]}
-          />
         </group>
-        <pointLight
-          name="Point Light"
+        <group name="scene" />
+        <spotLight
+          //  ref={register('box')}
+          name="Spot Light 3"
           castShadow
-          intensity={3}
-          distance={2000}
+          intensity={5}
+          angle={Math.PI / 6}
+          penumbra={1}
+          distance={200}
           shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}
+          shadow-camera-fov={119.99999999999999}
           shadow-camera-near={100}
           shadow-camera-far={100000}
-          position={[77.35, 83.76, 6.98]}
-          scale={[1, 1, 1.64]}
+          color="#fecf00"
+          position={[0, -84.65, 22.5]}
+          rotation={[0, 0, Math.PI]}
+          scale={[1, 1, 1.6]}
         />
-        <Sparkles noise={1} count={200} scale={200} size={200} speed={3} position={[0, 0, 5]} color={"gold"} />
-        {/* -------------------------3D Scene End--------------- */}
-      </Scroll.Controls>
+        <spotLight
+          name="Spot Light 2"
+          castShadow
+          intensity={10}
+          angle={1.4}
+          penumbra={1}
+          distance={10}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+          shadow-camera-fov={119.99999999999999}
+          shadow-camera-near={100}
+          shadow-camera-far={100000}
+          color="#fecc00"
+          position={[18.14, 22.05, 21.48]}
+          rotation={[1.93, -0.3, -0.33]}
+          scale={1}
+        />
+        <spotLight
+          name="Spot Light"
+          castShadow
+          intensity={10}
+          angle={Math.PI / 2}
+          penumbra={1}
+          distance={10}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+          shadow-camera-fov={119.99999999999999}
+          shadow-camera-near={100}
+          shadow-camera-far={100000}
+          color="#fecc00"
+          position={[7.43, 22, 25.9]}
+          rotation={[1.82, -0.26, -0.36]}
+        />
+        <mesh
+          name="untitled2"
+          geometry={nodes.untitled2.geometry}
+          material={nodes.untitled2.material}
+          castShadow
+          receiveShadow
+          position={[0, -49.72, 0]}
+        />
+      </group>
+      <pointLight
+        name="Point Light"
+        castShadow
+        intensity={3}
+        distance={2000}
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+        shadow-camera-near={100}
+        shadow-camera-far={100000}
+        position={[77.35, 83.76, 6.98]}
+        scale={[1, 1, 1.64]}
+      />
+      <Sparkles noise={1} count={200} scale={200} size={200} speed={3} position={[0, 0, 5]} color={"gold"} />
+      {/* -------------------------3D Scene End--------------- */}
+      <Html>
+        <Text />
+      </Html>
     </>
   );
 };
@@ -141,8 +144,9 @@ const Scene = () => {
 function App() {
   return (
     <div className="container">
-      <Canvas frameloop="demand" shadows flat linear dpr={[1, 2]} camera={{ fov: 50 }}>
+      <Canvas frameloop="demand" shadows flat linear dpr={[1, 2]}>
         {/* <Stats /> */}
+        <PerspectiveCamera ref={refs.camera()} makeDefault />
         <Suspense fallback={<Loader />}>
           <Scene />
         </Suspense>

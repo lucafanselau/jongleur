@@ -22,5 +22,5 @@
     ],
     "paths": {}
   },
-  "include": ["src", "test"]
+  "include": ["src/index.ts", "src/timeline", "test"]
 }

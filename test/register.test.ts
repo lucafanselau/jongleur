@@ -32,7 +32,7 @@ describe("register", () => {
   it("applied state after progres", () => {
     const [refs, seek] = initialize();
     // first update progress
-    seek(0.5);
+    seek.current = 0.5;
 
     const target = new Object3D();
     refs.obj()(target);
@@ -46,10 +46,10 @@ describe("register", () => {
 
     expect(target.position).to.eql(new Vector3(4, 4, 4));
 
-    seek(0.1);
+    seek.current = 0.1;
     expect(target.position).to.eql(new Vector3(3.9, 3.9, 3.9));
 
-    seek(1);
+    seek.current = 1;
     expect(target.position).to.eql(new Vector3(3, 3, 3));
   });
   // TODO: progress related updates (espacially over multiple clips)

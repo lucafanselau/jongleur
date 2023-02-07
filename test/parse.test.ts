@@ -1,6 +1,6 @@
+import { Interpolation } from "../src/timeline/interpolation";
 import { Vector3 } from "three";
 import { describe, expect, it } from "vitest";
-import { Interpolation } from "../src";
 import { Clip, createField, FieldStores, Inherit, ObjectConfig } from "../src/timeline";
 import { parseTimeline } from "../src/timeline/parse";
 
@@ -9,7 +9,7 @@ const fields = {
   rotation: createField(FieldStores.Number, () => {}, {})
 };
 
-const defaultConfig: Required<ObjectConfig> = { interpolation: "ease-in-out", damping: true, checkEq: true };
+const defaultConfig: Required<ObjectConfig> = { interpolation: "ease-in-out", checkEq: true };
 
 describe("parsing", () => {
   const checkClip = (

@@ -16,27 +16,10 @@ body,
   height: 100vh;
 }
 
-.text1 {
-  position: fixed;
-  color: red;
-  top: 20%;
-  left: 50%;
-  font-size: 40px;
-  transition-duration: 1s;
+.texts {
+  width: 40ch;
 }
-.text2 {
-  position: fixed;
-  color: blue;
-  top: 60%;
-  left: 10%;
-  transition-duration: 1s;
-  font-size: 40px;
-}
-.text3 {
-  position: fixed;
+.text {
   color: white;
-  top: 50%;
-  left: 60%;
-  font-size: 40px;
-  transition-duration: 1s;
+  font-size: 3em;
 }

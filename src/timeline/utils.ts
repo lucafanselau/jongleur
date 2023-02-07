@@ -1,7 +1,7 @@
-import { clamp, isSome, isNone, rangesOverlap } from "../utils";
+import { clamp, isNone, isSome, rangesOverlap } from "../utils";
 import { interpolate } from "./interpolation";
-import { ClipStore } from "./store";
-import { Clip, FieldsBase, StateBase, StoreFromFields } from "./types";
+import type { ClipStore } from "./store";
+import type { Clip, FieldsBase, StateBase, StoreFromFields } from "./types";
 
 export const Inherit = "inherit-state" as const; // "jongleur-inherit-symbol"
 

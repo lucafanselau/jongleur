@@ -1,22 +1,19 @@
 import { Inherit, timeline } from "jongleur";
 import { Vector3 } from "three";
 
-export const clips = timeline(
+export const [refs, seek, clips] = timeline(
   {
     sectionOne: {
       opacity: 1,
-      translate: ["0%", "0%"],
-      config: { damping: false }
+      translate: ["0%", "0%"]
     },
     sectionTwo: {
       opacity: 0,
-      translate: ["-40%", "0%"],
-      config: { damping: false }
+      translate: ["-40%", "0%"]
     },
     sectionThree: {
       opacity: 0,
-      translate: ["0%", "100%"],
-      config: { damping: false }
+      translate: ["0%", "100%"]
     },
     camera: { position: new Vector3(0, 0, 150), lookAt: new Vector3(0, 0, 0) } // a camera object (uses the lookAt field)
   },
@@ -74,5 +71,5 @@ export const clips = timeline(
       }
     } // camera rotates up during the animation,
   },
-  { interpolation: "ease-in-out", length: 4, damping: true }
+  { interpolation: "ease-in-out", length: 4 }
 );
