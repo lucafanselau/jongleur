@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="0.3.0-beta.4"></a>
+## 0.3.0-beta.4 (2023-02-07)
+
+### Miscellaneous
+
+-  Update build config [[f5dc218](https://github.com/lucafanselau/jongleur/commit/f5dc218079d29dea12f1005cf5ddd7e8b18cd7cd)]
+
+
 <a name="0.3.0-beta.3"></a>
 ## 0.3.0-beta.3 (2023-02-07)
 
