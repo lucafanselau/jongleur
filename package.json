@@ -17,22 +17,10 @@
       "types": "./dist/timeline.d.ts",
       "require": "./dist/timeline.cjs",
       "import": "./dist/timeline.js"
-    },
-    "./progress": {
-      "types": "./dist/progress.d.ts",
-      "require": "./dist/progress.cjs",
-      "import": "./dist/progress.js"
-    },
-    "./scroll": {
-      "types": "./dist/scroll.d.ts",
-      "require": "./dist/scroll.cjs",
-      "import": "./dist/scroll.js"
     }
   },
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "rimraf dist && tsup",
     "build:example": "pnpm run --filter demo... build",
