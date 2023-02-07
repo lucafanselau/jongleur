@@ -1,14 +1,11 @@
-import type { Interpolation } from "../progress";
+import type { Interpolation } from "./interpolation";
 
 export type ClipConfig = {
   interpolation?: Interpolation;
   checkEq?: boolean;
 };
 
-export type ObjectConfig = ClipConfig & {
-  // DEPRECATED: Damping should be implemented in User land
-  damping?: boolean;
-};
+export type ObjectConfig = ClipConfig & {};
 
 export type ClipsConfig = ObjectConfig & {
   length?: number;
@@ -20,6 +17,5 @@ export const defaultClipConfig: Required<ClipConfig> = {
 };
 
 export const defaultObjectConfig: Required<ObjectConfig> = {
-  ...defaultClipConfig,
-  damping: true
+  ...defaultClipConfig
 };

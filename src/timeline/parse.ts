@@ -1,8 +1,8 @@
 /**
  * @file Parse keyframes into clips, this is achieved using an `orchestrate` function
  **/
-import type { ClipStore } from "../store";
-import { createClipStore } from "../store";
+import type { ClipStore } from "./store";
+import { createClipStore } from "./store";
 import { isNone, pick, spreadWithUndefined } from "../utils";
 import type { ClipConfig, ClipsConfig, ObjectConfig } from "./config";
 import { defaultClipConfig, defaultObjectConfig } from "./config";

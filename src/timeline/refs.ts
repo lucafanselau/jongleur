@@ -1,6 +1,7 @@
-import { applyProgressToObject, isNone } from "src";
-import type { ClipStore } from "src/store";
+import { isNone } from "../utils";
+import type { ClipStore } from "./store";
 import type { FieldsBase, Refs, StateBase } from "./types";
+import { applyProgressToObject } from "./utils";
 
 export const createRefs = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
   store: ClipStore<Fields, Base>

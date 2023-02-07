@@ -21,13 +21,12 @@ export const defaults = {
   dom: {
     opacity: createField(FieldStores.Number, (target: HTMLElement, value) => (target.style.opacity = value.toString())),
     // https://developer.mozilla.org/en-US/docs/Web/CSS/translate
-    translate: createField(
-      FieldStores.LengthOrPercentage2,
-      (target: HTMLElement, value) => (target.style.transform = `translate(${value[0]}, ${value[1]}, 0)`)
-    ),
+    translate: createField(FieldStores.LengthOrPercentage2, (target: HTMLElement, value) => {
+      target.style.transform = `translate(${value[0]}, ${value[1]})`;
+    }),
     translate3d: createField(
       FieldStores.LengthOrPercentage3,
-      (target: HTMLElement, value) => (target.style.transform = `translate(${value[0]}, ${value[1]}, ${value[2]})`)
+      (target: HTMLElement, value) => (target.style.transform = `translate3d(${value[0]}, ${value[1]}, ${value[2]})`)
     )
   },
   animation: animationFields
