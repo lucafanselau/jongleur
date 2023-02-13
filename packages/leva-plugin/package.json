@@ -1,5 +1,5 @@
 {
-  "name": "@jongleur/leva-seeker",
+  "name": "@jongleur/leva",
   "version": "0.0.1",
   "type": "module",
   "packageManager": "pnpm@7.12.0",
