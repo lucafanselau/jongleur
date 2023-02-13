@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@jongleur/leva": "workspace:*",
     "@react-three/drei": "^9.52.3",
     "@react-three/fiber": "^8.10.0",
     "@splinetool/loader": "^0.9.186",

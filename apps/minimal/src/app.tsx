@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import { refs, seek } from "./clips";
 import { Loader } from "./utils";
 import { Scroll } from "jongleur";
+import { seeker } from "@jongleur/leva";
 
 const Text = () => {
   return (
@@ -27,8 +28,9 @@ const Text = () => {
 const Scene = () => {
   const { nodes, materials } = useSpline("https://prod.spline.design/z-06FhWRsu5yzGTC/scene.splinecode");
 
-  /* const { progress } = useControls({ progress: { value: 0, min: 0, max: 1 } });
-   * useFrame((_, delta) => {
+  const { progress } = useControls({ progress: { value: 0, min: 0, max: 1 } });
+
+  /* useFrame((_, delta) => {
    *   damp(seek, "current", progress, 2, delta);
    * }); */
 
@@ -136,7 +138,7 @@ const Scene = () => {
       />
       <Sparkles noise={1} count={200} scale={200} size={200} speed={3} position={[0, 0, 5]} color={"gold"} />
       {/* -------------------------3D Scene End--------------- */}
-      <Html>
+      <Html center>
         <Text />
       </Html>
     </>
