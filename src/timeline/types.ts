@@ -131,9 +131,6 @@ export type Register<Fields extends FieldsBase, Base extends StateBase<Fields>> 
   id?: string
 ) => RefCallback<TargetFromBase<Fields, Base, Obj>>;
 
-export type Seek = {
-  current: number;
-};
 // (progress: number) => void;
 
 // Utility types

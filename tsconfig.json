@@ -19,8 +19,7 @@
       {
         "name": "typescript-eslint-language-service"
       }
-    ],
-    "paths": {}
+    ]
   },
   "include": ["src/index.ts", "src/timeline", "test"]
 }

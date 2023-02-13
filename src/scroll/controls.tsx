@@ -1,15 +1,14 @@
-import { useContext, useEffect, useMemo } from "react";
-import type { FC, ReactNode } from "react";
-import { useStore } from "zustand";
 import type { RootState } from "@react-three/fiber";
-import { useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import type { DomEvent } from "@react-three/fiber/dist/declarations/src/core/events";
+import { easing } from "maath";
+import type { FC, ReactNode } from "react";
+import { useContext, useEffect, useMemo, useRef } from "react";
+import { useStore } from "zustand";
+import type { Seeker } from "../types";
 import { isNone } from "../utils";
-import type { FieldsBase, StateBase } from "../timeline";
-import type { ClipStore } from "../store";
-import { useProgress } from "../progress";
-import type { ScrollStoreContext } from "./context";
-import { createScrollStore, scrollContext } from "./context";
+import type { ScrollSettings, ScrollStoreContext } from "./context";
+import { createScrollStore, defaultScrollSettings, scrollContext } from "./context";
 import { applyStyle, containerStyle, scrollStyle, stickyStyle } from "./styles";
 
 const ScrollEvents: FC = () => {
@@ -50,10 +49,17 @@ const ScrollEvents: FC = () => {
     };
   }, [layout, domElement, get, setEvents, target]);
 
-  const clips = useStore(store, s => s.clips);
-  const damping = useStore(store, s => s.settings?.damping);
-  const eps = useStore(store, s => s.settings?.eps);
-  const progress = useProgress(clips, damping, eps);
+  const scroll = useRef(0);
+  const state = useMemo(
+    () => ({
+      offset: 0,
+      delta: 0
+    }),
+    []
+  );
+
+  const onProgress = useStore(store, s => s.onProgress);
+  const settings = useStore(store, s => s.settings);
 
   const connected = useThree(s => s.events.connected);
 
@@ -68,7 +74,10 @@ const ScrollEvents: FC = () => {
       if (!layout.container) return;
       const current = layout.container.scrollTop;
       const currentProgress = current / scrollThreshold;
-      progress(currentProgress);
+      // kick of at least one frame
+      invalidate();
+      if (settings.damping === undefined) onProgress(currentProgress);
+      else scroll.current = currentProgress;
     };
 
     layout.container.addEventListener("scroll", onScroll);
@@ -78,16 +87,24 @@ const ScrollEvents: FC = () => {
     return () => {
       layout.container.removeEventListener("scroll", onScroll);
     };
-  }, [layout, size, get, invalidate, progress, connected]);
+  }, [connected, settings.damping, invalidate, layout, onProgress, size.height]);
+
+  let last = 0;
+  useFrame((_, delta) => {
+    const { damping, eps, maxSpeed } = settings;
+    if (damping === undefined) return;
+    last = state.offset;
+    easing.damp(state, "offset", scroll.current, damping, delta, maxSpeed, undefined, eps);
+    easing.damp(state, "delta", Math.abs(last - state.offset), damping, delta, maxSpeed, undefined, eps);
+    if (state.delta > eps) onProgress(state.offset);
+  });
 
   return null;
 };
 
 const ScrollPane: FC = () => {
   const store = useContext(scrollContext);
-  const clips = useStore(store, s => s.clips);
-  const scale = useStore(store, s => s.settings?.scale);
-  const length = useStore(clips, c => c.length);
+  const pages = useStore(store, s => s.settings.pages);
 
   const {
     gl: { domElement }
@@ -96,7 +113,7 @@ const ScrollPane: FC = () => {
   const target = domElement.parentNode;
 
   useEffect(() => {
-    if (isNone(scale) || isNone(length)) return;
+    if (isNone(pages)) return;
     // create the new element
     const container = document.createElement("div");
     applyStyle(containerStyle, container);
@@ -110,7 +127,7 @@ const ScrollPane: FC = () => {
     applyStyle(
       {
         ...scrollStyle,
-        height: `${100 * length}%`
+        height: `${100 * pages}%`
       },
       scrollPane
     );
@@ -126,29 +143,24 @@ const ScrollPane: FC = () => {
       scrollPane.remove();
       container.remove();
     };
-  }, [length, target, store, scale]);
+  }, [pages, target, store]);
 
   return null;
 };
 
-export const Controls = <Fields extends FieldsBase, Base extends StateBase<Fields>>({
+export const Controls = ({
   children,
-  clips,
-  damping = 2,
-  scale = 1,
-  eps
+  seeker,
+  ...settings
 }: {
   children: ReactNode;
-  clips: ClipStore<Fields, Base>;
-  damping?: number;
-  scale?: number;
-  eps?: number;
-}): ReturnType<FC> => {
-  const store = useMemo(() => createScrollStore({ clips }), [clips]);
+  seeker: Seeker | Seeker[];
+} & Partial<ScrollSettings>): ReturnType<FC> => {
+  const store = useMemo(() => createScrollStore({ seeker: Array.isArray(seeker) ? seeker : [seeker] }), [seeker]);
 
   useEffect(() => {
-    store.setState({ settings: { damping, scale, eps } });
-  }, [damping, scale, eps, store]);
+    store.setState({ settings: { ...settings, ...defaultScrollSettings } });
+  }, [settings, store]);
 
   return (
     <scrollContext.Provider value={store as ScrollStoreContext}>

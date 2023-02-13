@@ -1,16 +1,17 @@
 /**
  * @file Parse keyframes into clips, this is achieved using an `orchestrate` function
  **/
+import type { Seek } from "../types";
 import { isNone, pick, spreadWithUndefined } from "../utils";
-import type { ClipStore } from "./store";
-import { createClipStore } from "./store";
 import type { ClipConfig, ClipsConfig, ObjectConfig } from "./config";
 import { defaultClipConfig, defaultObjectConfig } from "./config";
 import type { DefaultFields } from "./fields";
 import { defaultFields } from "./fields";
 import { createRefs } from "./refs";
 import { createSeek } from "./seek";
-import type { BaseGuard, Clip, FieldsBase, KeyframeDefinition, Keyframes, Refs, Seek, StateBase } from "./types";
+import type { ClipStore } from "./store";
+import { createClipStore } from "./store";
+import type { BaseGuard, Clip, FieldsBase, KeyframeDefinition, Keyframes, Refs, StateBase } from "./types";
 import { Inherit } from "./utils";
 
 /**

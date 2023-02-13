@@ -1,21 +1,34 @@
 import { createContext } from "react";
 import { createStore } from "zustand";
-import type { ClipStore } from "../store";
-import type { FieldsBase, StateBase } from "../timeline";
+import type { Seeker } from "../types";
 
-export type ScrollStore<Fields extends FieldsBase, Base extends StateBase<Fields>> = {
-  clips: ClipStore<Fields, Base>;
+export type ScrollSettings = {
+  damping: number | undefined;
+  eps: number;
+  pages: number;
+  maxSpeed: number;
+};
+
+export const defaultScrollSettings: ScrollSettings = {
+  damping: 1,
+  eps: 1e-4,
+  pages: 1,
+  maxSpeed: Infinity
+};
+
+export type ScrollStore = {
+  seeker: Seeker[];
   layout?: {
     container: HTMLDivElement;
     scrollPane: HTMLDivElement;
     stickyPane: HTMLDivElement;
   };
-  settings?: {
-    scale: number;
-    damping: number;
-    eps?: number;
-  };
+  settings: ScrollSettings;
   context: "r3f" | "scroll" | "fixed";
+};
+
+export type ScrollActions = {
+  onProgress: (progress: number) => void;
 };
 
 // actually this file just exists because of an issue in HMR with vite.js
@@ -24,15 +37,23 @@ export type ScrollStore<Fields extends FieldsBase, Base extends StateBase<Fields
 //
 // The context just enables exposing the zustand store of the orchestrate function to a r3f sub tree
 
-export const createScrollStore = <Fields extends FieldsBase, Base extends StateBase<Fields>>(
-  initial: Pick<ScrollStore<Fields, Base>, "clips" | "settings" | "layout">,
-  context: ScrollStore<Fields, Base>["context"] = "r3f"
+export const createScrollStore = (
+  initial: Pick<ScrollStore, "layout" | "seeker">,
+  context: ScrollStore["context"] = "r3f"
 ) =>
-  createStore<ScrollStore<Fields, Base>>((_set, _get) => ({
+  createStore<ScrollStore & ScrollActions>((_set, get) => ({
     ...initial,
-    context
+    context,
+    settings: defaultScrollSettings,
+    onProgress: p => {
+      const { seeker } = get();
+      seeker.forEach(seek => {
+        if (typeof seek === "function") seek(p);
+        else seek.current = p;
+      });
+    }
   }));
 
-export type ScrollStoreContext = ReturnType<typeof createScrollStore<any, { [K: string]: any }>>;
+export type ScrollStoreContext = ReturnType<typeof createScrollStore>;
 
 export const scrollContext = createContext<ScrollStoreContext>(null!);

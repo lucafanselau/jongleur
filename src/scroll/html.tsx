@@ -82,11 +82,9 @@ export const At: FC<AtProps> = ({
     );
   }
 
-  const clips = useStore(store, s => s.clips);
-  const scale = useStore(store, s => s.settings?.scale ?? 1);
-  const length = useStore(clips, s => s.length);
+  const length = useStore(store, s => s.settings.pages);
   // This calculation is based on the layout from ./controls.tsx
-  const top = context === "fixed" ? at : (at - 1) / (length * scale);
+  const top = context === "fixed" ? at : (at - 1) / length;
 
   const left = useMemo(() => alignToPercent(align as Align) ?? align, [align]);
 

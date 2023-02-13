@@ -1,6 +1,7 @@
 import { invalidate } from "@react-three/fiber";
+import type { Seek } from "../types";
 import type { ClipStore } from "./store";
-import type { FieldsBase, Seek, StateBase } from "./types";
+import type { FieldsBase, StateBase } from "./types";
 import { applyProgressToObject, findConsideredClips } from "./utils";
 
 export const createSeek = <Fields extends FieldsBase, Base extends StateBase<Fields>>(

@@ -2,6 +2,7 @@
 
 export * from "./utils";
 export * from "./timeline";
+export * from "./scroll";
 
 // DEPRECATED: Everything now lives in timeline directly
 // export * from "./progress";

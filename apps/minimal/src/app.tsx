@@ -1,11 +1,13 @@
-import { Float, Html, PerspectiveCamera, Sparkles } from "@react-three/drei";
+import { Html, PerspectiveCamera, Sparkles } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Suspense, useEffect } from "react";
-import { clips, refs, seek } from "./clips";
-import { useControls } from "leva";
-import { Loader } from "./utils";
-import { damp } from "maath/easing";
 import useSpline from "@splinetool/r3f-spline";
+import { useControls } from "leva";
+import { damp } from "maath/easing";
+import { Suspense } from "react";
+import { refs, seek } from "./clips";
+import { Loader } from "./utils";
+import { Scroll } from "jongleur";
+
 const Text = () => {
   return (
     <div className={"texts"}>
@@ -25,10 +27,10 @@ const Text = () => {
 const Scene = () => {
   const { nodes, materials } = useSpline("https://prod.spline.design/z-06FhWRsu5yzGTC/scene.splinecode");
 
-  const { progress } = useControls({ progress: { value: 0, min: 0, max: 1 } });
-  useFrame((_, delta) => {
-    damp(seek, "current", progress, 2, delta);
-  });
+  /* const { progress } = useControls({ progress: { value: 0, min: 0, max: 1 } });
+   * useFrame((_, delta) => {
+   *   damp(seek, "current", progress, 2, delta);
+   * }); */
 
   /* useEffect(() => {
    *   seek.current = progress;
@@ -148,7 +150,9 @@ function App() {
         {/* <Stats /> */}
         <PerspectiveCamera ref={refs.camera()} makeDefault />
         <Suspense fallback={<Loader />}>
-          <Scene />
+          <Scroll.Controls seeker={seek} pages={3}>
+            <Scene />
+          </Scroll.Controls>
         </Suspense>
       </Canvas>
     </div>
