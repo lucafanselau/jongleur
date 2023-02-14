@@ -2,12 +2,10 @@ import type { LevaInputProps, InternalVectorSettings, MergedInputWithSettings } 
 import type { Seek } from "jongleur";
 
 export type SeekerSettings = { graph?: boolean; preview?: boolean };
-export type SeekedInput = MergedInputWithSettings<Seek, SeekerSettings, "handles">;
+export type SeekerInput = MergedInputWithSettings<{ seek: Seek }, SeekerSettings, "seek">;
 
-export type InternalSeeker = [number, number, number, number] & { evaluate(value: number): number; cssEasing: string };
-
-export type DisplayValueSeeker = { x1: number; y1: number; x2: number; y2: number };
+export type InternalSeeker = Seek;
 
 export type InternalSeekerSettings = { graph: boolean; preview: boolean };
 
-export type SeekerProps = LevaInputProps<InternalSeeker, InternalSeekerSettings, DisplayValueSeeker>;
+export type SeekerProps = LevaInputProps<InternalSeeker, InternalSeekerSettings>;

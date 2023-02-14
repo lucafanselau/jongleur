@@ -10,7 +10,8 @@
   "types": "./dist/index.d.ts",
   "module": "./dist/index.js",
   "scripts": {
-    "build": "rimraf dist && tsup"
+    "build": "rimraf dist && tsup",
+    "build:watch": "rimraf dist && tsup --watch"
   },
   "peerDependencies": {
     "jongleur": "workspace:*",

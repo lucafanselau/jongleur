@@ -28,7 +28,7 @@ const Text = () => {
 const Scene = () => {
   const { nodes, materials } = useSpline("https://prod.spline.design/z-06FhWRsu5yzGTC/scene.splinecode");
 
-  const { progress, s } = useControls({ progress: { value: 0, min: 0, max: 1 }, s: seeker(seek) });
+  const { progress, s } = useControls({ progress: { value: 0, min: 0, max: 1 }, s: seeker({ seek }) });
 
   /* useFrame((_, delta) => {
    *   damp(seek, "current", progress, 2, delta);
@@ -136,7 +136,7 @@ const Scene = () => {
         position={[77.35, 83.76, 6.98]}
         scale={[1, 1, 1.64]}
       />
-      <Sparkles noise={1} count={200} scale={200} size={200} speed={3} position={[0, 0, 5]} color={"gold"} />
+      {/* <Sparkles noise={1} count={200} scale={200} size={200} speed={3} position={[0, 0, 5]} color={"gold"} /> */}
       {/* -------------------------3D Scene End--------------- */}
       {/* <Html center>
         <Text />
