@@ -28,7 +28,7 @@ const Text = () => {
 const Scene = () => {
   const { nodes, materials } = useSpline("https://prod.spline.design/z-06FhWRsu5yzGTC/scene.splinecode");
 
-  const { progress } = useControls({ progress: { value: 0, min: 0, max: 1 } });
+  const { progress, s } = useControls({ progress: { value: 0, min: 0, max: 1 }, s: seeker(seek) });
 
   /* useFrame((_, delta) => {
    *   damp(seek, "current", progress, 2, delta);
@@ -138,9 +138,9 @@ const Scene = () => {
       />
       <Sparkles noise={1} count={200} scale={200} size={200} speed={3} position={[0, 0, 5]} color={"gold"} />
       {/* -------------------------3D Scene End--------------- */}
-      <Html center>
+      {/* <Html center>
         <Text />
-      </Html>
+      </Html> */}
     </>
   );
 };
@@ -148,9 +148,9 @@ const Scene = () => {
 function App() {
   return (
     <div className="container">
-      <Canvas frameloop="demand" shadows flat linear dpr={[1, 2]}>
+      <Canvas linear shadows>
         {/* <Stats /> */}
-        <PerspectiveCamera ref={refs.camera()} makeDefault />
+        <PerspectiveCamera ref={refs.camera()} makeDefault matrixWorldAutoUpdate />
         <Suspense fallback={<Loader />}>
           <Scroll.Controls seeker={seek} pages={3}>
             <Scene />
