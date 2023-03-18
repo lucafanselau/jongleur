@@ -1,10 +1,10 @@
 import { createPlugin } from "leva/plugin";
-import { SeekerComponent } from "./seeker";
 import { timeline } from "jongleur";
-
-const [refs] = timeline({}, {}, {});
+import { SeekerComponent } from "./seeker";
 
 import { normalize, sanitize } from "./seeker-plugin";
+
+const [refs] = timeline({}, {}, {});
 
 export const seeker = createPlugin({
   normalize,

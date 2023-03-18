@@ -11,19 +11,17 @@ German /Jon·g·leur/ ~ Juggler
 
 ## Description
 
-Jongleur is a library that serves two purposes. First it introduces a keyframe-based notation (think of a timeline editor in blender or video editors) to write animations for objects (three.js/r3f or vanilla DOM objects). Secondly, its provides a toolbox of utilities to bring the animations to life, either as a Scroll Animation or using different forms of progress.
+- Simple and reusable primitives for react-three-fiber animation and orchestration.
+- Lightweight and easy to use.
 
-Using Jongleur, you can easily write engaging and interesting landingpages, that stand out, while also supporting a wide variety of devices and browsers as it is based on the fantastic [three.js](https://threejs.org/) and [react-three-fiber](https://github.com/pmndrs/react-three-fiber).
+Use cases (currently) include:
 
-Here are some of the main benefits of using _jongleur_:
-
-- 🔒 **Fully type safe**: Advanced typescript features ensure that animations are valid
-- 🏎 **Performance optimized**: Demand-based frameloop is fully supported. Since Jongleur knows your whole animation, only render a new frame if it is really needed.
-- 📒 **Single source of truth**: Simple maintenance of large scenes
-- ➡️ **Progress abstraction**: Animations can be driven by scroll, time or other forms of input
-- 🖱 **Scroll Utilities**: Create stunning scroll-based interactive sites with a toolbox of React components
+- Arbitrary timeline for animation of three.js objects
+- Link timelines to scroll
 
 ⚠ ️This README will cover the basic usage of the library and how to get started quickly. If you want in depth explanations check out the [documentation site](https://jongleur.guythat.codes)
+
+Using Jongleur, you can easily write engaging and interesting landingpages, that stand out, while also supporting a wide variety of devices and browsers as it is based on the fantastic [three.js](https://threejs.org/) and [react-three-fiber](https://github.com/pmndrs/react-three-fiber).
 
 ## Getting Started
 
@@ -43,87 +41,80 @@ If you are using **typescript** (which is highly recommended), also install that
 npm install --save-dev typescript @types/three
 ```
 
-Next we will cover how to use the library. You can find the whole source of this mini tutorial as a CodeSandbox [here](https://codesandbox.io/s/jongleur-minimal-demo-fk4e2z).
+Next we will cover how to use the library.
 
-## First create the animations
+## Timeline
 
-The first step is to define how you want the scene to behave. This is the part that is inspired by keyframe editors. The first parameter is the base scene (eg. how do you want the scene to look at the beginning). The second parameter is basically a listing, for every object, at which stage (or progress) you want to object to have which state. The stages are identified by positive numbers. The third argument is for configuring the scene.
+A timeline is a comprised of multiple objects that are animated using a keyframe syntax. Just described how you want the object to be during specific keyframes and the timeline will interpolate the values between them.
 
-The resulting store, per convention called `clips`, contains every information necessary to make the scene run. _Jongleur_ figures out the best way to transition between the stages you provided.
+The timeline function returns refs, a seek object and the internal api.
 
-```tsx
-import { helpers, orchestrate } from "jongleur";
+```ts
+import { timeline } from "jongleur";
 
-const clips = orchestrate(
-  {
-    box: { position: new Vector3(0, 0, 0), visible: false }, // a normal three.js Object3D
-    camera: { position: new Vector3(0, 2, 0), lookAt: new Vector3(0, 0, 0) }, // a camera object (uses the lookAt field)
-    div: { opacity: 0 } // HTML elements can be animated aswell
-  },
-  {
-    box: { 0.5: { visible: helpers.state(true) }, 1: { position: helpers.state(new Vector3(0, 1, 0)) } }, // box gets visible halfway through, and moves up as well
-    camera: { 1: { lookAt: helpers.state(new Vector3(0, 1, 0)) } }, // camera rotates up during the animation,
-    div: { 0.8: { opacity: helpers.inherit }, 1: { opacity: helpers.state(1) } } // div stays invisible for 80% of the animation, then transitions to full opacity
-  },
-  { damping: true, interpolation: "ease-in-out" }
-);
+const [refs, seek, api] = timeline({ first: { position: [0, 0, 0] } }, { first: { 1: { position: [0, 1, 0] } } });
 ```
 
-If you want to have more information on what can be passed to the `orchestrate` function, look [here](https://jongleur.guythat.codes/getting-started/keyframes).
+This timeline would animate an object called `first` from position `[0, 0, 0]` to `[0, 1, 0]` over the course of the timeline.
 
-## Registering objects to you scene
+Here are some of the main benefits of using the `timeline` function:
 
-Connecting your scene to the animation is simple. Just use the `ref` field where possible, via the `useRegister` hook, or use helper hooks for elements that are not declared in jsx. You can use the same hook for vanilla react elements as well.
+- 🔒 **Fully type safe**: Advanced typescript features ensure that all animations are valid
+- 🏎 **Performance optimized**: Demand-based frameloop is fully supported. Since Jongleur knows your whole animation, only render a new frame if it is really needed.
+- 📒 **Single source of truth**: Simple maintenance of large scenes
+- ➡️ **Progress abstraction**: Animations can be driven by scroll, time or other forms of input
+- 🖱 **Scroll Utilities**: Create stunning scroll-based interactive sites with a toolbox of React components
+
+## Refs
+
+The refs returned by the timeline function can be used like regular react ref objects. This makes the animation extremely easy to use and also check if the object satisfies the fields used during the animation.
 
 ```tsx
-import { useRegister } from "jongleur";
-
-// This is a scene expected to live in your r3f Canvas
+// This is inside of an react-three-fiber Canvas
 const Scene = () => {
-  const register = useRegister(clips);
-  useThreeCamera(clips, "camera"); // camera is an object that is created by r3f
   return (
-    <group>
-      {/* This will be the box to be animated */}
-      <mesh ref={register("box")}>
-        <meshStandardMaterial color="#5B21B6" />
-        <boxGeometry />
-      </mesh>
-    </group>
+    <mesh ref={refs.first}>
+      <boxBufferGeometry />
+      <meshStandardMaterial />
+    </mesh>
   );
 };
 ```
 
-If you want to learn more about registering objects to your scene, look [here](https://jongleur.guythat.codes/getting-started/register).
+## Seek
 
-## Choosing a form of progress
-
-The last step is to decide which source of progress should drive the animation. The most popular is `Scroll`, which works similar to drei's ScrollControls. `Scroll.Controls` is the component that makes your scene run. Along side `Scroll` also exposes a bunch of useful utilities, like a Scroll Snap feature or an equivilant to drei's `Html` utility together with positioning utilites.
+Seek is an object, which tracks the current progression. It can be used to seek to a specific point in time or to link the timeline to scroll or other sources of progress.
 
 ```tsx
+const ProgressButton = () => {
+  const [progress, setProgress] = useState(0);
+
+  return <button onClick={() => (seek.current += 0.05)} />;
+};
+```
+
+`seek.current` can be updated from anywhere, even outside of the react-three-fiber reconciler.
+
+## Scroll
+
+One option to use the timeline is to link it to scroll. This can be done using the `Scroll` Components exposed by `Jongleur`.
+
+```tsx
+import { Suspense } from "react";
 import { Scroll } from "jongleur";
 
-const ScrollScene = () => {
-  const register = useRegister(clips);
-
+const ScrollWrapper = () => {
   return (
-    <Scroll.Controls clips={clips}>
-      <Scene />
-      {/* This will lock the browser to the start and the end via the CSS scroll-snap API */}
-      <Scroll.Snaps points={[0.5, 1.5]} />
-      <Scroll.Html fixed>
-        <Scroll.At at={0.2} align={"center"}>
-          <div ref={register("div")}>This text will be fixed and animated</div>
-        </Scroll.At>
-      </Scroll.Html>
-    </Scroll.Controls>
+    <Suspense fallback={<Loader />}>
+      <Scroll.Controls seeker={seek} pages={3}>
+        <Scene />
+      </Scroll.Controls>
+    </Suspense>
   );
 };
 ```
 
-For other form of progress and even more information to the Scroll utilties, look [here](https://jongleur.guythat.codes/getting-started/progress).
-
-You can also play with the live demo of this small example [here](https://codesandbox.io/s/jongleur-minimal-demo-fk4e2z).
+Along side `Scroll.Controls` also exposes a bunch of useful utilities, like a Scroll Snap (`Scroll.Snaps`) feature or an equivilant to drei's `Html` utility (`Scroll.Html`) together with positioning utilites (`Scroll.At`). Check out the [documentation site](https://jongleur.guythat.codes) for more information.
 
 ## Further steps
 

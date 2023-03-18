@@ -1,4 +1,4 @@
-import type { LevaInputProps, InternalVectorSettings, MergedInputWithSettings } from "leva/plugin";
+import type { InternalVectorSettings, LevaInputProps, MergedInputWithSettings } from "leva/plugin";
 import type { Seek } from "jongleur";
 
 export type SeekerSettings = { graph?: boolean; preview?: boolean };

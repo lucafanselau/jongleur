@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef } from "react";
-import { useInputContext, useInputSetters, Components } from "leva/plugin";
-import { SeekerProps } from "./seeker-types";
+import { Components, useInputContext, useInputSetters } from "leva/plugin";
+import type { SeekerProps } from "./seeker-types";
 
 const { Label, Row, Vector, Select, Number } = Components;
 
@@ -16,7 +16,7 @@ export function SeekerComponent() {
     (newValue: any) => {
       const value = valueRef.current;
       const _newValue = typeof newValue === "function" ? newValue(value) : newValue;
-      onUpdate({ ["current"]: _newValue });
+      onUpdate({ current: _newValue });
     },
     [onUpdate, settings]
   );
