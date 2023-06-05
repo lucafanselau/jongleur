@@ -11,6 +11,8 @@ German /Jon·g·leur/ ~ Juggler
 
 ## Description
 
+Everything you need to animate your react-three-fiber objects
+
 - Simple and reusable primitives for react-three-fiber animation and orchestration.
 - Lightweight and easy to use.
 
@@ -39,9 +41,7 @@ If you are using **typescript** (which is highly recommended), also install that
 npm install --save-dev typescript @types/three
 ```
 
-Next we will cover how to use the library.
-
-# Timeline
+## Timeline
 
 A timeline is a comprised of multiple objects that are animated using a keyframe syntax. Just described how you want the object to be during specific keyframes and the timeline will interpolate the values between them.
 
@@ -63,7 +63,11 @@ Here are some of the main benefits of using the `timeline` function:
 - ➡️ **Progress abstraction**: Animations can be driven by scroll, time or other forms of input
 - 🖱 **Scroll Utilities**: Create stunning scroll-based interactive sites with a toolbox of React components
 
-## Refs
+### Examples
+
+
+
+### Refs
 
 The refs returned by the timeline function can be used like regular react ref objects. This makes the animation extremely easy to use and also check if the object satisfies the fields used during the animation.
 
@@ -79,7 +83,7 @@ const Scene = () => {
 };
 ```
 
-## Seek
+### Seek
 
 Seek is an object, which tracks the current progression. It can be used to seek to a specific point in time or to link the timeline to scroll or other sources of progress.
 
@@ -93,7 +97,7 @@ const ProgressButton = () => {
 
 `seek.current` can be updated from anywhere, even outside of the react-three-fiber reconciler.
 
-# Scroll
+## Scroll
 
 One option to use the timeline is to link it to scroll. This can be done using the `Scroll` Components exposed by `Jongleur`.
 
@@ -112,7 +116,7 @@ const ScrollWrapper = () => {
 };
 ```
 
-Along side `Scroll.Controls` also exposes a bunch of useful utilities, like a Scroll Snap (`Scroll.Snaps`) feature or an equivilant to drei's `Html` utility (`Scroll.Html`) together with positioning utilites (`Scroll.At`).
+Along side `Scroll.Controls` also exposes a bunch of useful utilities, like a Scroll Snap (`Scroll.Snaps`) feature or an equivilant to drei's `Html` utility (`Scroll.Html`) together with positioning utilites (`Scroll.At`), each is explained in the examples below.
 
 ## Examples
 
