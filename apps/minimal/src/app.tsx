@@ -7,29 +7,11 @@ import { Suspense } from "react";
 import { refs, seek } from "./clips";
 import { Loader } from "./utils";
 import { Scroll } from "jongleur";
-import { seeker } from "@jongleur/leva";
-
-const Text = () => {
-  return (
-    <div className={"texts"}>
-      <p className={"text"} ref={refs.sectionOne()}>
-        TEXT 1
-      </p>
-      <p className={"text"} ref={refs.sectionTwo()}>
-        TEXT 2
-      </p>
-      <p className={"text"} ref={refs.sectionThree()}>
-        TEXT 3
-      </p>
-    </div>
-  );
-};
 
 const Scene = () => {
   const { nodes, materials } = useSpline("https://prod.spline.design/z-06FhWRsu5yzGTC/scene.splinecode");
 
-  const { progress, s } = useControls({ progress: { value: 0, min: 0, max: 1 }, s: seeker({ seek }) });
-
+  
   /* useFrame((_, delta) => {
    *   damp(seek, "current", progress, 2, delta);
    * }); */

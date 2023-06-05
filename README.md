@@ -19,8 +19,6 @@ Use cases (currently) include:
 - Arbitrary timeline for animation of three.js objects
 - Link timelines to scroll
 
-⚠ ️This README will cover the basic usage of the library and how to get started quickly. If you want in depth explanations check out the [documentation site](https://jongleur.guythat.codes)
-
 Using Jongleur, you can easily write engaging and interesting landingpages, that stand out, while also supporting a wide variety of devices and browsers as it is based on the fantastic [three.js](https://threejs.org/) and [react-three-fiber](https://github.com/pmndrs/react-three-fiber).
 
 ## Getting Started
@@ -43,7 +41,7 @@ npm install --save-dev typescript @types/three
 
 Next we will cover how to use the library.
 
-## Timeline
+# Timeline
 
 A timeline is a comprised of multiple objects that are animated using a keyframe syntax. Just described how you want the object to be during specific keyframes and the timeline will interpolate the values between them.
 
@@ -95,7 +93,7 @@ const ProgressButton = () => {
 
 `seek.current` can be updated from anywhere, even outside of the react-three-fiber reconciler.
 
-## Scroll
+# Scroll
 
 One option to use the timeline is to link it to scroll. This can be done using the `Scroll` Components exposed by `Jongleur`.
 
@@ -114,16 +112,11 @@ const ScrollWrapper = () => {
 };
 ```
 
-Along side `Scroll.Controls` also exposes a bunch of useful utilities, like a Scroll Snap (`Scroll.Snaps`) feature or an equivilant to drei's `Html` utility (`Scroll.Html`) together with positioning utilites (`Scroll.At`). Check out the [documentation site](https://jongleur.guythat.codes) for more information.
+Along side `Scroll.Controls` also exposes a bunch of useful utilities, like a Scroll Snap (`Scroll.Snaps`) feature or an equivilant to drei's `Html` utility (`Scroll.Html`) together with positioning utilites (`Scroll.At`).
 
-## Further steps
+## Examples
 
-If you want to learn more about the API, I highly encourage you to checkout the [documentation site](https://jongleur.guythat.codes). If you want to dig into some code, I have also compiled a brief list of examples on CodeSandbox:
 
-- README example: [here](https://codesandbox.io/s/jongleur-minimal-demo-fk4e2z)
-- Scroll snaps and markers: [here](https://codesandbox.io/s/jongleur-scroll-snap-6b8qpq)
-
-And more are coming soon...
 
 ## Contributing
 

@@ -3,64 +3,14 @@ import { Vector3 } from "three";
 
 export const [refs, seek, clips] = timeline(
   {
-    sectionOne: {
-      opacity: 1,
-      translate: ["0%", "0%"]
-    },
-    sectionTwo: {
-      opacity: 0,
-      translate: ["-40%", "0%"]
-    },
-    sectionThree: {
-      opacity: 0,
-      translate: ["0%", "100%"]
-    },
     camera: { position: new Vector3(0, 0, 150), lookAt: new Vector3(0, 0, 0) } // a camera object (uses the lookAt field)
   },
-
   {
-    sectionOne: {
-      1: {
-        // translate: ["0px","1000px"], "ease-in-out",
-        opacity: 0,
-        translate: ["0%", "-10%"]
-      }
-    },
-    sectionTwo: {
-      1.5: {
-        // translate: ["0px","1000px"], "ease-in-out",
-        opacity: 0,
-        translate: ["-40%", "0%"]
-      },
-      2: {
-        // translate: ["0px","1000px"], "ease-in-out",
-        opacity: 1,
-        translate: ["0%", "0%"]
-      },
-      2.5: {
-        // translate: ["0px","1000px"], "ease-in-out",
-        opacity: 0,
-        translate: ["40%", "0%"]
-      }
-    },
-    sectionThree: {
-      2.5: {
-        opacity: Inherit,
-        translate: Inherit
-      },
-
-      3: {
-        opacity: 1,
-        translate: ["0%", "20%"]
-      }
-    },
-
     camera: {
       2: {
         position: new Vector3(150, 30, 0),
         lookAt: new Vector3(0, 0, 0)
       },
-
       3: {
         position: new Vector3(-30, 90, -30),
         lookAt: new Vector3(0, 0, 0)
