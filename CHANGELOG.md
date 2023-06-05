@@ -1,11 +1,33 @@
 # Changelog
 
+<a name="0.3.0-beta.5"></a>
+## 0.3.0-beta.5 (2023-06-05)
+
+### Added
+
+- ✨ Add *seeker* interface to Scroll.Controls [74fd992]
+
+### Removed
+
+- 🔥 Remove build artifacts [eb1e644]
+
+### Miscellaneous
+
+-  Add minimal example template [076ec60]
+-  Small changes and remove documentation for now [1ee7a01]
+-  Rework README and add leva-plugin [442c701]
+-  Quit leva plugin for now [84b5ac4]
+-  Finally make minimal app working with leva [8693486]
+-  Rename leva plugin [5881331]
+-  Add initial leva packages [2c4483b]
+
+
 <a name="0.3.0-beta.4"></a>
 ## 0.3.0-beta.4 (2023-02-07)
 
 ### Miscellaneous
 
--  Update build config [[f5dc218](https://github.com/lucafanselau/jongleur/commit/f5dc218079d29dea12f1005cf5ddd7e8b18cd7cd)]
+-  Update build config [f5dc218]
 
 
 <a name="0.3.0-beta.3"></a>

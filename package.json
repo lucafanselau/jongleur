@@ -2,7 +2,7 @@
   "name": "jongleur",
   "description": "An react-three-fiber orchestration library",
   "type": "module",
-  "version": "0.3.0-beta.4",
+  "version": "0.3.0-beta.5",
   "packageManager": "pnpm@7.12.0",
   "author": "Luca Fanselau <https://github.com/lucafanselau>",
   "license": "MIT",
@@ -22,7 +22,9 @@
       "import": "./dist/timeline.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rimraf dist && tsup",
     "build:example": "pnpm run --filter demo... build",
